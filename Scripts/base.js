@@ -2,11 +2,11 @@
 
 
 pics = [
-	"Styles/kitty_bed.jpg",
-	"Styles/kitty_basket.jpg", 
+	"Styles/kitty_bed.JPG",
+	"Styles/kitty_basket.JPG", 
 	"Styles/kitty_laptop.jpg",
 	"Styles/kitty_door.jpg",
-	"Styles/kitty_sink.jpg",
+	"Styles/kitty_sink.JPG",
 	"Styles/kitty_wall.jpg"
 ]
 
