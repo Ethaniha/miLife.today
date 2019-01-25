@@ -2,12 +2,12 @@
 
 
 pics = [
-	"Styles/kitty_bed.JPG",
-	"Styles/kitty_basket.JPG", 
-	"Styles/kitty_laptop.jpg",
-	"Styles/kitty_door.jpg",
-	"Styles/kitty_sink.JPG",
-	"Styles/kitty_wall.jpg"
+	"Assets/kitty_bed.JPG",
+	"Assets/kitty_basket.JPG", 
+	"Assets/kitty_laptop.jpg",
+	"Assets/kitty_door.jpg",
+	"Assets/kitty_sink.JPG",
+	"Assets/kitty_wall.jpg"
 ]
 
 // Finding elements in the html file and assigning them variables
