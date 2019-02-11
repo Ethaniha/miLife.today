@@ -17,3 +17,8 @@
     min-width: 2em;
     font: bold .4em sans-serif;
 }
+
+.navbar-nav > li{
+  padding-left:10px;
+  padding-right:10px;
+}
