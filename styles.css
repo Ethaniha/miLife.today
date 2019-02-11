@@ -1,0 +1,19 @@
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+.fas[data-count]{
+    position:relative;
+}
+.fas[data-count]:after{
+    position: absolute;
+    right: -0.75em;
+    top: -.75em;
+    content: attr(data-count);
+    padding: .5em;
+    border-radius: 10em;
+    line-height: .9em;
+    color: white;
+    background: rgba(255,0,0,.9);
+    text-align: center;
+    min-width: 2em;
+    font: bold .4em sans-serif;
+}
