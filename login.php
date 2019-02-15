@@ -1,9 +1,6 @@
 <?php
-   define('DB_SERVER', 'localhost:3306');
-   define('DB_USERNAME', 'root');
-   define('DB_PASSWORD', 'password');
-   define('DB_DATABASE', 'socialmedia');
-   $db = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+  
+  include("db.php");
 
    session_start();
    
@@ -24,7 +21,7 @@
       if($count == 1) {
          $_SESSION['login_user'] = $myusername;
          
-         header("location: homepage.php");
+         header("location: index.php");
       }else {
          $error = "Your Login Name or Password is invalid";
       }
