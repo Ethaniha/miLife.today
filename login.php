@@ -4,10 +4,10 @@
 
    session_start();
    
-   if($_SERVER["REQUEST_METHOD"] == "POST") {
+   if(isset($_POST["submit"])) {
       // username and password sent from form 
-      
-      $myusername = mysqli_real_escape_string($db,$_POST['username']);
+
+      $myusername = mysqli_real_escape_string($db,$_POST['email']);
       $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
       
       $sql = "SELECT User_ID FROM users WHERE email = '$myusername' and password = '$mypassword'";
@@ -48,7 +48,7 @@
         <div class="form-group">
           <label class="control-label col-sm-2" name="username">Email:</label>
           <div class="col-sm-10">
-            <input type="email" class="form-control" name="username" placeholder="Enter email" name="email">
+            <input type="email" class="form-control" name="email" placeholder="Enter email" name="email">
           </div>
         </div>
         <div class="form-group">
@@ -66,10 +66,11 @@
         </div>
         <div class="form-group">        
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default" name="submit">Submit</button>
           </div>
         </div>
         Or click <a href="register.php">here</a> to register
+        <?php if (!empty($error)) { echo $error; } ?>
       </form>
     </div>
 

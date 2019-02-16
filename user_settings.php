@@ -88,6 +88,8 @@ if (mysqli_num_rows($result) > 0) {
      <input type = "submit"/>
   </form>
 
+  <a href="logout.php">Logout</a>
+
 
 
   
