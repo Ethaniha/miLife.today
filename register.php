@@ -9,12 +9,14 @@
 
         $forename = $_POST['forename'];
         $surname = $_POST['surname'];
+        $username = $_POST['username'];
         $email= $_POST['email'];
         $pass = $_POST['password'];
 
         $forename = mysqli_real_escape_string($db,$forename);
         $surname = mysqli_real_escape_string($db,$surname);
         $email = mysqli_real_escape_string($db,$email);
+        $username = mysqli_real_escape_string($db,$username);
 
         $sql="SELECT email FROM users WHERE email='$email'";
         $result=mysqli_query($db,$sql);
@@ -26,7 +28,7 @@
         }
         else
         {
-          $query = mysqli_query($db, "INSERT INTO users (forename, surname, email, password)VALUES ('$forename', '$surname', '$email', '$pass')");
+          $query = mysqli_query($db, "INSERT INTO users (forename, surname, email, username, password)VALUES ('$forename', '$surname', '$email', '$username', '$pass')");
           if($query)
           {
             $msg = "Thank You! you are now registered.";
@@ -48,34 +50,7 @@
    
     <body bgcolor = "#FFFFFF">
 
-    <nav class="navbar navbar-expand-sm bg-light navbar-light">
-
-      <a class="navbar-brand" href="#">
-        <img src="logo.png" alt="Logo">
-      </a>
-
-      <form class="form-inline mx-auto  my-auto" action="/action_page.php">
-              <div class="input-group">
-                  <input class="form-control py-2 border-right-0 border" type="Search for something.." value="search" id="example-search-input">
-                  <span class="input-group-append">
-                      <div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div>
-                  </span>
-              </div>
-      </form>
-
-
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <i class="fas fa-bell fa-2x" data-count="2" style="color:grey"></i>
-        </li>
-        <li class="nav-item">
-          <i class="fas fa-cogs fa-2x" style="color:grey"></i>
-        </li>
-        <li class="nav-item">
-          <a href="login.php"<<i class="fas fa-user fa-2x" style="color:grey"></i></a>
-        </li>
-      </ul>
-    </nav>
+    <?php include("head.php"); ?>
     
     <div class="container">
       <h2>Register</h2>
@@ -89,10 +64,15 @@
           </div>
 
           <div class="form-group col-md-3">
-            <label for="inputEmail4">Forename:</label>
+            <label for="inputEmail4">Surname:</label>
             <input type="text" class="form-control" id="surname" placeholder="surname" name="surname">
           </div>
 
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" name="username">Username:</label>
+          <input type="username" class="form-control" placeholder="Enter username" name="username">
         </div>
 
         <div class="form-group">
