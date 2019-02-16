@@ -19,12 +19,19 @@
         $username = mysqli_real_escape_string($db,$username);
 
         $sql="SELECT email FROM users WHERE email='$email'";
-        $result=mysqli_query($db,$sql);
-        $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+        $resultemail=mysqli_query($db,$sql);
+        $row=mysqli_fetch_array($resultemail,MYSQLI_ASSOC);
 
-        if(mysqli_num_rows($result) == 1)
+        $sql="SELECT username FROM users WHERE username='$username'";
+        $resultuser=mysqli_query($db,$sql);
+        $row=mysqli_fetch_array($resultuser,MYSQLI_ASSOC);
+
+        if(mysqli_num_rows($resultemail) == 1)
         {
           $msg = "Sorry...This email already exist...";
+        }
+        elseif(mysqli_num_rows($resultuser) == 1) {
+          $msg = "Sorry...This username already exist...";
         }
         else
         {
@@ -97,6 +104,7 @@
           </div>
         </div>
         Or click <a href="register.php">here</a> to register
+        <?php if (!empty($msg)) { echo $msg; } ?>
       </form>
     </div>
 

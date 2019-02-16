@@ -24,7 +24,7 @@
       <li class="nav-item">
 
         <?php if(isset($_SESSION['login_user'])) {
-          echo '<a href="user_profile.php"><i class="fas fa-user fa-2x" style="color:grey"></i></a>';
+          echo '<a href="user_profile.php?username='.$_SESSION['username'].'"><i class="fas fa-user fa-2x" style="color:grey"></i></a>';
         } else {
           echo '<a href="login.php"><i class="fas fa-user fa-2x" style="color:grey"></i></a>';
         } ?>  
