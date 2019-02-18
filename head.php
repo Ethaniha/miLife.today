@@ -1,7 +1,7 @@
   <nav class="navbar navbar-expand-sm bg-light navbar-light">
 
     <a class="navbar-brand" href="#">
-      <img src="logo.png" alt="Logo">
+      <a href="index.php"><img src="logo.png" alt="Logo"></a>
     </a>
 
     <form class="form-inline mx-auto  my-auto" action="/action_page.php">
