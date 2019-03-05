@@ -103,7 +103,7 @@
             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
           </div>
         </div>
-        Or click <a href="register.php">here</a> to register
+        Or click <a href="login.php">here</a> to login with an existing Account
         <?php if (!empty($msg)) { echo $msg; } ?>
       </form>
     </div>

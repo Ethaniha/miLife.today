@@ -68,7 +68,7 @@
         </div>
         <div class="form-group">        
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default" name="submit">Submit</button>
+            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
           </div>
         </div>
         Or click <a href="register.php">here</a> to register

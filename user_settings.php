@@ -53,7 +53,7 @@ if (mysqli_num_rows($result) > 0) {
 <html>
    
   <head>
-    <title>Login Page</title>
+    <title>miLIFE | Settings</title>
       
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
@@ -65,9 +65,11 @@ if (mysqli_num_rows($result) > 0) {
     
   <?php include("head.php"); ?>
 
+<div class="container">
+  <h3 class="pageHeader">User Settings</h3>
   <table class="table-sm">
     <tr>
-      <td><?php echo "<img src='images/users/".$avatar."' width=100 height=100 />"; ?></td><td></td>
+      <td><?php echo "<img src='assets/imgs/users/".$avatar."' width=100 height=100 />"; ?></td><td></td>
     </tr>
     <tr>
       <td>User ID:</td><td><?php echo $userid; ?></td>
@@ -88,10 +90,10 @@ if (mysqli_num_rows($result) > 0) {
      <input type = "submit"/>
   </form>
 
-  <a href="logout.php">Logout</a>
+  <a href="logout.php" class="btn btn-danger">Logout</a>
 
 
-
+</div>
   
 
 

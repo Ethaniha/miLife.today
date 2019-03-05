@@ -11,12 +11,12 @@ $row=mysqli_fetch_array($result);
 $user_id = $row[0];
 $forename = $row[2];
 
-$sql = "SELECT post.posted_at, post.body, users.username, users.image FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ";
+$sql = "SELECT post.posted_at, post.body, users.username, users.image FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post .user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $posts = "";
 
 while ($row = mysqli_fetch_array($result)) {
-  $posts .= "<div class='jumbotron'>".$row[0]."<br><img src='images/users/".$row[3]."' width=100 height=100 /> <br> <br><b>" .$row[2]."</b>: ".$row[1]."<hr></div></br>";
+  $posts .= "<div class='jumbotron'>".$row[0]."<br><img src='assets/imgs/users/".$row[3]."' width=100 height=100 /> <br> <br><b>" .$row[2]."</b>: ".$row[1]."<hr></div></br>";
 }
 
 ?> 
@@ -35,16 +35,26 @@ while ($row = mysqli_fetch_array($result)) {
     
   <?php include("head.php"); ?>
 
-<div class="jumbotron">
+<div id="feedHeader" class="jumbotron" >
     <div class="container">
-  <h1 class="display-4">Welcome, <?php echo $forename; ?>!</h1>
+  <h1 class="display-2">Welcome, <?php echo $forename; ?></h1>
   <p class="lead">This is your main feed</p>
 </div>
 </div>
   <div class="container">
-
+    <div class="row">
+    <div class="col-md">
+      <div class="jumbotron"><br>
+      </div>
+    </div>
+    <div class="col-md-6">
     <?php echo $posts; ?>
-
+    </div>
+    <div class="col-md">
+      <div class="jumbotron"><br><br><br><br><br>
+      </div>
+    </div>
+  </div>
   </div>
 
 

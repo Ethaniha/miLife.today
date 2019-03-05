@@ -1,7 +1,8 @@
     <link rel="stylesheet" href="css/main.css">
+
   <nav class="navbar navbar-expand-sm bg-light navbar-light">
 
-
+    <div class="container">
    <a href="index.php" ><img src="assets/logo.png" alt="Logo" class="navbar-logo"></a>
 
 
@@ -31,4 +32,5 @@
         } ?>  
       </li>
     </ul>
+    </div>
   </nav>
