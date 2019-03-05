@@ -132,7 +132,7 @@ if($myusername == $email){
     <?php include("head.php"); ?>
 
 <div class="container">
-  <h3 class="pageHeader"><?php echo $whosProfile;?> Profile</h3>
+  <h2 class="pageHeader"><?php echo $whosProfile;?> Profile</h2>
     <table class="table-sm">
     <tr>
       <td><?php echo "<img src='assets/imgs/users/".$avatar."' width=100 height=100 />"; ?></td><td></td>

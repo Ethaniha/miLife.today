@@ -59,36 +59,34 @@
 
     <?php include("head.php"); ?>
     
-    <div class="container">
-      <h2>Register</h2>
-      <form action="" method="post">
+<div id="signin">
+    <form class="form-signin" id="form-register" action="" method="post">
 
+        <img class="mb-4" src="assets/logo.png" alt="" width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal">Register for miLIFE</h1>
         <div class="form-row">
 
-          <div class="form-group col-md-3">
-            <label for="inputEmail4">Forename:</label>
+          <div class="form-group col-md-6">
+            <label class="sr-only" for="inputEmail4">Forename:</label>
             <input type="text" class="form-control" id="forename" placeholder="forename" name="forename">
           </div>
 
-          <div class="form-group col-md-3">
-            <label for="inputEmail4">Surname:</label>
+          <div class="form-group col-md-6">
+            <label class="sr-only" for="inputEmail4">Surname:</label>
             <input type="text" class="form-control" id="surname" placeholder="surname" name="surname">
           </div>
 
         </div>
 
         <div class="form-group">
-          <label class="control-label" name="username">Username:</label>
+          <label class="control-label sr-only" name="username">Username:</label>
           <input type="username" class="form-control" placeholder="Enter username" name="username">
         </div>
 
         <div class="form-group">
-          <label class="control-label" name="username">Email:</label>
+          <label class="control-label sr-only" name="username">Email:</label>
           <input type="email" class="form-control" placeholder="Enter email" name="email">
-        </div>
-
-        <div class="form-group">
-          <label class="control-label" name="password">Password:</label>     
+          <label class="control-label sr-only" name="password">Password:</label>     
             <input type="password" class="form-control" name="password" placeholder="Enter password">
         </div>
 
@@ -100,11 +98,12 @@
 
         <div class="form-group">        
           <div class="col-sm-offset-2">
-            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            <button type="submit" class="btn btn-lg btn-primary btn-block" name="submit">Submit</button>
           </div>
         </div>
         Or click <a href="login.php">here</a> to login with an existing Account
         <?php if (!empty($msg)) { echo $msg; } ?>
+          <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
       </form>
     </div>
 

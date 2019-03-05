@@ -19,6 +19,11 @@ while ($row = mysqli_fetch_array($result)) {
   $posts .= "<div class='jumbotron'>".$row[0]."<br><img src='assets/imgs/users/".$row[3]."' width=100 height=100 /> <br> <br><b>" .$row[2]."</b>: ".$row[1]."<hr></div></br>";
 }
 
+if ($myusername==''){
+  header("Location: login.php"); /* Redirect browser */
+  exit();
+ }
+
 ?> 
 
 <html>
