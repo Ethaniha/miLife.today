@@ -1,12 +1,13 @@
+    <link rel="stylesheet" href="css/main.css">
   <nav class="navbar navbar-expand-sm bg-light navbar-light">
 
-    <a class="navbar-brand" href="#">
-      <a href="index.php"><img src="logo.png" alt="Logo"></a>
-    </a>
+
+   <a href="index.php" ><img src="assets/logo.png" alt="Logo" class="navbar-logo"></a>
+
 
     <form class="form-inline mx-auto  my-auto" action="/action_page.php">
             <div class="input-group">
-                <input class="form-control py-2 border-right-0 border" type="Search for something.." value="search" id="example-search-input">
+                <input class="form-control py-2 border-right-0 border" type="Search for something.." placeholder="Search for something.." id="example-search-input">
                 <span class="input-group-append">
                     <div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div>
                 </span>
