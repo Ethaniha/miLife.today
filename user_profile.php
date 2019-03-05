@@ -2,6 +2,8 @@
 session_start();
 include ("db.php");
 
+$myusername = $_SESSION['login_user'];
+
 if (isset($_GET['username'])) {
 
   $username = $_GET['username'];
@@ -16,7 +18,6 @@ if (isset($_GET['username'])) {
       $forename = $row[2];
       $surname = $row[3];
       $avatar = $row[4];
-      
     }
   } 
   else 
@@ -31,7 +32,7 @@ else {
 
 if (isset($_POST['follow'])) {
 
-    $myusername = $_SESSION['login_user'];
+
 
     $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
     $result = mysqli_query($db, $sql);
@@ -100,7 +101,16 @@ while ($row = mysqli_fetch_array($result)) {
   $posts .= "<div class='jumbotron'>".$row[0]."<br><img src='assets/imgs/users/".$row[3]."' width=100 height=100 /> <br> <br><b>" .$row[2]."</b>: ".$row[1]."<hr></div></br>";
 }
 
-
+if($myusername == $email){
+  $newPostBox = '<form action="" method="post">
+      <textarea  class="form-control" name="postbody" rows="5" cols="80"></textarea>
+      <input type="submit" name="sendpost" value="Post!" class="btn btn-light">
+    </form>';
+  $whosProfile = 'My';
+}else{
+  $newPostBox = '';
+  $whosProfile = $forename."'s";
+}
 
 
 ?>
@@ -108,6 +118,7 @@ while ($row = mysqli_fetch_array($result)) {
 <html>
    
   <head>
+
     <title>miLIFE | <?php echo $forename. ' ' .$surname ?></title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -121,7 +132,7 @@ while ($row = mysqli_fetch_array($result)) {
     <?php include("head.php"); ?>
 
 <div class="container">
-  <h3 class="pageHeader">My Profile</h3>
+  <h3 class="pageHeader"><?php echo $whosProfile;?> Profile</h3>
     <table class="table-sm">
     <tr>
       <td><?php echo "<img src='assets/imgs/users/".$avatar."' width=100 height=100 />"; ?></td><td></td>
@@ -145,12 +156,10 @@ while ($row = mysqli_fetch_array($result)) {
     </form>
 
 
-    <form action="" method="post">
-      <textarea  class="form-control" name="postbody" rows="5" cols="80"></textarea>
-      <input type="submit" name="sendpost" value="Post!" class="btn btn-light">
-    </form>
+<?php echo $newPostBox;?>
 
-<h5 class="sectionHeader">My Existing Posts</h5>
+
+<h5 class="sectionHeader"><?php echo $whosProfile;?> Posts</h5>
 <p>(in reverse chronological order)</p>
 
     <?php echo $posts; ?>
@@ -158,7 +167,6 @@ while ($row = mysqli_fetch_array($result)) {
 
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
 
 
   </body>
