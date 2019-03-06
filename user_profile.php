@@ -129,6 +129,7 @@ while ($row = mysqli_fetch_array($result)) {
               </form>
               Likes: " .$row[5]."
 
+
     </div></br>";
   } else {
       $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b>" .$row[3]."</b>: ".$row[2]."<hr>
