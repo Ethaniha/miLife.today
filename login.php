@@ -40,25 +40,25 @@
       
    </head>
    
-    <body bgcolor = "#FFFFFF">
+    <body bgcolor = "#000000">
 
     <?php include("head.php"); ?>
     
 <div id="signin">
     <form class="form-signin" action="" method="post">
   <img class="mb-4" src="assets/logo.png" alt="" width="72" height="72">
-  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-  <label for="inputEmail" class="sr-only" name="username">Email address</label>
+  <h1 class="signinH1" class="h3 mb-3 font-weight-normal">Sign in to miLife</h1>
+  <label class="signinH1" for="inputEmail" class="sr-only" name="username">Email address</label>
   <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
-  <label for="inputPassword" class="sr-only" name="password">Password</label>
+  <label class="signinH1" for="inputPassword" class="sr-only" name="password">Password</label>
   <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
   <div class="checkbox mb-3">
-    <label>
+    <label class="signinH1">
       <input type="checkbox" value="remember-me" name="remember"> Remember me
     </label>
   </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
-          Or click <a href="register.php">here</a> to register
+          <p class="signinH1">Or click <a href="register.php">here</a> to register</p>
         <?php if (!empty($error)) { echo $error; } ?>
   <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
 </form>
