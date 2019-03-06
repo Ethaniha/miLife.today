@@ -130,8 +130,13 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
 .signinH1 {
   color: white;
   text-shadow: 0 0 15px rgb(58, 58, 58);
+}
+
+a {
+color: black;
 }
 
