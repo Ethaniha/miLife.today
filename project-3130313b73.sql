@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `followers`
 --
-
+DROP TABLE IF EXISTS `followers`;
 CREATE TABLE `followers` (
   `id` int(255) UNSIGNED NOT NULL,
   `user_id` int(255) UNSIGNED NOT NULL,
@@ -51,7 +51,7 @@ INSERT INTO `followers` (`id`, `user_id`, `follower_id`) VALUES
 --
 -- Table structure for table `likes`
 --
-
+DROP TABLE IF EXISTS `likes`;
 CREATE TABLE `likes` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE `likes` (
 --
 -- Table structure for table `post`
 --
-
+DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `post` int(11) NOT NULL,
   `body` varchar(255) NOT NULL,
@@ -99,7 +99,7 @@ INSERT INTO `post` (`post`, `body`, `posted_at`, `user_id`, `likes`) VALUES
 --
 -- Table structure for table `post_likes`
 --
-
+DROP TABLE IF EXISTS `post_likes`;
 CREATE TABLE `post_likes` (
   `id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
@@ -118,7 +118,7 @@ INSERT INTO `post_likes` (`id`, `post_id`, `user_id`) VALUES
 --
 -- Table structure for table `profile_image`
 --
-
+DROP TABLE IF EXISTS `profile_image`;
 CREATE TABLE `profile_image` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE `profile_image` (
 --
 -- Table structure for table `users`
 --
-
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `User_ID` int(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
@@ -157,7 +157,7 @@ INSERT INTO `users` (`User_ID`, `Email`, `username`, `Forename`, `Surname`, `Pas
 --
 -- Table structure for table `users_comments`
 --
-
+DROP TABLE IF EXISTS `users_comments`;
 CREATE TABLE `users_comments` (
   `id` int(11) NOT NULL,
   `body` text NOT NULL,
