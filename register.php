@@ -63,7 +63,7 @@
     <form class="form-signin" id="form-register" action="" method="post">
 
         <img class="mb-4" src="assets/logo.png" alt="" width="72" height="72">
-  <h1 class="h3 mb-3 font-weight-normal">Register for miLIFE</h1>
+  <h1 class="mb-3 font-weight-normal signinH1">Register for miLIFE</h1>
         <div class="form-row">
 
           <div class="form-group col-md-6">
@@ -92,7 +92,9 @@
 
         <div class="form-group">        
             <div class="checkbox">
-              <label><input type="checkbox" name="remember"> Remember me</label>
+              <label class="signinH1">
+              <input type="checkbox" name="remember"> Remember Me
+              </label>
             </div>
         </div>
 
@@ -101,9 +103,9 @@
             <button type="submit" class="btn btn-lg btn-primary btn-block" name="submit">Submit</button>
           </div>
         </div>
-        Or click <a href="login.php">here</a> to login with an existing Account
+        <p class="signinH1">Or click <a href="login.php">here</a> to login with an existing Account</p>
         <?php if (!empty($msg)) { echo $msg; } ?>
-          <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
+          <p class="mt-5 mb-3 signinH1">&copy; 2019</p>
       </form>
     </div>
 

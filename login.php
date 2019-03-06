@@ -47,20 +47,21 @@
 <div id="signin">
     <form class="form-signin" action="" method="post">
   <img class="mb-4" src="assets/logo.png" alt="" width="72" height="72">
-  <h1 class="signinH1" class="h3 mb-3 font-weight-normal">Sign in to miLife</h1>
-  <label class="signinH1" for="inputEmail" class="sr-only" name="username">Email address</label>
+  <h1 class="mb-3 font-weight-normal signinH1">Sign in to miLife</h1>
+  <label  for="inputEmail" class="sr-only" name="username">Email address</label>
   <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
-  <label class="signinH1" for="inputPassword" class="sr-only" name="password">Password</label>
+  <label  for="inputPassword" class="sr-only" name="password">Password</label>
   <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
   <div class="checkbox mb-3">
     <label class="signinH1">
-      <input type="checkbox" value="remember-me" name="remember"> Remember me
+      <input type="checkbox" value="remember-me" name="remember"> Remember Me
     </label>
   </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
+  <br>
           <p class="signinH1">Or click <a href="register.php">here</a> to register</p>
-        <?php if (!empty($error)) { echo $error; } ?>
-  <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
+        <p><?php if (!empty($error)) { echo $error; } ?></p>
+  <p class="mt-5 mb-3 signinH1">&copy; 2019</p>
 </form>
 </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
