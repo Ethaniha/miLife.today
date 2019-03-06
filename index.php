@@ -11,12 +11,55 @@ $row=mysqli_fetch_array($result);
 $user_id = $row[0];
 $forename = $row[2];
 
-$sql = "SELECT post.posted_at, post.body, users.username, users.image FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post .user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
+if (isset($_GET['postid'])) {
+  $postid = $_GET['postid'];
+
+  $sql = "SELECT user_id FROM post_likes WHERE post_id= $postid AND user_id= $user_id";
+  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  if (mysqli_num_rows($result) < 1) {
+    $sql = "UPDATE post SET likes = likes + 1 WHERE post = $postid";
+    $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+    $sql = "INSERT INTO post_likes (post_id, user_id) VALUES ($postid, $user_id)";
+    $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  } else {
+    $sql = "UPDATE post SET likes = likes - 1 WHERE post = $postid";
+    $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+    $sql = "DELETE FROM post_likes WHERE post_id = $postid AND user_id = $user_id";
+    $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+  }
+
+}
+
+$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post .user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $posts = "";
 
-while ($row = mysqli_fetch_array($result)) {
+/*while ($row = mysqli_fetch_array($result)) {
   $posts .= "<div class='jumbotron'>".$row[0]."<br><img src='assets/imgs/users/".$row[3]."' width=100 height=100 /> <br> <br><b>" .$row[2]."</b>: ".$row[1]."<hr></div></br>";
+}*/
+
+while ($row = mysqli_fetch_array($result)) {
+  $postid = $row[0];
+  $sql = "SELECT post_id FROM post_likes WHERE post_id=$postid and user_id=$user_id";
+  $result2 = mysqli_query($db, $sql) or die(mysqli_error($db));
+  if (mysqli_num_rows($result2) < 1) {
+    $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b>" .$row[3]."</b>: ".$row[2]."<hr>
+              <form action='index.php?&postid=".$row[0]."' method='post'>
+                <input type='submit' name='like' value='Like'>
+              </form>
+              Likes: " .$row[5]."
+
+    </div></br>";
+  } else {
+      $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b>" .$row[3]."</b>: ".$row[2]."<hr>
+              <form action='index.php?&postid=".$row[0]."' method='post'>
+                <input type='submit' name='like' value='Unlike'>
+              </form>
+              Likes: " .$row[5]."
+
+    </div></br>";
+  }
 }
 
 if ($myusername==''){
