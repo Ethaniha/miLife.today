@@ -32,7 +32,7 @@
 
     <div class="container">
       <div class="navbar-leftside">
-   <a href="index.php" ><img src="assets/logo.png" alt="Logo" id="navbar-logo"></a>
+   <a href="index.php" ><img src="../Assets/logo.png" alt="Logo" id="navbar-logo"></a>
   </div>
 <?php if(isset($_SESSION['login_user'])) {
     echo'<div class="navbar-center">

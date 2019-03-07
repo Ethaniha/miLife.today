@@ -39,7 +39,7 @@ if (mysqli_num_rows($result) > 0) {
       }
       
       if(empty($errors)==true) {
-         move_uploaded_file($file_tmp,"images/users/".$file_name);
+         move_uploaded_file($file_tmp,"../Assets/imgs/users/".$file_name);
          
          $sql = "UPDATE users  SET image = '$file_name' WHERE email = '$myusername' ";
          mysqli_query($db, $sql);
@@ -69,7 +69,7 @@ if (mysqli_num_rows($result) > 0) {
   <h3 class="pageHeader">User Settings</h3>
   <table class="table-sm">
     <tr>
-      <td><?php echo "<img src='assets/imgs/users/".$avatar."' width=100 height=100 />"; ?></td><td></td>
+      <td><?php echo "<img src='../Assets/imgs/users/".$avatar."' width=100 height=100 />"; ?></td><td></td>
     </tr>
     <tr>
       <td>User ID:</td><td><?php echo $userid; ?></td>
