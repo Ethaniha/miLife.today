@@ -30,14 +30,39 @@ body {
   z-index: 100;
   
 }
+.navbar-rightside{
+width: 20%;
+float: left;
+}
 
 .navbar-nav > li{
+  float: right;
   padding-left:10px;
   padding-right:10px;
 }
+.navbar-leftside{
+  float: left;
+  width: 20%;
+}
+#navbar-logo{
+  width: 50px;
+}
 
-.navbar-logo{
-    width: 50px;
+.navbar-center{
+  width: 60%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.navbar-icon{
+  /* color: white;
+  background-color: #999;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  padding:20px; */
 }
 
 .pageHeader{
