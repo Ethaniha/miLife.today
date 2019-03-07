@@ -32,7 +32,7 @@ body {
 }
 .navbar-rightside{
 width: 20%;
-float: left;
+float: right;
 }
 
 .navbar-nav > li{
@@ -113,7 +113,9 @@ float: left;
   height: 100%;
   text-align: center;
   background-image: url(../Assets/imgs/backgroundLogin.jpg) !important;
-  background-size: 100% auto;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
 }
 
 .form-signin {
