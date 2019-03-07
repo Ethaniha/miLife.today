@@ -1,4 +1,23 @@
-    <link rel="stylesheet" href="css/main.css">
+  <?php 
+    if(isset($_POST['search'])) {
+      $search = $_POST['input'];
+
+      $sql = "SELECT username FROM users WHERE username LIKE '%$search%' ";
+      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+      $row = mysqli_fetch_array($result);
+
+      if (is_null($row[0])) {
+        echo "no user found";
+      }
+      else {
+        header("Location: user_profile.php?username=".$row[0]);
+        die();
+      }
+
+      
+    }
+  ?>
+  <link rel="stylesheet" href="css/main.css">
 
   <nav class="navbar navbar-expand-sm bg-light navbar-light">
 
@@ -8,11 +27,11 @@
   </div>
 <?php if(isset($_SESSION['login_user'])) {
     echo'<div class="navbar-center">
-    <form class="d-inline w-100 form-inline mx-auto my-auto" action="/action_page.php">
+    <form action="" method="post" class="d-inline w-100 form-inline mx-auto my-auto">
             <div class="input-group">
-                <input class="form-control py-2 border" type="Search for something.." placeholder="Search for something.." id="search-input">
+                <input class="form-control py-2 border" type="Search for something.." placeholder="Search for something.." id="search-input" name="input">
                 <span class="input-group-append">
-                    <div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div>
+                    <button type="submit" class="input-group-text bg-transparent" name="search"><i class="fa fa-search"></i></button>
                 </span>
             </div>
     </form></div>'; } ?>
