@@ -61,7 +61,6 @@
   <br>
           <p class="signinH1">Or click <a class="signinH1" href="register.php">here</a> to register</p>
         <p><?php if (!empty($error)) { echo $error; } ?></p>
-  <p class="mt-5 mb-3 darkLegalTM">&copy; 2019</p>
 </form>
 </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>

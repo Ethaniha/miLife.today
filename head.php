@@ -16,6 +16,14 @@
 
       
     }
+    if(isset($_SESSION['login_user'])){
+     $myusername = $_SESSION['login_user'];
+
+    $sql = "SELECT image FROM users WHERE email = '$myusername' ";
+    $result = mysqli_query($db, $sql);
+    $row=mysqli_fetch_array($result);
+    $user_image = $row[0];
+    }
   ?>
   <link rel="stylesheet" href="css/main.css">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,23 +46,23 @@
     </form></div>'; } ?>
 
 
-    <ul class="navbar-nav navbar-rightside">
+    <ul class="navbar-nav navbar-rightside ">
 <?php if(isset($_SESSION['login_user'])) {
-      echo '<li class="nav-item">
-        <i class="fas fa-bell fa-2x navbar-icon" data-count="2"  style="color: grey"></i>
+      echo '<li class="ml-auto">
+        <i class="fas fa-bell navbar-icon" data-count="2"  ></i>
       </li>
-      <li class="nav-item">
-        <a href="user_settings.php"><i class="fas fa-cogs fa-2x navbar-icon" style="color: grey"></i></a>
+      <li>
+        <a href="user_settings.php"><i class="fas fa-cog navbar-icon" ></i></a>
+      </li>
+      <li  >
+      <a href=""><i class="fas fa-plus navbar-icon" id="navbar-addpost-icon"></i></a>
+      </li>
+      <li>
+      <a href="user_profile.php?username='.$_SESSION['username'].'"><i class="navbar-icon" id="navbar-profile-icon" style="background-image: url(Assets/imgs/users/'.$user_image.') !important;" ></i> </a>
       </li>';
-    } ?>
-      <li class="nav-item">
-
-        <?php if(isset($_SESSION['login_user'])) {
-          echo '<a href="user_profile.php?username='.$_SESSION['username'].'"><i class="fas fa-user fa-2x navbar-icon" style="color: grey" ></i></a>';
-        } else {
-          echo '<a href="login.php"><i class="fas fa-user fa-2x navbar-icon" style="color: grey"></i></a>';
+    }  else {
+          echo '<li class="ml-auto" ><a href="login.php"><i class="fas fa-user navbar-icon"></i></a></li>';
         } ?>  
-      </li>
-    </ul>
+        </ul>
     </div>
   </nav>

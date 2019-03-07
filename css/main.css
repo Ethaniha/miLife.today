@@ -30,15 +30,16 @@ body {
   z-index: 100;
   
 }
+
 .navbar-rightside{
-width: 20%;
-float: right;
-}
+  width: 20%;
+  float: right;
+  padding: auto auto 0px auto;
+  }
 
 .navbar-nav > li{
   float: right;
-  padding-left:10px;
-  padding-right:10px;
+  margin-left:10px;
 }
 .navbar-leftside{
   float: left;
@@ -46,6 +47,8 @@ float: right;
 }
 #navbar-logo{
   width: 50px;
+  -webkit-filter: drop-shadow(0px 0px 20px 5px #d3d3d3);
+  filter: drop-shadow(0px 0px 20px 5px #d3d3d3);
 }
 
 .navbar-center{
@@ -55,14 +58,31 @@ float: right;
 }
 
 .navbar-icon{
-  /* color: white;
-  background-color: #999;
-  width: 55px;
-  height: 55px;
+  color: rgb(92, 92, 92);
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 5px 2px #dddddd;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   text-align: center;
   vertical-align: middle;
-  padding:20px; */
+  padding:10px;
+  margin-top: 8px;
+  float: right;
+}
+
+#navbar-addpost-icon{
+  color: rgb(255, 255, 255);
+  background-color: rgb(212, 114, 98);
+}
+
+#navbar-profile-icon{
+  width: 50px !important;
+  height: 50px !important;
+  margin-top: 0px;
+  background-position: center center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
 }
 
 .pageHeader{
@@ -80,7 +100,7 @@ float: right;
 }
 
 #feedHeader{
-  background-image: url("../assets/imgs/feed-bg.jpg") !important;
+  background-image: url(../Assets/imgs/feed-bg.jpg) !important;
   background-size: cover;
   background-position: bottom;
   padding: 150px 0px 150px 0px;
@@ -166,10 +186,6 @@ float: right;
 }
 .signinH1 a:link { 
   color:#FFF; 
-}
-
-.darkLegalTM  {
-  color: #2c2f33;
 }
 
 a {
