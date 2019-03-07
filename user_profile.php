@@ -80,11 +80,49 @@ You are already following '.$username.'.
 
 if(isset($_POST['sendpost'])) {
 
-  $postbody = $_POST['postbody'];
-  $time = date("Y-m-d H:i:s");
+  if($_FILES['image']['size'] != 0) {
 
-  $sql = "INSERT INTO post (body, posted_at, user_id, likes) VALUES ('$postbody', '$time', '$user_id', 0)";
-  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+    $errors= array();
+    $file_name = $_FILES['image']['name'];
+    $file_size = $_FILES['image']['size'];
+    $file_tmp = $_FILES['image']['tmp_name'];
+    $file_type = $_FILES['image']['type'];
+    $file_temp = explode('.',$_FILES['image']['name']);
+    $file_ext=strtolower(end($file_temp));
+    
+    $extensions= array("jpeg","jpg","png");
+    
+    if(in_array($file_ext,$extensions)=== false){
+       $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+    }
+    
+    if($file_size > 2097152) {
+       $errors[]='File size must be less than 2 MB';
+    }
+    
+    if(empty($errors)==true) {
+      move_uploaded_file($file_tmp,"Assets/imgs/posts/".$file_name);
+       
+
+      $postbody = $_POST['postbody'];
+      $time = date("Y-m-d H:i:s");
+
+      $sql = "INSERT INTO post (body, posted_at, user_id, likes, image) VALUES ('$postbody', '$time', '$user_id', 0, '$file_name')";
+      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+    }
+
+  }
+  else if (!empty($errors)) {
+    print_r($errors);
+  }
+  else {
+    $postbody = $_POST['postbody'];
+    $time = date("Y-m-d H:i:s");
+
+    $sql = "INSERT INTO post (body, posted_at, user_id, likes) VALUES ('$postbody', '$time', '$user_id', 0)";
+    $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  }
 
 }
 
@@ -120,7 +158,7 @@ if (isset($_GET['postid'])) {
   }
 }
 
-$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
+$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.image FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $posts = "";
 
@@ -138,7 +176,15 @@ while ($row = mysqli_fetch_array($result)) {
   }
 
   if (mysqli_num_rows($result2) < 1) {
-    $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b>" .$row[3]."</b>: ".$row[2]."<hr>
+    if(is_null($row[6])) {
+      $img = "";
+    } 
+    else {
+      $img = "<br><img src='assets/imgs/posts/".$row[6]."' height=400/><br>";
+    }
+
+    $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='assets/imgs/users/".$row[4]."' width=100 height=100 />  <br> <br><b>" .$row[3]."</b>: "  
+      .$img.$row[2]."<hr>
               <form action='user_profile.php?username=$username&postid=".$row[0]."' method='post'>
                 <input type='submit' name='like' value='Like'>
               </form>
@@ -153,7 +199,8 @@ while ($row = mysqli_fetch_array($result)) {
 
     </div></br>";
   } else {
-      $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b>" .$row[3]."</b>: ".$row[2]."<hr>
+      $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b>" .$row[3]."</b>: "
+        .$img.$row[2]."<hr>
               <form action='user_profile.php?username=$username&postid=".$row[0]."' method='post'>
                 <input type='submit' name='like' value='Unlike'>
               </form>
@@ -171,8 +218,9 @@ while ($row = mysqli_fetch_array($result)) {
 }
 
 if($myusername == $email){
-  $newPostBox = '<form action="" method="post">
+  $newPostBox = '<form action="" method="post" enctype="multipart/form-data">
       <textarea  class="form-control" name="postbody" rows="5" cols="80"></textarea>
+      <input type = "file" name = "image" class="btn btn-light">
       <input type="submit" name="sendpost" value="Post!" class="btn btn-light">
     </form>';
   $whosProfile = 'My';
@@ -222,7 +270,7 @@ if($myusername == $email){
 
 <form action="" method="post" >
       <input type="submit" name="follow" value="Follow" class="btn btn-primary">
-    </form>
+</form>
 
 
 <?php echo $newPostBox;?>
