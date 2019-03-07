@@ -103,9 +103,9 @@
             <button type="submit" class="btn btn-lg btn-primary btn-block" name="submit">Submit</button>
           </div>
         </div>
-        <p class="signinH1">Or click <a href="login.php">here</a> to login with an existing Account</p>
+        <p class="signinH1">Or click <a class="signinH1" href="login.php">here</a> to login with an existing Account</p>
         <?php if (!empty($msg)) { echo $msg; } ?>
-          <p class="mt-5 mb-3 signinH1">&copy; 2019</p>
+          <p class="mt-5 mb-3 darkLegalTM">&copy; 2019</p>
       </form>
     </div>
 
