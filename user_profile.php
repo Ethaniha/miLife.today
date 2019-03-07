@@ -180,10 +180,10 @@ while ($row = mysqli_fetch_array($result)) {
       $img = "";
     } 
     else {
-      $img = "<br><img src='assets/imgs/posts/".$row[6]."' height=400/><br>";
+      $img = "<br><img src='../Assets/imgs/posts/".$row[6]."' height=400/><br>";
     }
 
-    $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='assets/imgs/users/".$row[4]."' width=100 height=100 />  <br> <br><b>" .$row[3]."</b>: "  
+    $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='../Assets/imgs/users/".$row[4]."' width=100 height=100 />  <br> <br><b>" .$row[3]."</b>: "  
       .$img.$row[2]."<hr>
               <form action='user_profile.php?username=$username&postid=".$row[0]."' method='post'>
                 <input type='submit' name='like' value='Like'>
@@ -199,7 +199,7 @@ while ($row = mysqli_fetch_array($result)) {
 
     </div></br>";
   } else {
-      $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b>" .$row[3]."</b>: "
+      $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='../Assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b>" .$row[3]."</b>: "
         .$img.$row[2]."<hr>
               <form action='user_profile.php?username=$username&postid=".$row[0]."' method='post'>
                 <input type='submit' name='like' value='Unlike'>
@@ -252,7 +252,7 @@ if($myusername == $email){
   <h2 class="pageHeader"><?php echo $whosProfile;?> Profile</h2>
     <table class="table-sm">
     <tr>
-      <td><?php echo "<img src='assets/imgs/users/".$avatar."' width=100 height=100 />"; ?></td><td></td>
+      <td><?php echo "<img src='../Assets/imgs/users/".$avatar."' width=100 height=100 />"; ?></td><td></td>
     </tr>
     <tr>
       <td>Forename:</td><td><?php echo $forename; ?></td>

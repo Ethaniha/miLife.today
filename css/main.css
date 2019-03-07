@@ -80,7 +80,7 @@ float: left;
 }
 
 #feedHeader{
-  background-image: url("../assets/imgs/feed-bg.jpg") !important;
+  background-image: url("../Assets/imgs/feed-bg.jpg") !important;
   background-size: cover;
   background-position: bottom;
   padding: 150px 0px 150px 0px;

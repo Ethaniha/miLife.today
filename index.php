@@ -64,7 +64,7 @@ while ($row = mysqli_fetch_array($result)) {
   }
 
   if (mysqli_num_rows($result2) < 1) {
-    $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>: ".$row[2]."<hr>
+    $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='../Assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>: ".$row[2]."<hr>
               <form action='index.php?&postid=".$row[0]."' method='post'>
                 <input type='submit' name='like' value='Like'>
               </form>
@@ -79,7 +79,7 @@ while ($row = mysqli_fetch_array($result)) {
 
     </div></br>";
   } else {
-      $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>: ".$row[2]."<hr>
+      $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='../Assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>: ".$row[2]."<hr>
               <form action='index.php?&postid=".$row[0]."' method='post'>
                 <input type='submit' name='like' value='Unlike'>
               </form>
