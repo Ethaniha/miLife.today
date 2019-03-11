@@ -7,14 +7,14 @@
 
 		$search = $_POST['query'];
 
-	  	$sql = "SELECT username FROM users WHERE username LIKE '%$search%' ";
+	  	$sql = "SELECT username, image FROM users WHERE username LIKE '%$search%' ";
 	  	$result = mysqli_query($db, $sql) or die(mysqli_error($db));
 
 	  	if(mysqli_num_rows($result) > 0) {
 
 	  		while ($row = mysqli_fetch_array($result)) {
 
-	  			$searchOuput .= "<li class='list-group-item'><span><a href='user_profile.php?username=".$row[0]."'>".$row[0]."</a></span></li>";
+	  			$searchOuput .= "<li class='list-group-item'><span><a href='user_profile.php?username=".$row[0]."'><img class='searchimg' src='../Assets/imgs/users/".$row[1]."' width=50 height=50 />".$row[0]."</a></span></li>";
 
 	  		}
 

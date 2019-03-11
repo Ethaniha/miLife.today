@@ -36,17 +36,18 @@
    <a href="index.php" ><img src="../Assets/logo.png" alt="Logo" id="navbar-logo"></a>
   </div>
 <?php if(isset($_SESSION['login_user'])) {
-    echo'<div class="navbar-center">
-    <form action="" method="post" class="d-inline w-100 form-inline mx-auto my-auto">
-            <div class="input-group">
-                <input class="form-control py-2 border" type="Search for something.." placeholder="Search for something.." id="search-input" name="input">
-                <span class="input-group-append">
-                    <button type="submit" class="input-group-text bg-transparent" name="search"><i class="fa fa-search"></i></button>
-                </span>
-            </div>
-            <ul class="searchresult" id="searchresult">
-            </ul>
-    </form></div>'; } ?>
+    echo'
+    <div class="navbar-center">
+      <form action="" method="post" class="d-inline w-100 form-inline mx-auto my-auto">
+
+        <div class="searchbox">
+          <input class="form-control" id="search-input" type="text">
+          <ul class="list-group autocomplete" id="searchresult" style="position:absolute;width:100%; z-index: 100">
+          </ul>
+        </div>
+
+      </form>
+    </div>'; } ?>
 
 
     <ul class="navbar-nav navbar-rightside ">
@@ -84,6 +85,7 @@
      success:function(data)
      {
       $('#searchresult').html(data);
+      console.log(data);
      }
     });
    }
