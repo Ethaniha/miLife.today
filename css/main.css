@@ -236,3 +236,11 @@ img.searchimg {
   filter: drop-shadow(0px 0px 20px 5px #d3d3d3);
   z-index: 101;
 }
+
+div.message-from-me {
+  float: right;
+}
+
+div.message-from-other {
+  float: left;
+}
