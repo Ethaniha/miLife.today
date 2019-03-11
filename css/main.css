@@ -196,9 +196,17 @@ a {
   color: black;
 }
 
-.searchresult {
-  position: absolute;
-  width:100%; 
-  z-index: 102;
+
+.searchbox input.form-control {
+  border-radius:0px;
+  width:100%;
+  padding:0px 0px 0px 25px;
+}
+
+div.searchbox {
+  width: 100%;
+  z-index: 101;
+  left: 50%;
+  position:relative;
 }
 

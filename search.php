@@ -14,7 +14,7 @@
 
 	  		while ($row = mysqli_fetch_array($result)) {
 
-	  			$searchOuput .= "<li class='list-group-item' style='position:relative;width:50%; z-index:102'><span>".$row[0]."</span></li>";
+	  			$searchOuput .= "<li class='list-group-item'><span><a href='user_profile.php?username=".$row[0]."'>".$row[0]."</a></span></li>";
 
 	  		}
 
