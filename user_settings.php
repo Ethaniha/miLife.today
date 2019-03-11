@@ -20,7 +20,7 @@ if (mysqli_num_rows($result) > 0) {
   }
 }
 
-   if(isset($_FILES['image'])){
+   if(isset($_FILES['profileImage'])){
       $errors= array();
       $file_name = $_FILES['image']['name'];
       $file_size = $_FILES['image']['size'];
@@ -69,7 +69,7 @@ if (mysqli_num_rows($result) > 0) {
   <h3 class="pageHeader">User Settings</h3>
   <table class="table-sm">
     <tr>
-      <td><?php echo "<img src='../Assets/imgs/users/".$avatar."' width=100 height=100 />"; ?></td><td></td>
+      <td><?php echo "<img src='../Assets/imgs/users/".$avatar."' width=100 height=100 class='profilePhoto' />"; ?></td><td></td>
     </tr>
     <tr>
       <td>User ID:</td><td><?php echo $userid; ?></td>
@@ -86,7 +86,7 @@ if (mysqli_num_rows($result) > 0) {
   </table>
 
   <form action = "" method = "POST" enctype = "multipart/form-data">
-     <input type = "file" name = "image" />
+     <input type = "file" name = "profileImage" />
      <input type = "submit"/>
   </form>
 

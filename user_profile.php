@@ -32,8 +32,6 @@ else {
 
 if (isset($_POST['follow'])) {
 
-
-
     $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
     $result = mysqli_query($db, $sql);
     $row=mysqli_fetch_array($result);
@@ -78,53 +76,7 @@ You are already following '.$username.'.
 /////////////////
 
 
-if(isset($_POST['sendpost'])) {
 
-  if($_FILES['image']['size'] != 0) {
-
-    $errors= array();
-    $file_name = $_FILES['image']['name'];
-    $file_size = $_FILES['image']['size'];
-    $file_tmp = $_FILES['image']['tmp_name'];
-    $file_type = $_FILES['image']['type'];
-    $file_temp = explode('.',$_FILES['image']['name']);
-    $file_ext=strtolower(end($file_temp));
-    
-    $extensions= array("jpeg","jpg","png");
-    
-    if(in_array($file_ext,$extensions)=== false){
-       $errors[]="extension not allowed, please choose a JPEG or PNG file.";
-    }
-    
-    if($file_size > 2097152) {
-       $errors[]='File size must be less than 2 MB';
-    }
-    
-    if(empty($errors)==true) {
-      move_uploaded_file($file_tmp,"Assets/imgs/posts/".$file_name);
-       
-
-      $postbody = $_POST['postbody'];
-      $time = date("Y-m-d H:i:s");
-
-      $sql = "INSERT INTO post (body, posted_at, user_id, likes, image) VALUES ('$postbody', '$time', '$user_id', 0, '$file_name')";
-      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-
-    }
-
-  }
-  else if (!empty($errors)) {
-    print_r($errors);
-  }
-  else {
-    $postbody = $_POST['postbody'];
-    $time = date("Y-m-d H:i:s");
-
-    $sql = "INSERT INTO post (body, posted_at, user_id, likes) VALUES ('$postbody', '$time', '$user_id', 0)";
-    $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-  }
-
-}
 
 
 // $sql = "SELECT * FROM post where user_id = $user_id";
@@ -183,7 +135,7 @@ while ($row = mysqli_fetch_array($result)) {
       $img = "<br><img src='/Assets/imgs/posts/".$row[6]."' height=400/><br>";
     }
 
-    $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='/Assets/imgs/users/".$row[4]."' width=100 height=100 />  <br> <br><b>" .$row[3]."</b>: "  
+    $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='/Assets/imgs/users/".$row[4]."' width=100 height=100 class='profilePhoto' />  <br> <br><b>" .$row[3]."</b>: "  
       .$img.$row[2]."<hr>
               <form action='user_profile.php?username=$username&postid=".$row[0]."' method='post'>
                 <input type='submit' name='like' value='Like'>
@@ -199,7 +151,7 @@ while ($row = mysqli_fetch_array($result)) {
 
     </div></br>";
   } else {
-      $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='/Assets/imgs/users/".$row[4]."' width=100 height=100 /> <br> <br><b>" .$row[3]."</b>: "
+      $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='/Assets/imgs/users/".$row[4]."' width=100 height=100 class='profilePhoto' /> <br> <br><b>" .$row[3]."</b>: "
         .$img.$row[2]."<hr>
               <form action='user_profile.php?username=$username&postid=".$row[0]."' method='post'>
                 <input type='submit' name='like' value='Unlike'>
@@ -218,14 +170,8 @@ while ($row = mysqli_fetch_array($result)) {
 }
 
 if($myusername == $email){
-  $newPostBox = '<form action="" method="post" enctype="multipart/form-data">
-      <textarea  class="form-control" name="postbody" rows="5" cols="80"></textarea>
-      <input type = "file" name = "image" class="btn btn-light">
-      <input type="submit" name="sendpost" value="Post!" class="btn btn-light">
-    </form>';
   $whosProfile = 'My';
 }else{
-  $newPostBox = '';
   $whosProfile = $forename."'s";
 }
 
@@ -248,32 +194,28 @@ if($myusername == $email){
       
     <?php include("head.php"); ?>
 
-<div class="container">
-  <h2 class="pageHeader"><?php echo $whosProfile;?> Profile</h2>
-    <table class="table-sm">
-    <tr>
-      <td><?php echo "<img src='/Assets/imgs/users/".$avatar."' width=100 height=100 />"; ?></td><td></td>
-    </tr>
-    <tr>
-      <td>Forename:</td><td><?php echo $forename; ?></td>
-    </tr>
-    <tr>
-      <td>Surname:</td><td><?php echo $surname; ?></td>
-    </tr>
-    <tr>
-      <td>Email:</td><td><?php echo $email; ?></td>
-    </tr>
-    <tr>
-      <td>Followers:</td><td><?php echo $followers; ?></td>
-    </tr>
-    </table>
 
+    <div class="container">
+    <div class="row">
+<div class="col-md-3">
+<?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto'/>"; ?>
+</div>
+<div class="col-md-4">
+<h2 id="profileHeader"><?php echo $whosProfile;?> Profile</h2>
+
+<b>Forename: </b><?php echo $forename; ?><br>
+
+<b>Surname: </b><?php echo $surname; ?><br>
+
+<b>Email: </b><?php echo $email; ?><br>
+
+<b>Followers: </b><?php echo $followers; ?><br>
 <form action="" method="post" >
-      <input type="submit" name="follow" value="Follow" class="btn btn-primary">
+      <input type="submit" name="follow" value="Follow" class="btn btn-primary" id="followButton">
 </form>
+</div></div>
 
 
-<?php echo $newPostBox;?>
 
 
 <h5 class="sectionHeader"><?php echo $whosProfile;?> Posts</h5>
