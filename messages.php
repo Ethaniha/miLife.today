@@ -67,7 +67,7 @@ if(isset($_GET['username'])) {
                       </ul>
                   </div>
                   <div class="col-md-9" style="position:relative;">
-                      <ul class="list-group">
+                      <ul class="list-group" id="chatbox">
                           <li class="list-group-item" id="messages" style="overflow:auto;height:500px;margin-bottom:55px;">
                           </li>
                       </ul>
@@ -119,6 +119,8 @@ if(isset($_GET['username'])) {
    success:function(data)
    {
     $('#messages').html(data);
+    var objDiv = document.getElementById("messages");
+    objDiv.scrollTop = objDiv.scrollHeight;
    },
    error: function(data)
    {

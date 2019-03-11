@@ -88,12 +88,19 @@ if (isset($_GET['postid'])) {
   $postid = $_GET['postid'];
 
   if (isset($_POST['comment'])) {
+
+    $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+    $result = mysqli_query($db, $sql);
+    $row=mysqli_fetch_array($result);
+    $commenter_id = $row[0];
+
     $commentbody = $_POST['commentbody'];
     $time = date("Y-m-d H:i:s");
-    $sql = "INSERT INTO users_comments (body, user_id, posted_at, post_id) VALUES ('$commentbody', '$user_id', '$time', '$postid' )";
+    $sql = "INSERT INTO users_comments (body, user_id, posted_at, post_id) VALUES ('$commentbody', '$commenter_id', '$time', '$postid' )";
     $result = mysqli_query($db, $sql) or die(mysqli_error($db));
   }
-  else {
+  
+  if (isset($_POST['like'])) {
     $sql = "SELECT user_id FROM post_likes WHERE post_id= $postid AND user_id= $user_id";
     $result = mysqli_query($db, $sql) or die(mysqli_error($db));
     if (mysqli_num_rows($result) < 1) {
@@ -108,6 +115,7 @@ if (isset($_GET['postid'])) {
       $result = mysqli_query($db, $sql) or die(mysqli_error($db));
     }
   }
+
 }
 
 $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.image FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
@@ -128,6 +136,7 @@ while ($row = mysqli_fetch_array($result)) {
   }
 
   if (mysqli_num_rows($result2) < 1) {
+
     if(is_null($row[6])) {
       $img = "";
     } 
@@ -151,8 +160,16 @@ while ($row = mysqli_fetch_array($result)) {
 
     </div></br>";
   } else {
-      $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='/Assets/imgs/users/".$row[4]."' width=100 height=100 class='profilePhoto' /> <br> <br><b>" .$row[3]."</b>: "
-        .$img.$row[2]."<hr>
+
+    if(is_null($row[6])) {
+      $img = "";
+    } 
+    else {
+      $img = "<br><img src='/Assets/imgs/posts/".$row[6]."' height=400/><br>";
+    }
+
+    $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='/Assets/imgs/users/".$row[4]."' width=100 height=100 class='profilePhoto' />  <br> <br><b>" .$row[3]."</b>: "  
+      .$img.$row[2]."<hr>
               <form action='user_profile.php?username=$username&postid=".$row[0]."' method='post'>
                 <input type='submit' name='like' value='Unlike'>
               </form>
