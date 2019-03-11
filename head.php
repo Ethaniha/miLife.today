@@ -26,6 +26,7 @@
     }
   ?>
   <link rel="stylesheet" href="css/main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <nav class="navbar navbar-expand-sm bg-light navbar-light">
@@ -43,6 +44,8 @@
                     <button type="submit" class="input-group-text bg-transparent" name="search"><i class="fa fa-search"></i></button>
                 </span>
             </div>
+            <ul class="searchresult" id="searchresult">
+            </ul>
     </form></div>'; } ?>
 
 
@@ -66,3 +69,34 @@
         </ul>
     </div>
   </nav>
+
+<script>
+  $(document).ready(function(){
+
+   load_data();
+
+   function load_data(query)
+   {
+    $.ajax({
+     url:"search.php",
+     method:"POST",
+     data:{query:query},
+     success:function(data)
+     {
+      $('#searchresult').html(data);
+     }
+    });
+   }
+   $('#search-input').keyup(function(){
+    var search = $(this).val();
+    if(search != '')
+    {
+     load_data(search);
+    }
+    else
+    {
+     load_data();
+    }
+   });
+  });
+</script>
