@@ -166,7 +166,7 @@ if ($myusername==''){
 <div id="feedHeader" class="jumbotron" >
     <div class="container">
   <h1 class="display-2">Welcome, <?php echo $forename; ?></h1>
-  <p class="lead">This is your main feed</p>
+  <p id="feedCaption">Here are all the updates since you last logged in</p>
 </div>
 </div>
   <div class="container">
