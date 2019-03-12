@@ -2,6 +2,7 @@
 
 body {
   margin-top: 60px; /* Add a top margin to avoid content overlay */
+  z-index: 1;
 }
 
 .fas[data-count]{
@@ -23,7 +24,7 @@ body {
 }
 
 .navbar{
-  overflow: hidden;
+  overflow: visible !important;
   position: fixed; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
   width: 100%; /* Full width */
@@ -52,11 +53,31 @@ body {
 }
 
 .navbar-center{
-  width: 60%;
-  padding-left: 10%;
-  padding-right: 10%;
   position: fixed;
-  z-index: 101;
+  width: 40%;
+  max-width: 400px;
+  margin-left: 75px;
+}
+
+.searchbox input.form-control {
+  border-radius:10px;
+  width:100%;
+  padding:0px 0px 0px 15px;
+}
+
+div.searchbox {
+  position: relative;
+}
+
+img.searchimg {
+  margin-right: 15px;
+}
+
+#searchresult{
+  margin-top: 5px;
+  -webkit-filter: drop-shadow(0px 0px 20px 5px #d3d3d3);
+  filter: drop-shadow(0px 0px 20px 5px #d3d3d3);
+  z-index: 1000;
 }
 
 .navbar-icon{
@@ -215,27 +236,6 @@ a {
 }
 
 
-.searchbox input.form-control {
-  border-radius:10px;
-  width:100%;
-  padding:0px 0px 0px 15px;
-}
-
-div.searchbox {
-  width: 50%;
-  position: relative;
-}
-
-img.searchimg {
-  margin-right: 15px;
-}
-
-#searchresult{
-  margin-top: 5px;
-  -webkit-filter: drop-shadow(0px 0px 20px 5px #d3d3d3);
-  filter: drop-shadow(0px 0px 20px 5px #d3d3d3);
-  z-index: 101;
-}
 
 div.message-from-me {
   float: right;

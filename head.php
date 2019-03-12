@@ -115,7 +115,7 @@
       <a href="user_settings.php"><i class="fas fa-cog navbar-icon" ></i></a>
       </li>
       <li>
-      <button type="button" class="fas fa-plus navbar-icon" id="navbar-addpost-icon" data-toggle="modal" data-target="#addPost"></button>
+      <i class="fas fa-plus navbar-icon" id="navbar-addpost-icon" data-toggle="modal" data-target="#addPost"></i>
       </li>
       <li>
       <a href="user_profile.php?username='.$_SESSION['username'].'"><i class="navbar-icon" id="navbar-profile-icon" style="background-image: url(Assets/imgs/users/'.$user_image.') !important;" ></i> </a>
