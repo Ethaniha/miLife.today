@@ -58,7 +58,7 @@ if(isset($_GET['username'])) {
 
   <div class="container">
 
-    <h1>My Messages</h1></div>
+    <h1 class="pageHeader">My Messages</h1></div>
       <div>
           <div class="container">
               <div class="row">
@@ -68,7 +68,7 @@ if(isset($_GET['username'])) {
                   </div>
                   <div class="col-md-9" style="position:relative;">
                       <ul class="list-group" id="chatbox">
-                          <li class="list-group-item" id="messages" style="overflow:auto;height:500px;margin-bottom:55px;">
+                          <li class="list-group-item" id="messages" style="overflow:auto;height:80%;margin-bottom:15px;">
                           </li>
                       </ul>
                       <form action='' method="post">

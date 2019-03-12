@@ -62,7 +62,7 @@
 <div id="signin">
     <form class="form-signin" id="form-register" action="" method="post">
 
-        <img class="mb-4" src="assets/logo.png" alt="" width="72" height="72">
+        <img class="mb-4" src="../Assets/logo.png" alt="" width="72" height="72">
   <h1 class="mb-3 font-weight-normal signinH1">Register for miLIFE</h1>
         <div class="form-row">
 

@@ -97,7 +97,7 @@
       <form action="" method="post" class="d-inline w-100 form-inline mx-auto my-auto">
 
         <div class="searchbox">
-          <input class="form-control" id="search-input" type="text" placeholder="Search for someone...">
+          <input class="form-control" id="search-input" type="text" placeholder="Search for someone..." autocomplete="off">
           <ul class="list-group autocomplete" id="searchresult" style="position:absolute;width:100%; z-index: 101">
           </ul>
         </div>
@@ -110,6 +110,9 @@
 <?php if(isset($_SESSION['login_user'])) {
       echo '<li class="ml-auto">
         <i class="fas fa-bell navbar-icon" data-count="2"  ></i>
+      </li>
+      <li>
+      <a href="messages.php"><i class="fas fa-comment-alt navbar-icon" ></i></a>
       </li>
       <li>
       <a href="user_settings.php"><i class="fas fa-cog navbar-icon" ></i></a>
