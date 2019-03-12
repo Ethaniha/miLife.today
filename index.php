@@ -60,7 +60,7 @@ while ($row = mysqli_fetch_array($result)) {
   $commentresult = mysqli_query($db, $commentsql) or die(mysqli_error($db));
 
   while ($commentrow = mysqli_fetch_array($commentresult)) {
-    $comments .= "<div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentrow[0]."</br></div>";
+    $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentrow[0]."</br></div></div>";
   }
 
   if (mysqli_num_rows($result2) < 1) {
@@ -98,7 +98,7 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
         </div>
       </form>
-      <div class='postComments'><div class='row'>".$comments."</div></div>
+      <div class='postComments'>".$comments."</div>
       </div>
     </div></br>";
   } else {
@@ -131,14 +131,14 @@ while ($row = mysqli_fetch_array($result)) {
             <p>Likes: " .$row[5]."</p>
           </div>
           <form action='index.php?postid=".$row[0]."' method='post'>
-          <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
-          <div class='input-group-append'><button type='submit' name='comment' value='Comment!' class='btn btn-secondary'>Post</button>
-          </div>
-          </div>
-        </form>
-        <div class='postComments'><div class='row'>".$comments."</div></div>
-        </div>
-      </div></br>";
+            <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
+              <div class='input-group-append'><button type='submit' name='comment' value='Comment!' class='btn btn-secondary'>Post</button>
+              </div>
+            </div>
+          </form>
+        <div class='postComments'>".$comments."</div>
+      </div>
+    </div></br>";
   }
 }
 
@@ -189,7 +189,7 @@ if ($myusername==''){
 
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
+  <?php include("footer.php"); ?>
   </body>
 </html>
 
