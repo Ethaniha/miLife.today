@@ -32,7 +32,7 @@ $sql = "SELECT id FROM followers WHERE user_id = '$userid' ";
 $result = mysqli_query($db, $sql);
 $followers = mysqli_num_rows($result);
 
-   if(isset($_FILES['profileImage'])){
+   if(isset($_FILES['image'])){
       $errors= array();
       $file_name = $_FILES['image']['name'];
       $file_size = $_FILES['image']['size'];
@@ -107,7 +107,7 @@ $followers = mysqli_num_rows($result);
           <div class="form-group">
                               
                               <div class="col-xs-6">
-                                  <label for="email"><h4>Change Profile Picture</h4></label><br>
+                                  <h4>Change Profile Picture</h4><br>
                                   <form class="btn btn-light" action = "" method = "POST" enctype = "multipart/form-data">
                                   <input type = "file" name = "profileImage" />
                                   <input class="btn btn-secondary" type = "submit" value="Update Profile Picture"/>
