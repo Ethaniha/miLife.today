@@ -106,25 +106,25 @@
     </div>'; } ?>
 
 
-    <ul class="navbar-nav navbar-rightside ">
+    <ul class="navbar-nav navbar-rightside" id="rightside">
 <?php if(isset($_SESSION['login_user'])) {
       echo '<li class="ml-auto">
-        <i class="fas fa-bell navbar-icon" data-count="2"  ></i>
+        <i class="fas fa-bell navbar-icon" data-count="2" id="alertsBtn" ></i>
       </li>
       <li>
-      <a href="messages.php"><i class="fas fa-comment-alt navbar-icon" ></i></a>
+      <a href="messages.php"><i class="fas fa-comment-alt navbar-icon" id="messagesBtn"></i></a>
       </li>
       <li>
-      <a href="user_settings.php"><i class="fas fa-cog navbar-icon" ></i></a>
+      <a href="user_settings.php"><i class="fas fa-cog navbar-icon" id="settingsBtn"></i></a>
       </li>
       <li>
-      <i class="fas fa-plus navbar-icon" id="navbar-addpost-icon" data-toggle="modal" data-target="#addPost"></i>
+      <a class="fas fa-plus navbar-icon" id="navbar-addpost-icon" data-toggle="modal" data-target="#addPost" href="#"></a>
       </li>
       <li>
       <a href="user_profile.php?username='.$_SESSION['username'].'"><i class="navbar-icon" id="navbar-profile-icon" style="background-image: url(Assets/imgs/users/'.$user_image.') !important;" ></i> </a>
       </li>';
     }  else {
-          echo '<li class="ml-auto" ><a href="login.php"><i class="fas fa-user navbar-icon"></i></a></li>';
+          echo '<li class="ml-auto" ><a href="login.php"><i class="fas fa-sign-in-alt navbar-icon"></i></a></li>';
         } ?>  
         </ul>
     </div>
@@ -156,9 +156,34 @@
 
 <script>
   $(document).ready(function(){
-
    load_data();
-
+   Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+    }
+    NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+        for(var i = this.length - 1; i >= 0; i--) {
+            if(this[i] && this[i].parentElement) {
+                this[i].parentElement.removeChild(this[i]);
+            }
+        }
+    }
+   if (navigator.platform.substr(0,2) === 'iP'){
+      //iOS (iPhone, iPod or iPad)
+      var lte9 = /constructor/i.test(window.HTMLElement);
+      var nav = window.navigator, ua = nav.userAgent, idb = !!window.indexedDB;
+      if (ua.indexOf('Safari') !== -1 && ua.indexOf('Version') !== -1 && !nav.standalone){      
+        //Safari (WKWebView/Nitro since 6+)
+      } else if ((!idb && lte9) || !window.statusbar.visible) {
+        //UIWebView
+      } else if ((window.webkit && window.webkit.messageHandlers) || !lte9 || idb){
+        //WKWebView
+        
+        document.getElementById("messagesBtn").remove();
+        document.getElementById("alertsBtn").remove();
+        document.getElementById("settingsBtn").remove();
+        document.getElementById("navbar-profile-icon").remove();
+      }
+}
    function load_data(query)
    {
     $.ajax({

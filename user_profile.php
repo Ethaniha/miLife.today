@@ -4,9 +4,18 @@ include ("db.php");
 
 $myusername = $_SESSION['login_user'];
 
+$sql = "SELECT username FROM users WHERE email = '$myusername' ";
+$result = mysqli_query($db, $sql);
+$row=mysqli_fetch_array($result);
+$current_username = $row[0];
+
 if (isset($_GET['username'])) {
 
   $username = $_GET['username'];
+
+  if ($username == ""){
+    $username = $current_username;
+  }
 
   $sql = "SELECT User_ID, Email, Forename, Surname, image FROM users WHERE username = '$username' ";
   $result = mysqli_query($db, $sql);

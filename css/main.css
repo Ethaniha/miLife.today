@@ -324,3 +324,10 @@ div.message-from-other {
   margin-top: 5px;
   clear: both;
 }
+
+@media only screen and (min-width: 214px) and (max-width: 767px) { 
+  
+  .navbar-center{
+    width: 60%;
+  }
+}
