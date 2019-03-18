@@ -1,7 +1,28 @@
 <?php 
-session_start();
 
+session_start();
 include("db.php");
+
+function addMention($post) {
+  $body = explode(" ", $post);
+  $newBody = "";
+
+  foreach ($body as $word) {
+    if (substr($word,0,1) == "@")
+    {
+      $link = str_replace("@","",$word);
+      $newBody .= "<a href='user_profile.php?username=".$link."'>".$word." </a>";
+    } 
+    else 
+    {
+      $newBody .= $word." ";
+    }
+  }
+
+  return $newBody;
+}
+
+
 
 $myusername = $_SESSION['login_user'];
 
@@ -59,6 +80,8 @@ while ($row = mysqli_fetch_array($result)) {
   $commentsql = "SELECT users_comments.body, users.username, users.image FROM users_comments, users WHERE post_id = $postid AND users_comments.user_id = users.User_ID";
   $commentresult = mysqli_query($db, $commentsql) or die(mysqli_error($db));
 
+  $postBody = addMention($row[2]);
+
   while ($commentrow = mysqli_fetch_array($commentresult)) {
     $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentrow[0]."</br></div></div>";
   }
@@ -78,7 +101,7 @@ while ($row = mysqli_fetch_array($result)) {
           </div>
         <div class='row'>
           <div class='postContent'>
-          <h2 class='postText'>".$row[2]."</h2>
+          <h2 class='postText'>".$postBody."</h2>
           </div>
         </div>
           <hr>
@@ -116,7 +139,7 @@ while ($row = mysqli_fetch_array($result)) {
             </div>
           <div class='row'>
             <div class='postContent'>
-            <h2 class='postText'>".$row[2]."</h2>
+            <h2 class='postText'>".$postBody."</h2>
             </div>
           </div>
             <hr>

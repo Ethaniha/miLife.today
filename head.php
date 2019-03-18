@@ -1,4 +1,20 @@
-  <?php 
+<?php   
+
+  function notify($body) {
+    $body = explode(" ", $post);
+    $newBody = "";
+
+    foreach ($body as $word) {
+      if (substr($word,0,1) == "@")
+      {
+        $receiver = str_replace("@","",$word);
+        //find there userid
+        //send notification to user
+      } 
+    }
+
+  return $newBody;
+  }
 
     if(isset($_POST['search'])) {
       $search = $_POST['input'];
@@ -63,6 +79,8 @@
     
           $sql = "INSERT INTO post (body, posted_at, user_id, likes, image) VALUES ('$postbody', '$time', '$user_id', 0, '$file_name')";
           $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+          notify($postbody);
     
         }
     
