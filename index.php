@@ -186,7 +186,7 @@ if ($myusername==''){
     
   <?php include("head.php"); ?>
 
-<div id="feedHeader" class="jumbotron" >
+<div id="feedHeader" class="jumbotron jumbotron-fluid" >
     <div class="container">
   <h1 class="display-2">Welcome, <?php echo $forename; ?></h1>
   <p id="feedCaption">Here are all the updates since you last logged in</p>
@@ -194,14 +194,14 @@ if ($myusername==''){
 </div>
   <div class="container">
     <div class="row">
-    <div class="col-md">
+    <div class="col-md order-2 order-md-1">
       <div class="jumbotron"><br>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 order-1 order-md-2">
     <?php echo $posts; ?>
     </div>
-    <div class="col-md">
+    <div class="col-md order-3 order-md-3">
       <div class="jumbotron"><br><br><br><br><br>
       </div>
     </div>
