@@ -1,20 +1,41 @@
 <?php   
 
-  function notify($body) {
-    $body = explode(" ", $post);
-    $newBody = "";
+  function notifyPost($body, $postid, $type, $db) {
+    $body = explode(" ", $body);
 
-    foreach ($body as $word) {
-      if (substr($word,0,1) == "@")
-      {
-        $receiver = str_replace("@","",$word);
-        //find there userid
-        //send notification to user
-      } 
+    if ($type == 1){
+      foreach ($body as $word) {
+        if (substr($word,0,1) == "@")
+        {
+          $receiver = str_replace("@","",$word);
+
+          $sql = "SELECT User_ID FROM users WHERE username = '$receiver' ";
+          $result = mysqli_query($db, $sql);
+          $row=mysqli_fetch_array($result);
+          $receiverID = $row[0];
+
+          $myusername = $_SESSION['login_user'];
+          $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+          $result = mysqli_query($db, $sql);
+          $row=mysqli_fetch_array($result);
+          $user_id = $row[0];
+
+          $sql = "INSERT INTO notifications (type, sender_id, receiver_id, post_id) VALUES (1, '$user_id', '$receiverID', '$postid')";
+          $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+        } 
+      }
     }
-
-  return $newBody;
   }
+
+  $myusername = $_SESSION['login_user'];
+  $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+  $result = mysqli_query($db, $sql);
+  $row=mysqli_fetch_array($result);
+  $user_id = $row[0];
+
+  $countNotifications = "SELECT receiver_id FROM notifications WHERE receiver_id = '$user_id' ";
+  $result = mysqli_query($db, $countNotifications) or die(mysqli_error($db));
+  $notificationNumber = mysqli_num_rows($result);
 
     if(isset($_POST['search'])) {
       $search = $_POST['input'];
@@ -80,7 +101,9 @@
           $sql = "INSERT INTO post (body, posted_at, user_id, likes, image) VALUES ('$postbody', '$time', '$user_id', 0, '$file_name')";
           $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 
-          notify($postbody);
+          $last_row = mysqli_insert_id($db);
+
+          //notify($postbody);
     
         }
     
@@ -94,6 +117,10 @@
     
         $sql = "INSERT INTO post (body, posted_at, user_id, likes) VALUES ('$postbody', '$time', '$user_id', 0)";
         $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+        $last_row = mysqli_insert_id($db);
+        notifyPost($postbody, $last_row, 1, $db);
+
       }
     
     }
@@ -143,7 +170,7 @@
     <ul class="navbar-nav navbar-rightside" id="rightside">
 <?php if(isset($_SESSION['login_user'])) {
       echo '<li class="ml-auto">
-        <i class="fas fa-bell navbar-icon" data-count="2" id="alertsBtn" ></i>
+      <a href="notifications.php"><i class="fas fa-bell navbar-icon" data-count="'.$notificationNumber.'" id="alertsBtn" ></i></a>
       </li>
       <li>
       <a href="messages.php"><i class="fas fa-comment-alt navbar-icon" id="messagesBtn"></i></a>
