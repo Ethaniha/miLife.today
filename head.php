@@ -103,8 +103,24 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <div class="pos-f-t">
+  <div class="collapse bg-dark p-4" id="navbarToggleMenu">
+  <?php if(isset($_SESSION['login_user'])) {
+      echo '<ul class="navbar-nav navbar-rightside">
+  <li>
+      <i class="fas fa-bell navbar-icon" data-count="2"></i>
+      </li>
+      <li>
+      <a href="messages.php"><i class="fas fa-comment-alt navbar-icon"></i></a>
+      </li>
+      <li>
+      <a href="user_settings.php"><i class="fas fa-cog navbar-icon" ></i></a>
+      </li>
+      <li>
+      <a href="user_profile.php?username='.$_SESSION['username'].'"><i class="navbar-icon" style="background-image: url(Assets/imgs/users/'.$user_image.') !important;" ></i> </a>
+      </li></ul>';} ?>
+  </div>
   <nav class="navbar navbar-expand-sm bg-light navbar-light">
-
     <div class="container">
       <div class="navbar-leftside">
    <a href="index.php"><img src="../Assets/logo.png" alt="Logo" id="navbar-logo"></a>
@@ -140,6 +156,9 @@
       </li>
       <li>
       <a href="user_profile.php?username='.$_SESSION['username'].'"><i class="navbar-icon" id="navbar-profile-icon" style="background-image: url(Assets/imgs/users/'.$user_image.') !important;" ></i> </a>
+      </li>
+      <li>
+      <a href="#" class="navbar-icon" id="mobileBtn" data-toggle="collapse" data-target="#navbarToggleMenu"><i class="fas fa-bars"></i></a>
       </li>';
     }  else {
           echo '<li class="ml-auto" ><a href="login.php"><i class="fas fa-sign-in-alt navbar-icon"></i></a></li>';
