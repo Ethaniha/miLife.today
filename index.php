@@ -3,6 +3,42 @@
 session_start();
 include("db.php");
 
+  function notify($body, $id, $type, $db) {
+
+    if ($type == 2) {
+      $sql = "SELECT post.user_id FROM post, post_likes WHERE post.post = post_likes.post_id";
+      $result = mysqli_query($db, $sql);
+      $row=mysqli_fetch_array($result);
+      $receiverID = $row[0];
+
+      $myusername = $_SESSION['login_user'];
+      $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+      $result = mysqli_query($db, $sql);
+      $row=mysqli_fetch_array($result);
+      $user_id = $row[0];
+
+      $sql = "INSERT INTO notifications (type, sender_id, receiver_id, post_id) VALUES (2, '$user_id', '$receiverID', '$id')";
+      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+    }
+    else if ($type == 3) {
+      $sql = "SELECT user_id FROM users_comments WHERE id = '$id' ";
+      $result = mysqli_query($db, $sql);
+      $row=mysqli_fetch_array($result);
+      $receiverID = $row[0];
+
+      $myusername = $_SESSION['login_user'];
+      $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+      $result = mysqli_query($db, $sql);
+      $row=mysqli_fetch_array($result);
+      $user_id = $row[0];
+
+      $sql = "INSERT INTO notifications (type, sender_id, receiver_id, post_id) VALUES (3, '$user_id', '$receiverID', '$id')";
+      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+    }
+
+
+  }
+
 function addMention($post) {
   $body = explode(" ", $post);
   $newBody = "";
@@ -41,6 +77,8 @@ if (isset($_GET['postid'])) {
     $time = date("Y-m-d H:i:s");
     $sql = "INSERT INTO users_comments (body, user_id, posted_at, post_id) VALUES ('$commentbody', '$user_id', '$time', '$postid' )";
     $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+    $last_row = mysqli_insert_id($db);
+    notify("", $last_row, 3, $db);
   }
   else {
 
@@ -51,6 +89,10 @@ if (isset($_GET['postid'])) {
       $result = mysqli_query($db, $sql) or die(mysqli_error($db));
       $sql = "INSERT INTO post_likes (post_id, user_id) VALUES ($postid, $user_id)";
       $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+      $last_row = mysqli_insert_id($db);
+      notify("", $last_row, 2, $db);
+
     } else {
       $sql = "UPDATE post SET likes = likes - 1 WHERE post = $postid";
       $result = mysqli_query($db, $sql) or die(mysqli_error($db));
@@ -63,7 +105,7 @@ if (isset($_GET['postid'])) {
 }
 
 
-$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post .user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
+$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $posts = "";
 
@@ -184,7 +226,7 @@ if ($myusername==''){
    
   <body bgcolor = "#FFFFFF">
     
-  <?php include("head.php"); ?>
+  <?php include($_SERVER['DOCUMENT_ROOT']."/head.php"); ?>
 
 <div id="feedHeader" class="jumbotron" >
     <div class="container">
