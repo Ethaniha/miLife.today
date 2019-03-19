@@ -131,9 +131,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <div class="pos-f-t">
-  <div class="collapse bg-dark p-4" id="navbarToggleMenu">
+  <div class="collapse p-4" id="navbarToggleMenu">
   <?php if(isset($_SESSION['login_user'])) {
-      echo '<ul class="navbar-nav navbar-rightside">
+      echo '<ul class="nav navbar-nav mobileNav">
+      <div id="mobile-center">
   <li>
       <i class="fas fa-bell navbar-icon" data-count="2"></i>
       </li>
@@ -144,8 +145,8 @@
       <a href="user_settings.php"><i class="fas fa-cog navbar-icon" ></i></a>
       </li>
       <li>
-      <a href="user_profile.php?username='.$_SESSION['username'].'"><i class="navbar-icon" style="background-image: url(Assets/imgs/users/'.$user_image.') !important;" ></i> </a>
-      </li></ul>';} ?>
+      <a href="user_profile.php?username='.$_SESSION['username'].'"><i class="fas fa-user navbar-icon"></i></a>
+      </li></div></ul>';} ?>
   </div>
   <nav class="navbar navbar-expand-sm bg-light navbar-light">
     <div class="container">
@@ -246,6 +247,7 @@
         document.getElementById("alertsBtn").remove();
         document.getElementById("settingsBtn").remove();
         document.getElementById("navbar-profile-icon").remove();
+        document.getElementById("mobileBtn").remove();
       }
 }
    function load_data(query)

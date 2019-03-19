@@ -38,6 +38,10 @@ body {
   padding: auto auto 0px auto;
   }
 
+  .navbar-nav{
+    flex-direction: row;
+  }
+
 .navbar-nav > li{
   float: right;
   margin-left:10px;
@@ -337,13 +341,16 @@ div.message-from-other {
 
   .navbar-rightside{
     width: 30%;
-    flex-direction: row;
-    float: left;
   }
 
-  #p-4{
-    padding: 50px;
-    margin: auto;
+  #navbarToggleMenu{
+    margin: auto !important;
+    list-style: none;
+  }
+
+  #mobile-center{
+  margin: auto;
+  width: 100%;
   }
 
   #feedHeader{
@@ -360,8 +367,9 @@ div.message-from-other {
   }
 
   .navbar-icon{
-    float: left;
     list-style: none;
+    display: inline;
+    margin: auto;
   }
 
   #alertsBtn{
