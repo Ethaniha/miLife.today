@@ -196,11 +196,12 @@ while ($row = mysqli_fetch_array($result)) {
   $commentresult = mysqli_query($db, $commentsql) or die(mysqli_error($db));
 
   $postBody = addMention($row[2]);
-
-  while ($commentrow = mysqli_fetch_array($commentresult)) {
-    $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentrow[0]."</br></div></div>";
-  }
   
+  while ($commentrow = mysqli_fetch_array($commentresult)) {
+    $commentBody = addMention($commentrow[0]);
+    $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
+  }
+
   if (mysqli_num_rows($result2) < 1) {
 
     if(is_null($row[6])) {
