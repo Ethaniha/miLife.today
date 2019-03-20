@@ -192,15 +192,15 @@ while ($row = mysqli_fetch_array($result)) {
   $sql = "SELECT post_id FROM post_likes WHERE post_id=$postid and user_id=$user_id";
   $result2 = mysqli_query($db, $sql) or die(mysqli_error($db));
 
-  $commentsql = "SELECT users_comments.body, users.username FROM users_comments, users WHERE post_id = $postid AND users_comments.user_id = users.User_ID";
+  $commentsql = "SELECT users_comments.body, users.username, users.image FROM users_comments, users WHERE post_id = $postid AND users_comments.user_id = users.User_ID";
   $commentresult = mysqli_query($db, $commentsql) or die(mysqli_error($db));
 
   $postBody = addMention($row[2]);
 
   while ($commentrow = mysqli_fetch_array($commentresult)) {
-    $comments .= "<b>".$commentrow[1]."</b>: ".$commentrow[0]."</br>";
+    $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentrow[0]."</br></div></div>";
   }
-
+  
   if (mysqli_num_rows($result2) < 1) {
 
     if(is_null($row[6])) {
