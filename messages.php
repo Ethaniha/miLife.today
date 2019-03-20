@@ -35,9 +35,12 @@ if(isset($_GET['username'])) {
 
     $sql = "";
   }
-
 }
 
+  $sql = "SELECT users.username FROM users, followers WHERE users.user_id = followers.user_id AND followers.follower_id = '$user_id'";
+  $result = mysqli_query($db, $sql);
+  $row=mysqli_fetch_array($result);
+  $startURL = $row[0];
 ?>
 
 <html>
@@ -110,6 +113,10 @@ if(isset($_GET['username'])) {
     $('#users').html(data);
    }
   });
+  if(window.location.href.indexOf("?username=") < 0) {
+      var url="messages.php?username=" + "<?php echo $startURL; ?>";
+      window.location = url;
+    }
   }
 
   function load_messages(query)
@@ -132,7 +139,6 @@ if(isset($_GET['username'])) {
   window.setInterval(function(){
     load_messages();
   }, 5000);
-
 
   $('#users').on('click', 'li', function() {
   var contents = $(this).text();
