@@ -27,16 +27,6 @@
     }
   }
 
-  $myusername = $_SESSION['login_user'];
-  $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
-  $result = mysqli_query($db, $sql);
-  $row=mysqli_fetch_array($result);
-  $user_id = $row[0];
-
-  $countNotifications = "SELECT receiver_id FROM notifications WHERE receiver_id = '$user_id' ";
-  $result = mysqli_query($db, $countNotifications) or die(mysqli_error($db));
-  $notificationNumber = mysqli_num_rows($result);
-
     if(isset($_POST['search'])) {
       $search = $_POST['input'];
 
@@ -57,6 +47,15 @@
     if(isset($_SESSION['login_user'])){
     if(isset($_SESSION['login_user'])){
      $myusername = $_SESSION['login_user'];
+
+  $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+  $result = mysqli_query($db, $sql);
+  $row=mysqli_fetch_array($result);
+  $user_id = $row[0];
+
+  $countNotifications = "SELECT receiver_id FROM notifications WHERE receiver_id = '$user_id' ";
+  $result = mysqli_query($db, $countNotifications) or die(mysqli_error($db));
+  $notificationNumber = mysqli_num_rows($result);
 
     $sql = "SELECT image FROM users WHERE email = '$myusername' ";
     $result = mysqli_query($db, $sql);
