@@ -2,6 +2,61 @@
 session_start();
 include ("db.php");
 
+function notify($body, $id, $type, $db) {
+
+  if ($type == 2) {
+    $sql = "SELECT post.user_id FROM post, post_likes WHERE post.post = post_likes.post_id";
+    $result = mysqli_query($db, $sql);
+    $row=mysqli_fetch_array($result);
+    $receiverID = $row[0];
+
+    $myusername = $_SESSION['login_user'];
+    $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+    $result = mysqli_query($db, $sql);
+    $row=mysqli_fetch_array($result);
+    $user_id = $row[0];
+
+    $sql = "INSERT INTO notifications (type, sender_id, receiver_id, post_id) VALUES (2, '$user_id', '$receiverID', '$id')";
+    $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  }
+  else if ($type == 3) {
+    $sql = "SELECT user_id FROM users_comments WHERE id = '$id' ";
+    $result = mysqli_query($db, $sql);
+    $row=mysqli_fetch_array($result);
+    $receiverID = $row[0];
+
+    $myusername = $_SESSION['login_user'];
+    $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+    $result = mysqli_query($db, $sql);
+    $row=mysqli_fetch_array($result);
+    $user_id = $row[0];
+
+    $sql = "INSERT INTO notifications (type, sender_id, receiver_id, post_id) VALUES (3, '$user_id', '$receiverID', '$id')";
+    $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  }
+
+
+}
+
+function addMention($post) {
+$body = explode(" ", $post);
+$newBody = "";
+
+foreach ($body as $word) {
+  if (substr($word,0,1) == "@")
+  {
+    $link = str_replace("@","",$word);
+    $newBody .= "<a href='user_profile.php?username=".$link."'>".$word." </a>";
+  } 
+  else 
+  {
+    $newBody .= $word." ";
+  }
+}
+
+return $newBody;
+}
+
 $myusername = $_SESSION['login_user'];
 
 $sql = "SELECT username FROM users WHERE email = '$myusername' ";
@@ -140,6 +195,8 @@ while ($row = mysqli_fetch_array($result)) {
   $commentsql = "SELECT users_comments.body, users.username FROM users_comments, users WHERE post_id = $postid AND users_comments.user_id = users.User_ID";
   $commentresult = mysqli_query($db, $commentsql) or die(mysqli_error($db));
 
+  $postBody = addMention($row[2]);
+
   while ($commentrow = mysqli_fetch_array($commentresult)) {
     $comments .= "<b>".$commentrow[1]."</b>: ".$commentrow[0]."</br>";
   }
@@ -153,20 +210,42 @@ while ($row = mysqli_fetch_array($result)) {
       $img = "<br><img src='/Assets/imgs/posts/".$row[6]."' height=400/><br>";
     }
 
-    $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='/Assets/imgs/users/".$row[4]."' width=100 height=100 class='profilePhoto' />  <br> <br><b>" .$row[3]."</b>: "  
-      .$img.$row[2]."<hr>
-              <form action='user_profile.php?username=$username&postid=".$row[0]."' method='post'>
-                <input type='submit' name='like' value='Like'>
+    $posts .= "
+    <div class='post' id='profilePost'>
+      <div class='container'>
+        <div class='row'>
+            <div class='col-xs-3'>
+              <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+            </div>
+            <div class='col-xs-9 postDetails'>
+              <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
+              <p><i class='far fa-clock'></i> ".$row[1]."</p>
+            </div>
+          </div>
+        <div class='row'>
+          <div class='postContent'>".$img."
+          <h2 class='postText'>".$postBody."</h2>
+          </div>
+        </div>
+          <hr>
+          <div class='col-xs-10'>
+            <form action='index.php?&postid=".$row[0]."' method='post'>
+            <button type='submit' class='btn btn-secondary' name='like'>
+                <i class='fas fa-heart'></i>
+              </button>
               </form>
-              Likes: " .$row[5]."
-
-              <form action='user_profile.php?username=$username&postid=".$row[0]."' method='post'>
-                <textarea  class='form-control' name='commentbody' rows='3' cols='40'></textarea>
-                <input type='submit' name='comment' value='Comment!' class='btn btn-light'>
-              </form>"
-
-              .$comments."
-
+          </div>
+          <div class='col-xs-2'>
+          <p>Likes: " .$row[5]."</p>
+        </div>
+        <form action='index.php?postid=".$row[0]."' method='post'>
+        <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
+        <div class='input-group-append'><button type='submit' name='comment' value='Comment!' class='btn btn-secondary'>Post</button>
+        </div>
+        </div>
+      </form>
+      <div class='postComments'>".$comments."</div>
+      </div>
     </div></br>";
   } else {
 
@@ -176,21 +255,42 @@ while ($row = mysqli_fetch_array($result)) {
     else {
       $img = "<br><img src='/Assets/imgs/posts/".$row[6]."' height=400/><br>";
     }
-
-    $posts .= "<div class='jumbotron'>".$row[1]."<br><img src='/Assets/imgs/users/".$row[4]."' width=100 height=100 class='profilePhoto' />  <br> <br><b>" .$row[3]."</b>: "  
-      .$img.$row[2]."<hr>
-              <form action='user_profile.php?username=$username&postid=".$row[0]."' method='post'>
-                <input type='submit' name='like' value='Unlike'>
+    $posts .= "
+    <div class='post' id='profilePost'>
+      <div class='container'>
+        <div class='row'>
+            <div class='col-xs-3'>
+              <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+            </div>
+            <div class='col-xs-9 postDetails'>
+              <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
+              <p><i class='far fa-clock'></i> ".$row[1]."</p>
+            </div>
+          </div>
+        <div class='row'>
+          <div class='postContent'>".$img."
+          <h2 class='postText'>".$postBody."</h2>
+          </div>
+        </div>
+          <hr>
+          <div class='col-xs-10'>
+            <form action='index.php?&postid=".$row[0]."' method='post'>
+            <button type='submit' class='btn btn-danger' name='like'>
+                <i class='fas fa-heart'></i>
+              </button>
               </form>
-              Likes: " .$row[5]."
-
-              <form action='user_profile.php?username=$username&postid=".$row[0]."' method='post'>
-                <textarea  class='form-control' name='commentbody' rows='3' cols='40'></textarea>
-                <input type='submit' name='comment' value='Comment!' class='btn btn-light'>
-              </form>"
-
-              .$comments."
-
+          </div>
+          <div class='col-xs-2'>
+          <p>Likes: " .$row[5]."</p>
+        </div>
+        <form action='index.php?postid=".$row[0]."' method='post'>
+        <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
+        <div class='input-group-append'><button type='submit' name='comment' value='Comment!' class='btn btn-secondary'>Post</button>
+        </div>
+        </div>
+      </form>
+      <div class='postComments'>".$comments."</div>
+      </div>
     </div></br>";
   }
 }
