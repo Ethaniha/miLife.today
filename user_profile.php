@@ -245,7 +245,7 @@ if($myusername == $email){
 
 
 <h5 class="sectionHeader"><?php echo $whosProfile;?> Posts</h5>
-<p>(in reverse chronological order)</p>
+<p>(in chronological order)</p>
 
     <?php echo $posts; ?>
   </div>
