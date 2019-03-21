@@ -28,7 +28,7 @@ $user_id = $row[0];
   <body bgcolor = "#FFFFFF">
     
   <?php include("head.php"); ?>
-
+<div class="main-wrapper">
   <div class="container">
 
     <h1 class="pageHeader">My Notifications</h1></div>
@@ -44,7 +44,7 @@ $user_id = $row[0];
 
   </div>
 
-
+</div>
 
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>

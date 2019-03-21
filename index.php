@@ -228,7 +228,7 @@ if ($myusername==''){
   <body bgcolor = "#FFFFFF">
     
   <?php include($_SERVER['DOCUMENT_ROOT']."/head.php"); ?>
-
+  <div class="main-wrapper">
 <div id="feedHeader" class="jumbotron jumbotron-fluid" >
     <div class="container">
   <h1 class="display-2">Welcome, <?php echo $forename; ?></h1>
@@ -237,20 +237,20 @@ if ($myusername==''){
 </div>
   <div class="container">
     <div class="row">
-    <div class="col-md order-2 order-md-1">
-      <div class="jumbotron"><br>
+    <div class="col-lg-3 order-2 order-lg-1">
+      <div class="sidebar"><div class="sidebarTitle">FRIENDS</div><br>
       </div>
     </div>
-    <div class="col-md-6 order-1 order-md-2">
+    <div class="col-lg-6 order-1 order-lg-2">
     <?php echo $posts; ?>
     </div>
-    <div class="col-md order-3 order-md-3">
-      <div class="jumbotron"><br><br><br><br><br>
+    <div class="col-lg-3 order-3 order-lg-3">
+      <div class="sidebar"><div class="sidebarTitle">RECOMENDATIONS</div><br><br><br><br><br>
       </div>
     </div>
   </div>
   </div>
-
+</div>
 
 
 

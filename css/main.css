@@ -1,9 +1,31 @@
 @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
+
+html{
+  height: 100%;
+}
+
 body {
+  height: 100%;
   margin-top: 60px; /* Add a top margin to avoid content overlay */
   z-index: 1;
+  font-family: 'Roboto', sans-serif;
 }
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.page-footer{
+  background-color: rgb(240, 241, 243);
+  color: rgb(119, 119, 119);
+  font-weight: 300;
+  margin-top: 30px;
+  padding: 20px;
+  flex: 1;
+  }
 
 .fas[data-count]{
     position:relative;
@@ -116,10 +138,19 @@ img.searchimg {
   display: none;
 }
 
+.sidebar{
+  background-color: rgb(238, 239, 241);
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.sidebarTitle{
+font-weight: 600;
+}
+
 .post{
   background-color: rgb(245, 246, 248);
-  -webkit-filter: drop-shadow(0px 0px 20px 5px #d3d3d3);
-  filter: drop-shadow(0px 0px 20px 5px #d3d3d3);
   border-radius: 5px;
   padding: 15px;
 }
@@ -157,13 +188,13 @@ height: 70px;
 }
 
 .postContent{
-  padding: 150px 20px 150px 20px;
-  min-height: 400px;
+  padding: 140px 20px 140px 20px;
+  min-height: 280px;
   margin: auto;
 }
 
 .postText{
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: 'Noto Serif', serif;
   font-size: 2.5rem;
   color: rgb(87, 87, 87);
 }
@@ -187,7 +218,7 @@ height: 70px;
 }
 
 .pageHeader{
-    padding-top: 30px;
+    padding: 50px 0px 10px 0px;
     font-size: 2.5rem;
     font-weight: 600;
 }
@@ -217,11 +248,11 @@ height: 70px;
 #feedCaption{
   font-variant-caps: all-small-caps;
   font-weight: 300;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
 }
 
 .display-2{
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .profilePhoto{
@@ -235,13 +266,7 @@ margin: 10px auto 30px auto;
 display: block;
 }
 
-.page-footer{
-background-color: rgb(240, 241, 243);
-color: rgb(119, 119, 119);
-font-weight: 300;
-padding:20px;
-margin-top: 30px;
-}
+
 
 #signin {
   display: -ms-flexbox;

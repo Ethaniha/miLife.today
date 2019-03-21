@@ -320,7 +320,7 @@ if($myusername == $email){
   <body bgcolor = "#FFFFFF">
       
     <?php include("head.php"); ?>
-
+    <div class="main-wrapper">
 
     <div class="container">
     <div class="row">
@@ -340,7 +340,7 @@ if($myusername == $email){
 <form action="" method="post" >
       <input type="submit" name="follow" value="Follow" class="btn btn-primary" id="followButton">
 </form>
-</div></div>
+</div></div></div>
 
 
 

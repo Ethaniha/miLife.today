@@ -58,7 +58,7 @@ if(isset($_GET['username'])) {
   <body bgcolor = "#FFFFFF">
     
   <?php include("head.php"); ?>
-
+  <div class="main-wrapper">
   <div class="container">
 
     <h1 class="pageHeader">My Messages</h1></div>
@@ -86,7 +86,7 @@ if(isset($_GET['username'])) {
           </div>
 </div>
 
-  </div>
+</div>  </div>
 
 
 
