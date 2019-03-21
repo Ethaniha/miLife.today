@@ -149,6 +149,13 @@ img.searchimg {
   margin-bottom: 20px;
 }
 
+.profileBody .sidebar{
+  background-color: rgb(238, 239, 241);
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 18px;
+}
+
 .sidebarTitle{
 font-weight: 600;
 }
@@ -214,9 +221,10 @@ height: 70px;
 }
 
 #profilePagePhoto{
-  margin-top: 70px;
   width: 200px;
   height: 200px;
+  margin: 70px auto 30px auto;
+  display: block;
   border-radius: 100%;
 }
 

@@ -68,6 +68,7 @@ if(isset($_GET['username'])) {
                   <div class="col-md-3">
                       <ul class="list-group" id="users">
                       </ul>
+                      <br>
                   </div>
                   <div class="col-md-9" style="position:relative;">
                       <ul class="list-group" id="chatbox">

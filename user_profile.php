@@ -182,6 +182,26 @@ if (isset($_GET['postid'])) {
 
 }
 
+$sql = "SELECT users.image, users.forename, users.username  FROM users, followers WHERE users.user_id = followers.user_id AND followers.follower_id = '$user_id' AND followers.follower_id != followers.user_id";
+$result = mysqli_query($db, $sql) or die(mysqli_error($db));
+$friends = "";
+
+while ($row = mysqli_fetch_array($result)) {
+  $friends .= '<div class="friend">
+                <div class="container">
+                  <div class="row">
+                  <div class="col-xs-3">
+                  <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
+                  </div>
+                  <div class="col-xs-9 postDetails">
+                  <b><a href="user_profile.php?username='.$row[2].'">'.$row[1].'</a></b>
+                  <p>@'.$row[2].'</p>
+                  </div>
+                  </div>
+                </div>
+              </div>';
+}
+
 $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.image FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $posts = "";
@@ -342,15 +362,20 @@ if($myusername == $email){
 </form>
 </div>
 </div>
-
-
-
-
-
-<h5 class="sectionHeader"><?php echo $whosProfile;?> Posts</h5>
+<div class="row profileBody">
+<div class="col-lg-3 order-2 order-lg-1">
+<h5 class="sectionHeader"><?php echo $whosProfile;?> Friends</h5>
+<br>
+      <div class="sidebar">
+      <?php echo $friends ?>
+      </div>
+    </div>
+    <div class="col-lg-9 order-1 order-lg-2">
+    <h5 class="sectionHeader"><?php echo $whosProfile;?> Posts</h5>
 <p>(in chronological order)</p>
-
     <?php echo $posts; ?>
+</div>
+</div>
   </div>
 
 
