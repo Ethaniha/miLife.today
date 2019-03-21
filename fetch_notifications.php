@@ -34,7 +34,7 @@
 				$row2=mysqli_fetch_array($result2);
 				$sender_id = $row2[0];  			
 
-	  			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>".$sender_id."</strong> Mentioned you in a post: ".$postrow[0]." </span></li>";
+	  			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>".$sender_id."</strong> mentioned you in a post: ".$postrow[0]." </span></li>";
 
   			}
   			else if ($type == 2) {
@@ -52,7 +52,7 @@
 				$row2=mysqli_fetch_array($result2);
 				$sender_id = $row2[0];  			
 
-	  			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>".$sender_id."</strong> Liked your post </span></li>";
+	  			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>".$sender_id."</strong> liked your post </span></li>";
 
   			}
   			else if ($type == 3) {
@@ -70,7 +70,7 @@
 				$row2=mysqli_fetch_array($result2);
 				$sender_id = $row2[0];  			
 
-	  			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>".$sender_id."</strong> Commented on your post: ".$postrow[0]." </span></li>";
+	  			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>".$sender_id."</strong> commented on your post: ".$postrow[0]." </span></li>";
   			}
   			else {
   				$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>You have no notifications</strong> </span></li>";

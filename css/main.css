@@ -153,6 +153,16 @@ img.searchimg {
 font-weight: 600;
 }
 
+.friend{
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.friend .profilePhoto{
+  width:70px;
+  height: 70px;
+  }
+
 .post{
   background-color: rgb(245, 246, 248);
   border-radius: 5px;

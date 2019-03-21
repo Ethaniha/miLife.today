@@ -104,14 +104,57 @@ if (isset($_GET['postid'])) {
 
 }
 
+$sql = "SELECT users.image, users.forename, users.username  FROM users, followers WHERE users.user_id = followers.user_id AND followers.follower_id = '$user_id' AND followers.follower_id != followers.user_id";
+$result = mysqli_query($db, $sql) or die(mysqli_error($db));
+$friends = "";
+
+while ($row = mysqli_fetch_array($result)) {
+  $friends .= '<div class="friend">
+                <div class="container">
+                  <div class="row">
+                  <div class="col-xs-3">
+                  <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
+                  </div>
+                  <div class="col-xs-9 postDetails">
+                  <b><a href="user_profile.php?username='.$row[2].'">'.$row[1].'</a></b>
+                  <p>@'.$row[2].'</p>
+                  </div>
+                  </div>
+                </div>
+              </div>';
+}
+
+$sql = "SELECT users.image, users.forename, users.username FROM users
+INNER JOIN followers ff ON users.user_id = ff.follower_id
+INNER JOIN followers f ON ff.user_id = f.follower_id
+WHERE
+f.user_id = {$user_id}
+AND ff.follower_id NOT IN
+(SELECT follower_id FROM followers WHERE user_id = {$user_id})";
+
+$result = mysqli_query($db, $sql) or die(mysqli_error($db));
+$recomendations = "";
+
+while ($row = mysqli_fetch_array($result)) {
+  $recomendations .= '<div class="friend">
+                <div class="container">
+                  <div class="row">
+                  <div class="col-xs-3">
+                  <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
+                  </div>
+                  <div class="col-xs-9 postDetails">
+                  <b><a href="user_profile.php?username='.$row[2].'">'.$row[1].'</a></b>
+                  <p>@'.$row[2].'</p>
+                  </div>
+                  </div>
+                </div>
+              </div>';
+}
+
 
 $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $posts = "";
-
-/*while ($row = mysqli_fetch_array($result)) {
-  $posts .= "<div class='jumbotron'>".$row[0]."<br><img src='assets/imgs/users/".$row[3]."' width=100 height=100 /> <br> <br><b>" .$row[2]."</b>: ".$row[1]."<hr></div></br>";
-}*/
 
 while ($row = mysqli_fetch_array($result)) {
   $postid = $row[0];
@@ -138,7 +181,7 @@ while ($row = mysqli_fetch_array($result)) {
               <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
             </div>
             <div class='col-xs-9 postDetails'>
-              <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
+              <b><a href='user_profile.php?username=".$row[3]."'>" .$row[3]."</a></b>
               <p><i class='far fa-clock'></i> ".$row[1]."</p>
             </div>
           </div>
@@ -238,14 +281,17 @@ if ($myusername==''){
   <div class="container">
     <div class="row">
     <div class="col-lg-3 order-2 order-lg-1">
-      <div class="sidebar"><div class="sidebarTitle">FRIENDS</div><br>
+      <div class="sidebar"><div class="sidebarTitle">FRIENDS</div>
+      <?php echo $friends ?>
       </div>
     </div>
     <div class="col-lg-6 order-1 order-lg-2">
     <?php echo $posts; ?>
     </div>
     <div class="col-lg-3 order-3 order-lg-3">
-      <div class="sidebar"><div class="sidebarTitle">RECOMENDATIONS</div><br><br><br><br><br>
+      <div class="sidebar"><div class="sidebarTitle">RECOMENDATIONS</div>
+      <small>(FRIENDS OF YOUR FRIENDS)</small>
+      <?php echo $recomendations ?>
       </div>
     </div>
   </div>
