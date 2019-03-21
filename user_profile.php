@@ -364,7 +364,7 @@ if($myusername == $email){
 </div>
 <div class="row profileBody">
 <div class="col-lg-3 order-2 order-lg-1">
-<h5 class="sectionHeader"><?php echo $whosProfile;?> Friends</h5>
+<h5 class="sectionHeader"><?php echo $whosProfile;?> Follows...</h5>
 <br>
       <div class="sidebar">
       <?php echo $friends ?>

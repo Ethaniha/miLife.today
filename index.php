@@ -125,12 +125,15 @@ while ($row = mysqli_fetch_array($result)) {
 }
 
 $sql = "SELECT users.image, users.forename, users.username FROM users
-INNER JOIN followers ff ON users.user_id = ff.follower_id
-INNER JOIN followers f ON ff.user_id = f.follower_id
+INNER JOIN followers ff ON users.user_id = ff.user_id
+INNER JOIN followers f ON ff.follower_id = f.user_id
 WHERE
-f.user_id = {$user_id}
-AND ff.follower_id NOT IN
-(SELECT follower_id FROM followers WHERE user_id = {$user_id})";
+f.follower_id = '$user_id'
+AND ff.user_id NOT IN
+(SELECT user_id FROM followers WHERE follower_id = '$user_id')
+-- AND ff.follower_id NOT IN
+-- (SELECT user_id FROM followers WHERE followers.user_id = '$user_id')
+";
 
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $recomendations = "";
@@ -281,7 +284,7 @@ if ($myusername==''){
   <div class="container">
     <div class="row">
     <div class="col-lg-3 order-2 order-lg-1">
-      <div class="sidebar"><div class="sidebarTitle">FRIENDS</div>
+      <div class="sidebar"><div class="sidebarTitle">YOU FOLLOW</div>
       <?php echo $friends ?>
       </div>
     </div>
@@ -290,7 +293,7 @@ if ($myusername==''){
     </div>
     <div class="col-lg-3 order-3 order-lg-3">
       <div class="sidebar"><div class="sidebarTitle">RECOMENDATIONS</div>
-      <small>(FRIENDS OF YOUR FRIENDS)</small>
+      <small>(USERS WHO FOLLOW WHO YOU FOLLOW)</small>
       <?php echo $recomendations ?>
       </div>
     </div>
