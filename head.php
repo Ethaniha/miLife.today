@@ -136,16 +136,16 @@
       echo '<ul class="nav navbar-nav mobileNav">
       <div id="mobile-center">
   <li>
-      <i class="fas fa-bell navbar-icon" data-count="2"></i>
+      <i class="fas fa-bell navbar-icon dropdown-navbar-icon" data-count="0"></i>
       </li>
       <li>
-      <a href="messages.php"><i class="fas fa-comment-alt navbar-icon"></i></a>
+      <a href="messages.php"><i class="fas fa-comment-alt navbar-icon dropdown-navbar-icon"></i></a>
       </li>
       <li>
-      <a href="user_settings.php"><i class="fas fa-cog navbar-icon" ></i></a>
+      <a href="user_settings.php"><i class="fas fa-cog navbar-icon dropdown-navbar-icon" ></i></a>
       </li>
       <li>
-      <a href="user_profile.php?username='.$_SESSION['username'].'"><i class="fas fa-user navbar-icon"></i></a>
+      <a href="user_profile.php?username='.$_SESSION['username'].'"><i class="fas fa-user navbar-icon dropdown-navbar-icon"></i></a>
       </li></div></ul>';} ?>
   </div>
   <nav class="navbar navbar-expand-sm bg-light navbar-light">
@@ -175,6 +175,9 @@
       </li>
       <li>
       <a href="messages.php"><i class="fas fa-comment-alt navbar-icon" id="messagesBtn"></i></a>
+      </li>
+      <li>
+      <a href="mygroups.php"><i class="fas fa-users navbar-icon" id="groupsBtn"></i></a>
       </li>
       <li>
       <a href="user_settings.php"><i class="fas fa-cog navbar-icon" id="settingsBtn"></i></a>

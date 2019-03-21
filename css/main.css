@@ -22,7 +22,6 @@ body {
   background-color: rgb(240, 241, 243);
   color: rgb(119, 119, 119);
   font-weight: 300;
-  margin-top: 30px;
   padding: 20px;
   flex: 1;
   }
@@ -33,16 +32,17 @@ body {
 .fas[data-count]:after{
     position: absolute;
     right: -0.75em;
-    top: -.75em;
+    top: -0.75em;
     content: attr(data-count);
     padding: .5em;
     border-radius: 10em;
     line-height: .9em;
     color: white;
-    background: rgba(255,0,0,.9);
+    background: rgba(240, 88, 88, 1.0);
     text-align: center;
-    min-width: 2em;
+    min-width: 2.1em;
     font: bold .6em sans-serif;
+    box-shadow: 0px 0px 5px 2px #dddddd;
 }
 
 .navbar{
@@ -118,6 +118,10 @@ img.searchimg {
   padding:10px;
   margin-top: 8px;
   float: right;
+}
+
+#groupsBtn{
+  padding-left: 8px;
 }
 
 #navbar-addpost-icon{
@@ -342,20 +346,25 @@ a {
 
 div.message-from-me {
   float: right;
-  border-radius: 5px;
-  background: #73AD21;
-  padding: 5px;
+  border-radius: 10px;
+  background: rgb(212, 114, 98);
+  box-shadow: 0px 0px 5px 0px #dddddd;
+  color: #FFF;
+  padding: 5px 10px;
   margin-top: 5px;
   clear: both;
+  max-width: 75%;
 }
 
 div.message-from-other {
   float: left;
-  border-radius: 5px;
-  background: lightblue;
-  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px 0px #dddddd;
+  background: rgb(236, 238, 240);
+  padding: 5px 10px;
   margin-top: 5px;
   clear: both;
+  max-width: 75%;
 }
 
 @media only screen and (min-width: 214px) and (max-width: 767px) { 
@@ -397,6 +406,10 @@ div.message-from-other {
     margin: auto;
   }
 
+  .dropdown-navbar-icon{
+    margin-left:10px; 
+  }
+
   #alertsBtn{
     display: none;
   }
@@ -411,6 +424,9 @@ div.message-from-other {
     display: block;
   }
   #navbar-profile-icon{
+    display: none;
+  }
+  #groupsBtn{
     display: none;
   }
 }

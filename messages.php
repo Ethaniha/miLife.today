@@ -78,7 +78,7 @@ if(isset($_GET['username'])) {
                         <div class="input-group mb-3">
                           <input type="text" class="form-control" placeholder="Type your message here.." name="messagebody">
                           <div class="input-group-append">
-                            <button class="btn btn-success" type="submit" name="sendmessage">Send</button>
+                            <button class="btn btn-primary" type="submit" name="sendmessage"><i class="fas fa-paper-plane"></i></button>
                           </div>
                         </div>
                       </form>
