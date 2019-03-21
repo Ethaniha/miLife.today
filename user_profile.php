@@ -340,7 +340,9 @@ if($myusername == $email){
 <form action="" method="post" >
       <input type="submit" name="follow" value="Follow" class="btn btn-primary" id="followButton">
 </form>
-</div></div></div>
+</div>
+</div>
+
 
 
 
