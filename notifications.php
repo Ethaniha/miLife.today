@@ -35,10 +35,15 @@ $user_id = $row[0];
       <div>
           <div class="container">
               <div class="row">
-                  <div class="col-md-12">
+                    <div class="col-md-3">
+                    <form type="post" action="">
+                      <button type="button" class="btn btn-danger btn-sm" id="remove">Remove All</button></br>
+                    </form>
+                    </div>
+                    <div class="col-md-12">
                       <ul class="list-group" id="users">
                       </ul>
-                  </div>
+                    </div>
           </div>
 </div>
 
@@ -58,6 +63,11 @@ $user_id = $row[0];
 
   load_data();
 
+  //$("#users").on("click", "#remove", function() { 
+     //$(this).parent().remove();
+  //});
+
+
   function load_data(query)
   {
   $.ajax({
@@ -68,6 +78,13 @@ $user_id = $row[0];
    }
   });
   }
+
+  //$("#remove").click(function(){
+      //alert("button");
+ //}); 
+
+
+
 
 
 });

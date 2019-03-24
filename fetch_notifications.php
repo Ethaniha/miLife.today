@@ -34,7 +34,7 @@
 				$row2=mysqli_fetch_array($result2);
 				$sender_id = $row2[0];  			
 
-	  			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>".$sender_id."</strong> mentioned you in a post: ".$postrow[0]." </span></li>";
+	  			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee; display: inline;'><span style='font-size:16px;'><strong>".$sender_id."</strong> mentioned you in a post: ".$postrow[0]." </span></li> ";
 
   			}
   			else if ($type == 2) {
@@ -75,6 +75,10 @@
   			else {
   				$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>You have no notifications</strong> </span></li>";
   			}
+
+  			$sqlupdate = "UPDATE notifications SET status=1 WHERE receiver_id = '$user_id' ";
+  			$resultupdate = mysqli_query($db, $sqlupdate) or die(mysqli_error($db));
+
 
   		}
 

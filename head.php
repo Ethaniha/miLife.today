@@ -53,7 +53,7 @@
   $row=mysqli_fetch_array($result);
   $user_id = $row[0];
 
-  $countNotifications = "SELECT receiver_id FROM notifications WHERE receiver_id = '$user_id' ";
+  $countNotifications = "SELECT receiver_id FROM notifications WHERE receiver_id = '$user_id' AND status = 0";
   $result = mysqli_query($db, $countNotifications) or die(mysqli_error($db));
   $notificationNumber = mysqli_num_rows($result);
 
