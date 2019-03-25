@@ -196,14 +196,12 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
           <hr>
           <div class='col-xs-10'>
-            <form action='index.php?&postid=".$row[0]."' method='post'>
-            <button type='submit' class='btn btn-secondary' name='like'>
+            <button type='submit' class='btn btn-secondary like' name='like' data-id='".$row[0]."''>
                 <i class='fas fa-heart'></i>
               </button>
-              </form>
           </div>
           <div class='col-xs-2'>
-          <p>Likes: " .$row[5]."</p>
+          <p data-id='".$row[0]."'>Likes: " .$row[5]."</p>
         </div>
         <form action='index.php?postid=".$row[0]."' method='post'>
         <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
@@ -235,14 +233,12 @@ while ($row = mysqli_fetch_array($result)) {
           </div>
             <hr>
             <div class='col-xs-10'>
-              <form action='index.php?&postid=".$row[0]."' method='post'>
-              <button type='submit' class='btn btn-danger' name='like'>
+              <button type='submit' class='btn btn-danger like' name='like' data-id='".$row[0]."'>
                   <i class='fas fa-heart'></i>
                 </button>
-                </form>
             </div>
             <div class='col-xs-2'>
-            <p>Likes: " .$row[5]."</p>
+            <p data-id='".$row[0]."'>Likes: " .$row[5]."</p>
           </div>
           <form action='index.php?postid=".$row[0]."' method='post'>
             <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
@@ -309,6 +305,47 @@ if ($myusername==''){
   <?php include("footer.php"); ?>
   </body>
 </html>
+
+<script>
+  $(document).ready(function(){
+
+    $('.like').click(function() {
+        var postid = $(this).attr('data-id');
+        $.ajax({
+         url:"like_post.php?post_id="+postid,
+         success:function(data)
+         {
+          $('p[data-id="'+postid+'"]').text("Likes: " + data);
+
+          if ($('.like[data-id="'+postid+'"]').hasClass('btn-danger')) {
+            $('.like[data-id="'+postid+'"]').removeClass('btn-danger');
+            $('.like[data-id="'+postid+'"]').addClass('btn-secondary'); 
+          } else {
+            $('.like[data-id="'+postid+'"]').removeClass('btn-secondary');
+            $('.like[data-id="'+postid+'"]').addClass('btn-danger'); 
+          }
+         },
+         error: function(data)
+         {
+          console.log("fail");
+         }
+      });
+    });
+
+  // $('#like').click(function like_post(query)
+  // {
+  // $.ajax({
+  //  url:"like_post.php",
+  //  success:function(data)
+  //  {
+  //   //$('#users').html(data);
+  //  }
+  // });
+
+});
+
+
+</script>
 
 
 
