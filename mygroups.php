@@ -31,16 +31,38 @@ $user_id = $row[0];
 <div class="main-wrapper">
   <div class="container">
 
-    <h1 class="pageHeader">My Groups</h1></div>
-      <div>
-          <div class="container">
-              <div class="row">
-                   
-          </div>
-</div>
+    <h1 class="pageHeader">My Groups</h1>
+                <a class="btn btn-primary" data-toggle="modal" data-target="#addGroup" href="#"><span class="fas fa-plus"></span> Create a new group</a> 
+        </div>
 
   </div>
-
+  <div class="modal fade" id="addGroup" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalCenterTitle">Create a new Group</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="" method="post" enctype="multipart/form-data">
+      <h6>ADD A GROUP NAME</h6>
+      <input type = "text" name = "name" class="form-control">
+      <br>
+      <h6>DESCRIPTION</h6>
+      <textarea  class="form-control" name="postbody" rows="5" cols="80"></textarea>
+      <br>
+      <h6>GROUP IMAGE</h6>
+      <input type = "file" name = "image" class="btn btn-light form-control">
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" name="sendpost" value="Create" class="btn btn-primary">
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 
