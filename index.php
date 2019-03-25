@@ -66,7 +66,7 @@ $sql = "SELECT User_ID, username, forename FROM users WHERE email = '$myusername
 $result = mysqli_query($db, $sql);
 $row=mysqli_fetch_array($result);
 $user_id = $row[0];
-$forename = $row[2];
+$forename = ucwords($row[2]);
 
 if (isset($_GET['postid'])) {
 
