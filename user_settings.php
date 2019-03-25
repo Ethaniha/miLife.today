@@ -33,12 +33,14 @@ $result = mysqli_query($db, $sql);
 $followers = mysqli_num_rows($result);
 
    if(isset($_FILES['image'])){
+
       $errors= array();
       $file_name = $_FILES['image']['name'];
       $file_size = $_FILES['image']['size'];
       $file_tmp = $_FILES['image']['tmp_name'];
       $file_type = $_FILES['image']['type'];
-      $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+      $file_temp = explode('.',$_FILES['image']['name']);
+      $file_ext=strtolower(end($file_temp));
       
       $extensions= array("jpeg","jpg","png");
       
@@ -51,10 +53,10 @@ $followers = mysqli_num_rows($result);
       }
       
       if(empty($errors)==true) {
-         move_uploaded_file($file_tmp,"../Assets/imgs/users/".$file_name);
+         move_uploaded_file($file_tmp,"Assets/imgs/users/".$file_name);
          
          $sql = "UPDATE users  SET image = '$file_name' WHERE email = '$myusername' ";
-         mysqli_query($db, $sql);
+         mysqli_query($db, $sql) or die(mysqli_error($db));
 
       }else{
          print_r($errors);
@@ -82,7 +84,7 @@ $followers = mysqli_num_rows($result);
 <h3 class="pageHeader">User Settings</h3>
    <div class="row">
    <div class="col-sm-3"><!--left col-->
-   <?php echo "<img src='../Assets/imgs/users/".$avatar."' width=100 height=100 class='profilePhoto' id='settingProfile' />"; ?>
+   <?php echo "<img src='Assets/imgs/users/".$avatar."' width=100 height=100 class='profilePhoto' id='settingProfile' />"; ?>
               <ul class="list-group">
                 <li class="list-group-item text-muted">Profile</li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Name</strong></span> <?php echo $forename; ?> <?php echo $surname; ?></li>
@@ -109,7 +111,7 @@ $followers = mysqli_num_rows($result);
                               <div class="col-xs-6">
                                   <h4>Change Profile Picture</h4><br>
                                   <form class="btn btn-light" action = "" method = "POST" enctype = "multipart/form-data">
-                                  <input type = "file" name = "profileImage" />
+                                  <input type = "file" name = "image"/>
                                   <input class="btn btn-secondary" type = "submit" value="Update Profile Picture"/>
                                 </form>
                               </div>
