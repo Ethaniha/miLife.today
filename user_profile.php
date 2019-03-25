@@ -4,22 +4,7 @@ include ("db.php");
 
 function notify($body, $id, $type, $db) {
 
-  if ($type == 2) {
-    $sql = "SELECT post.user_id FROM post, post_likes WHERE post.post = post_likes.post_id";
-    $result = mysqli_query($db, $sql);
-    $row=mysqli_fetch_array($result);
-    $receiverID = $row[0];
-
-    $myusername = $_SESSION['login_user'];
-    $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
-    $result = mysqli_query($db, $sql);
-    $row=mysqli_fetch_array($result);
-    $user_id = $row[0];
-
-    $sql = "INSERT INTO notifications (type, sender_id, receiver_id, post_id) VALUES (2, '$user_id', '$receiverID', '$id')";
-    $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-  }
-  else if ($type == 3) {
+  if ($type == 3) {
     $sql = "SELECT user_id FROM users_comments WHERE id = '$id' ";
     $result = mysqli_query($db, $sql);
     $row=mysqli_fetch_array($result);
@@ -249,14 +234,12 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
           <hr>
           <div class='col-xs-10'>
-            <form action='index.php?&postid=".$row[0]."' method='post'>
-            <button type='submit' class='btn btn-secondary' name='like'>
+            <button type='submit' class='btn btn-secondary like' name='like' data-id='".$row[0]."''>
                 <i class='fas fa-heart'></i>
               </button>
-              </form>
           </div>
           <div class='col-xs-2'>
-          <p>Likes: " .$row[5]."</p>
+          <p data-id='".$row[0]."'>Likes: " .$row[5]."</p>
         </div>
         <form action='index.php?postid=".$row[0]."' method='post'>
         <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
@@ -294,14 +277,12 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
           <hr>
           <div class='col-xs-10'>
-            <form action='index.php?&postid=".$row[0]."' method='post'>
-            <button type='submit' class='btn btn-danger' name='like'>
-                <i class='fas fa-heart'></i>
-              </button>
-              </form>
-          </div>
-          <div class='col-xs-2'>
-          <p>Likes: " .$row[5]."</p>
+              <button type='submit' class='btn btn-danger like' name='like' data-id='".$row[0]."'>
+                  <i class='fas fa-heart'></i>
+                </button>
+            </div>
+            <div class='col-xs-2'>
+            <p data-id='".$row[0]."'>Likes: " .$row[5]."</p>
         </div>
         <form action='index.php?postid=".$row[0]."' method='post'>
         <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
@@ -409,6 +390,48 @@ if($myusername == $email){
     <?php include("footer.php"); ?>
   </body>
 </html>
+
+
+<script>
+  $(document).ready(function(){
+
+    $('.like').click(function() {
+        var postid = $(this).attr('data-id');
+        $.ajax({
+         url:"like_post.php?post_id="+postid,
+         success:function(data)
+         {
+          $('p[data-id="'+postid+'"]').text("Likes: " + data);
+
+          if ($('.like[data-id="'+postid+'"]').hasClass('btn-danger')) {
+            $('.like[data-id="'+postid+'"]').removeClass('btn-danger');
+            $('.like[data-id="'+postid+'"]').addClass('btn-secondary'); 
+          } else {
+            $('.like[data-id="'+postid+'"]').removeClass('btn-secondary');
+            $('.like[data-id="'+postid+'"]').addClass('btn-danger'); 
+          }
+         },
+         error: function(data)
+         {
+          console.log("fail");
+         }
+      });
+    });
+
+  // $('#like').click(function like_post(query)
+  // {
+  // $.ajax({
+  //  url:"like_post.php",
+  //  success:function(data)
+  //  {
+  //   //$('#users').html(data);
+  //  }
+  // });
+
+});
+
+
+</script>
 
 
 
