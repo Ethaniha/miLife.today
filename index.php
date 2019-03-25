@@ -294,7 +294,7 @@ if ($myusername==''){
                <div class="col-lg-3 order-3 order-lg-3">
                   <div class="sidebar">
                      <div class="sidebarTitle">RECOMENDATIONS</div>
-                     <small>(USERS WHO FOLLOW WHO YOU FOLLOW)</small>
+                     <small>(Related Users)</small>
                      <?php echo $recomendations ?>
                   </div>
                </div>

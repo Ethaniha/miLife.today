@@ -107,6 +107,8 @@ img.searchimg {
 }
 
 .navbar-icon{
+  transition: 0.3s;
+  text-decoration: none;
   color: rgb(92, 92, 92);
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 0px 5px 2px #dddddd;
@@ -118,6 +120,12 @@ img.searchimg {
   padding:10px;
   margin-top: 8px;
   float: right;
+}
+
+.navbar-icon:hover{
+  transition: 0.3s;
+  background-color:#D37262;
+  color:#FFF;
 }
 
 #groupsBtn{
@@ -161,8 +169,14 @@ font-weight: 600;
 }
 
 .friend{
+  transition: 0.3s;
   margin-top: 10px;
   padding: 10px;
+}
+.friend:hover{
+  transition: 0.3s;
+  background-color: #FFF;
+  border-radius: 5px;
 }
 
 .friend .profilePhoto{
@@ -429,6 +443,7 @@ div.message-from-other {
 
   .navbar-icon{
     list-style: none;
+    text-decoration: none;
     display: inline;
     margin: auto;
   }
