@@ -58,7 +58,7 @@ $user_id = $row[0];
     </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input type="submit" name="sendpost" value="Create" class="btn btn-primary">
+        <input type="submit" name="createGroup" value="Create" class="btn btn-primary">
       </div>
       </form>
     </div>

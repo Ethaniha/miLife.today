@@ -321,12 +321,9 @@ if($myusername == $email){
             <div class="col-md-3">
                <?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto'/>"; ?>
             </div>
-            <div class="col-md-4">
-               <h2 id="profileHeader"><?php echo $whosProfile;?> Profile</h2>
-               <b><?php echo $forename; ?> <?php echo $surname; ?></b><br>
-               <!-- <b>Forename: </b><?php echo $forename; ?><br>
-               <b>Surname: </b><?php echo $surname; ?><br> -->
-               <!-- <b>Email: </b><?php echo $email; ?><br> -->
+            <div class="col-md-9">
+               <h2 id="profileHeader"><?php echo $forename; ?> <?php echo $surname; ?></h2>
+               <h6>@<?php echo $username; ?></h6>
                <b>Followers: </b><?php echo $followers; ?><br>
                <?php 
                   $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
@@ -362,17 +359,14 @@ if($myusername == $email){
          </div>
       <div class="container">
          
-         <div class="row profileBody">
+         <div class="row">
             <div class="col-lg-3 order-2 order-lg-1">
-               <h5 class="sectionHeader"><?php echo $whosProfile;?> Follows...</h5>
-               <br>
                <div class="sidebar">
+               <div class="sidebarTitle">FOLLOWING</div>
                   <?php echo $friends ?>
                </div>
             </div>
             <div class="col-lg-9 order-1 order-lg-2">
-               <h5 class="sectionHeader"><?php echo $whosProfile;?> Posts</h5>
-               <p>(in chronological order)</p>
                <?php echo $posts; ?>
             </div>
          </div>
