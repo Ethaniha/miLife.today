@@ -110,12 +110,8 @@ if (isset($_POST['follow'])) {
     $result = mysqli_query($db, $sql);
 
     if (mysqli_num_rows($result) == 1) {
-      echo '<div class="alert alert-info alert-dismissible fade show" role="alert">
-You are already following '.$username.'.
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>';
+      $sql = "DELETE FROM followers WHERE user_id = '$user_id' AND follower_id = '$follower_id'";
+      $result = mysqli_query($db, $sql);
     }
     else {
       $sql = "INSERT INTO followers (user_id, follower_id) VALUES ($user_id, $follower_id)";
@@ -357,9 +353,35 @@ if($myusername == $email){
 <b>Email: </b><?php echo $email; ?><br>
 
 <b>Followers: </b><?php echo $followers; ?><br>
-<form action="" method="post" >
+<?php 
+
+  $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
+  $result = mysqli_query($db, $sql);
+  $row=mysqli_fetch_array($result);
+  $user_id = $row[0];
+
+  $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+  $result = mysqli_query($db, $sql);
+  $row=mysqli_fetch_array($result);
+  $follower_id = $row[0];
+
+  $sql = "SELECT id FROM followers WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
+  $result = mysqli_query($db, $sql);
+
+  if (mysqli_num_rows($result) == 1) {
+    echo '<form action="" method="post" >
+      <input type="submit" name="follow" value="Unfollow" class="btn btn-primary" id="followButton">
+</form>';
+  }
+  else {
+    echo '<form action="" method="post" >
       <input type="submit" name="follow" value="Follow" class="btn btn-primary" id="followButton">
-</form>
+</form>';
+
+    //echo "user followed";
+}
+
+?>
 </div>
 </div>
 <div class="row profileBody">
