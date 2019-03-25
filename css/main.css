@@ -229,7 +229,7 @@ height: 70px;
 }
 
 #profileHeader{
-  font-size: 3.5rem;
+  font-size: 54px;
   font-weight: 600;
   padding-top: 70px;
 }
@@ -265,6 +265,19 @@ height: 70px;
   text-shadow: 0 0 15px rgb(87, 87, 87);
   position: relative;
   z-index: 99;
+}
+
+#profileBanner{
+  background-image: url(../Assets/imgs/user-bg2.png) !important;
+  background-size: cover;
+  background-position: bottom;
+  padding: 50px 0px 50px 0px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 15px rgb(87, 87, 87);
+  position: relative;
+  z-index: 99;
+  text-align: left;
 }
 
 #feedCaption{
@@ -403,10 +416,6 @@ div.message-from-other {
   #mobile-center{
   margin: auto;
   width: 100%;
-  }
-
-  #feedHeader{
-    padding: 100px 0px 50px 0px;
   }
   
   .display-2{
