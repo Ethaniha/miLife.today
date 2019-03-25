@@ -182,6 +182,7 @@ $sql = "SELECT users.image, users.forename, users.username  FROM users, follower
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $friends = "";
 
+if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
   $friends .= '<div class="friend">
                 <div class="container">
@@ -195,7 +196,9 @@ while ($row = mysqli_fetch_array($result)) {
                   </div>
                   </div>
                 </div>
-              </div>';
+              </div>';} 
+} else {
+  $friends = '<h6>'.$forename.' is not currenty following anyone</h6>';
 }
 
 $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.image FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
@@ -386,7 +389,7 @@ if($myusername == $email){
 </div>
 <div class="row profileBody">
 <div class="col-lg-3 order-2 order-lg-1">
-<h5 class="sectionHeader"><?php echo $whosProfile;?> Follows...</h5>
+<h5 class="sectionHeader">Following</h5>
 <br>
       <div class="sidebar">
       <?php echo $friends ?>

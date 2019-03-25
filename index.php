@@ -108,6 +108,7 @@ $sql = "SELECT users.image, users.forename, users.username  FROM users, follower
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $friends = "";
 
+if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
   $friends .= '<div class="friend">
                 <div class="container">
@@ -123,6 +124,9 @@ while ($row = mysqli_fetch_array($result)) {
                 </div>
               </div>';
 }
+} else {
+  $friends = '<h6>You are not currenty following anyone</h6>';
+}
 
 $sql = "SELECT users.image, users.forename, users.username FROM users
 INNER JOIN followers ff ON users.user_id = ff.user_id
@@ -137,7 +141,7 @@ AND ff.user_id NOT IN
 
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $recomendations = "";
-
+if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
   $recomendations .= '<div class="friend">
                 <div class="container">
@@ -153,7 +157,9 @@ while ($row = mysqli_fetch_array($result)) {
                 </div>
               </div>';
 }
-
+} else {
+  $recomendations = '<h6>In order to gain miLife recomendations, please follow at least one user.</h6>';
+}
 
 $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
