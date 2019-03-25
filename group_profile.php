@@ -180,10 +180,10 @@ if (isset($_GET['postid'])) {
 
 $sql = "SELECT users.image, users.forename, users.username  FROM users, followers WHERE users.user_id = followers.user_id AND followers.follower_id = '$user_id' AND followers.follower_id != followers.user_id";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-$friends = "";
+$members = "";
 
 while ($row = mysqli_fetch_array($result)) {
-  $friends .= '<div class="friend">
+  $members .= '<div class="friend">
                 <div class="container">
                   <div class="row">
                   <div class="col-xs-3">
@@ -337,7 +337,9 @@ while ($row = mysqli_fetch_array($result)) {
 <?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto'/>"; ?>
 </div>
 <div class="col-md-4">
-<h2 id="profileHeader"><?php echo $groupName;?></h2>
+<h2 id="profileHeader"> Group Name Here
+<!-- <?php echo $groupName;?> -->
+</h2>
 
 <b>Description: </b>Example Description<br>
 
@@ -375,14 +377,14 @@ while ($row = mysqli_fetch_array($result)) {
 </div>
 <div class="row profileBody">
 <div class="col-lg-3 order-2 order-lg-1">
-<h5 class="sectionHeader"><?php echo $groupName;?> Members</h5>
+<h5 class="sectionHeader">Members</h5>
 <br>
       <div class="sidebar">
-      <?php echo $friends ?>
+      <?php echo $members ?>
       </div>
     </div>
     <div class="col-lg-9 order-1 order-lg-2">
-    <h5 class="sectionHeader"><?php echo $groupName;?> Posts</h5>
+    <h5 class="sectionHeader">Posts</h5>
 <p>(in chronological order)</p>
     <?php echo $posts; ?>
 </div>
