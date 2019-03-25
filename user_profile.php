@@ -315,7 +315,7 @@ while ($row = mysqli_fetch_array($result)) {
 if($myusername == $email){
   $whosProfile = 'My';
 }else{
-  $whosProfile = $forename."'s";
+  $whosProfile = ucwords($forename)."'s";
 }
 
 
