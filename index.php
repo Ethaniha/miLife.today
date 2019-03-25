@@ -176,6 +176,7 @@ while ($row = mysqli_fetch_array($result)) {
   }
 
   if (mysqli_num_rows($result2) < 1) {
+    $date = date_format(new DateTime($row[1]),"d F Y G:i");
     $posts .= "
     <div class='post'>
       <div class='container'>
@@ -185,7 +186,7 @@ while ($row = mysqli_fetch_array($result)) {
             </div>
             <div class='col-xs-9 postDetails'>
               <b><a href='user_profile.php?username=".$row[3]."'>" .$row[3]."</a></b>
-              <p><i class='far fa-clock'></i> ".$row[1]."</p>
+              <p><i class='far fa-clock'></i> ".$date."</p>
             </div>
           </div>
         <div class='row'>
@@ -214,6 +215,7 @@ while ($row = mysqli_fetch_array($result)) {
       </div>
     </div></br>";
   } else {
+      $date = date_format(new DateTime($row[1]),"d F Y G:i");
       $posts .= "
       <div class='post'>
         <div class='container'>
@@ -223,7 +225,7 @@ while ($row = mysqli_fetch_array($result)) {
               </div>
               <div class='col-xs-9 postDetails'>
                 <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
-                <p><i class='far fa-clock'></i> ".$row[1]."</p>
+                <p><i class='far fa-clock'></i> ".$date."</p>
               </div>
             </div>
           <div class='row'>
