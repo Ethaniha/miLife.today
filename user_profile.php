@@ -321,7 +321,7 @@ if($myusername == $email){
             <div class="col-md-3">
                <?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto'/>"; ?>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-9">
                <h2 id="profileHeader"><?php echo $forename; ?> <?php echo $surname; ?></h2>
                <h6>@<?php echo $username; ?></h6>
                <b>Followers: </b><?php echo $followers; ?><br>
