@@ -11,6 +11,11 @@ $result = mysqli_query($db, $sql);
 $row=mysqli_fetch_array($result);
 $user_id = $row[0];
 
+if (isset($_POST['remove'])) {
+  $sqlremove = "DELETE FROM notifications WHERE receiver_id = $user_id ";
+  $result = mysqli_query($db, $sqlremove) or die(mysqli_error($db));
+}
+
 ?>
 
 <html>
@@ -36,8 +41,8 @@ $user_id = $row[0];
           <div class="container">
               <div class="row">
                     <div class="col-md-3">
-                    <form type="post" action="">
-                      <button type="button" class="btn btn-danger btn-sm" id="remove">Remove All</button></br>
+                    <form method="post" action="">
+                      <button type="submit" class="btn btn-danger btn-sm" id="remove" name="remove">Remove All</button></br>
                     </form>
                     </div>
                     <div class="col-md-12">
