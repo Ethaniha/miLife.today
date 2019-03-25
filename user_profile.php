@@ -79,8 +79,8 @@ if (isset($_GET['username'])) {
     while($row=mysqli_fetch_array($result)) {
 
       $email = $row[1];
-      $forename = $row[2];
-      $surname = $row[3];
+      $forename = ucwords($row[2]);
+      $surname = ucwords($row[3]);
       $avatar = $row[4];
     }
   } 
