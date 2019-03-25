@@ -12,6 +12,10 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+#loginBody{
+  overflow:hidden;
+}
+
 .main-wrapper {
   display: flex;
   flex-direction: column;
@@ -55,7 +59,7 @@ body {
 }
 
 .navbar-rightside{
-  width: 30%;
+  width: 20%;
   float: right;
   padding: auto auto 0px auto;
   }
@@ -280,6 +284,7 @@ height: 70px;
   position: relative;
   z-index: 99;
 }
+
 
 #profileBanner{
   background-image: url(../Assets/imgs/user-bg2.png) !important;
