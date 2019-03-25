@@ -15,26 +15,26 @@ if(isset($_GET['username'])) {
 
   $messagerUsername = $_GET['username'];
 
-  if(isset($_POST['sendmessage'])) {
+  // if(isset($_POST['sendmessage'])) {
 
-    $sql = "SELECT User_ID FROM users WHERE username = '$messagerUsername' ";
-    $result = mysqli_query($db, $sql);
-    $row=mysqli_fetch_array($result);
-    $messagerUserId = $row[0];
+  //   $sql = "SELECT User_ID FROM users WHERE username = '$messagerUsername' ";
+  //   $result = mysqli_query($db, $sql);
+  //   $row=mysqli_fetch_array($result);
+  //   $messagerUserId = $row[0];
 
-    $messageBody = $_POST['messagebody'];
+  //   $messageBody = $_POST['messagebody'];
 
-    if(!empty($messageBody)) {
+  //   if(!empty($messageBody)) {
       
-        $sql = "INSERT INTO messages (body, sender_id, receiver_id, read_status) VALUES ('$messageBody', '$user_id', '$messagerUserId', 0)";
-        $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-    }
-    else {
-      echo "empty";
-    }
+  //       $sql = "INSERT INTO messages (body, sender_id, receiver_id, read_status) VALUES ('$messageBody', '$user_id', '$messagerUserId', 0)";
+  //       $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  //   }
+  //   else {
+  //     echo "empty";
+  //   }
 
-    $sql = "";
-  }
+  //   $sql = "";
+  // }
 }
 
   $sql = "SELECT users.username FROM users, followers WHERE users.user_id = followers.user_id AND followers.follower_id = '$user_id'";
@@ -75,14 +75,12 @@ if(isset($_GET['username'])) {
                           <li class="list-group-item" id="messages" style="overflow:auto;height:500px;margin-bottom:15px;">
                           </li>
                       </ul>
-                      <form action='' method="post">
                         <div class="input-group mb-3">
-                          <input type="text" class="form-control" placeholder="Type your message here.." name="messagebody">
+                          <input type="text" class="form-control" placeholder="Type your message here.." name="messagebody" id="messageBody">;
                           <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit" name="sendmessage"><i class="fas fa-paper-plane"></i></button>
+                            <button class="btn btn-primary" type="submit" name="sendmessage" id="sendmessage"><i class="fas fa-paper-plane"></i></button>
                           </div>
                         </div>
-                      </form>
               </div>
           </div>
 </div>
@@ -99,7 +97,7 @@ if(isset($_GET['username'])) {
 
 
 <script>
-  $(document).ready(function(){
+$(document).ready(function(){
 
   load_data();
   var username = "<?php echo $messagerUsername; ?>";
@@ -147,5 +145,31 @@ if(isset($_GET['username'])) {
   window.location = url;
   });
 
+  $('#sendmessage').click(function() {
+
+    var messageToSend = $("#messageBody").val();
+    $("#messageBody").val("");
+
+    $.ajax({
+      url:"send_message.php",
+      type: "POST",
+      dataType: "JSON",
+      data: {
+        'message': messageToSend, 
+        'username': username
+      },
+      success:function(data)
+      {
+        console.log(data);
+      },
+      error: function(data){
+      }
+    });
+
+
+    load_messages();
+
   });
+
+});
 </script>
