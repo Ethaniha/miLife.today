@@ -264,50 +264,44 @@ if ($myusername==''){
 ?> 
 
 <html>
-   
-  <head>
-    <title>miLIFE | Home</title>
-      
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-      
-  </head>
-   
-  <body bgcolor = "#FFFFFF">
-    
-  <?php include($_SERVER['DOCUMENT_ROOT']."/head.php"); ?>
-  <div class="main-wrapper">
-<div id="feedHeader" class="jumbotron jumbotron-fluid" >
-    <div class="container">
-  <h1 class="display-2">Welcome, <?php echo $forename; ?></h1>
-  <p id="feedCaption">Here are all the updates since you last logged in</p>
-</div>
-</div>
-  <div class="container">
-    <div class="row">
-    <div class="col-lg-3 order-2 order-lg-1">
-      <div class="sidebar"><div class="sidebarTitle">YOU FOLLOW</div>
-      <?php echo $friends ?>
+   <head>
+      <title>miLIFE | Home</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+   </head>
+   <body bgcolor = "#FFFFFF">
+      <?php include($_SERVER['DOCUMENT_ROOT']."/head.php"); ?>
+      <div class="main-wrapper">
+         <div id="feedHeader" class="jumbotron jumbotron-fluid" >
+            <div class="container">
+               <h1 class="display-2">Welcome, <?php echo $forename; ?></h1>
+               <p id="feedCaption">Here are all the updates since you last logged in</p>
+            </div>
+         </div>
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-3 order-2 order-lg-1">
+                  <div class="sidebar">
+                     <div class="sidebarTitle">YOU FOLLOW</div>
+                     <?php echo $friends ?>
+                  </div>
+               </div>
+               <div class="col-lg-6 order-1 order-lg-2">
+                  <?php echo $posts; ?>
+               </div>
+               <div class="col-lg-3 order-3 order-lg-3">
+                  <div class="sidebar">
+                     <div class="sidebarTitle">RECOMENDATIONS</div>
+                     <small>(USERS WHO FOLLOW WHO YOU FOLLOW)</small>
+                     <?php echo $recomendations ?>
+                  </div>
+               </div>
+            </div>
+         </div>
       </div>
-    </div>
-    <div class="col-lg-6 order-1 order-lg-2">
-    <?php echo $posts; ?>
-    </div>
-    <div class="col-lg-3 order-3 order-lg-3">
-      <div class="sidebar"><div class="sidebarTitle">RECOMENDATIONS</div>
-      <small>(USERS WHO FOLLOW WHO YOU FOLLOW)</small>
-      <?php echo $recomendations ?>
-      </div>
-    </div>
-  </div>
-  </div>
-</div>
-
-
-
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-  <?php include("footer.php"); ?>
-  </body>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+      <?php include("footer.php"); ?>
+   </body>
 </html>
 
 

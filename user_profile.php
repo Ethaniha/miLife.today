@@ -322,89 +322,80 @@ if($myusername == $email){
 ?>
 
 <html>
-   
-  <head>
-
-    <title>miLIFE | <?php echo $forename. ' ' .$surname ?></title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-      
-  </head>
-   
-  <body bgcolor = "#FFFFFF">
-      
-    <?php include("head.php"); ?>
-    <div class="main-wrapper">
-
-    <div class="container">
-    <div class="row">
-<div class="col-md-3">
-<?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto'/>"; ?>
-</div>
-<div class="col-md-4">
-<h2 id="profileHeader"><?php echo $whosProfile;?> Profile</h2>
-
-<b>Forename: </b><?php echo $forename; ?><br>
-
-<b>Surname: </b><?php echo $surname; ?><br>
-
-<b>Email: </b><?php echo $email; ?><br>
-
-<b>Followers: </b><?php echo $followers; ?><br>
-<?php 
-
-  $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
-  $result = mysqli_query($db, $sql);
-  $row=mysqli_fetch_array($result);
-  $user_id = $row[0];
-
-  $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
-  $result = mysqli_query($db, $sql);
-  $row=mysqli_fetch_array($result);
-  $follower_id = $row[0];
-
-  $sql = "SELECT id FROM followers WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
-  $result = mysqli_query($db, $sql);
-
-  if (mysqli_num_rows($result) == 1) {
-    echo '<form action="" method="post" >
-      <input type="submit" name="follow" value="Unfollow" class="btn btn-primary" id="followButton">
-</form>';
-  }
-  else {
-    echo '<form action="" method="post" >
-      <input type="submit" name="follow" value="Follow" class="btn btn-primary" id="followButton">
-</form>';
-
-    //echo "user followed";
-}
-
-?>
-</div>
-</div>
-<div class="row profileBody">
-<div class="col-lg-3 order-2 order-lg-1">
-<h5 class="sectionHeader"><?php echo $whosProfile;?> Follows...</h5>
-<br>
-      <div class="sidebar">
-      <?php echo $friends ?>
+   <head>
+      <title>miLIFE | <?php echo $forename. ' ' .$surname ?></title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+      <link rel="stylesheet" href="css/main.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+   </head>
+   <body bgcolor = "#FFFFFF">
+      <?php include("head.php"); ?>
+      <div class="main-wrapper">
+      <div id="profileBanner" class="jumbotron jumbotron-fluid" >
+            <div class="container">
+            <div class="row">
+            <div class="col-md-3">
+               <?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto'/>"; ?>
+            </div>
+            <div class="col-md-4">
+               <h2 id="profileHeader"><?php echo $whosProfile;?> Profile</h2>
+               <b><?php echo $forename; ?> <?php echo $surname; ?></b><br>
+               <!-- <b>Forename: </b><?php echo $forename; ?><br>
+               <b>Surname: </b><?php echo $surname; ?><br> -->
+               <!-- <b>Email: </b><?php echo $email; ?><br> -->
+               <b>Followers: </b><?php echo $followers; ?><br>
+               <?php 
+                  $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
+                  $result = mysqli_query($db, $sql);
+                  $row=mysqli_fetch_array($result);
+                  $user_id = $row[0];
+                  
+                  $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+                  $result = mysqli_query($db, $sql);
+                  $row=mysqli_fetch_array($result);
+                  $follower_id = $row[0];
+                  
+                  $sql = "SELECT id FROM followers WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
+                  $result = mysqli_query($db, $sql);
+                  
+                  if (mysqli_num_rows($result) == 1) {
+                    echo '<form action="" method="post" >
+                      <input type="submit" name="follow" value="Unfollow" class="btn btn-primary" id="followButton">
+                  </form>';
+                  }
+                  else {
+                    echo '<form action="" method="post" >
+                      <input type="submit" name="follow" value="Follow" class="btn btn-primary" id="followButton">
+                  </form>';
+                  
+                    //echo "user followed";
+                  }
+                  
+                  ?>
+            </div>
+         </div>
+            </div>
+         </div>
+      <div class="container">
+         
+         <div class="row profileBody">
+            <div class="col-lg-3 order-2 order-lg-1">
+               <h5 class="sectionHeader"><?php echo $whosProfile;?> Follows...</h5>
+               <br>
+               <div class="sidebar">
+                  <?php echo $friends ?>
+               </div>
+            </div>
+            <div class="col-lg-9 order-1 order-lg-2">
+               <h5 class="sectionHeader"><?php echo $whosProfile;?> Posts</h5>
+               <p>(in chronological order)</p>
+               <?php echo $posts; ?>
+            </div>
+         </div>
       </div>
-    </div>
-    <div class="col-lg-9 order-1 order-lg-2">
-    <h5 class="sectionHeader"><?php echo $whosProfile;?> Posts</h5>
-<p>(in chronological order)</p>
-    <?php echo $posts; ?>
-</div>
-</div>
-  </div>
-
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-    <?php include("footer.php"); ?>
-  </body>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+      <?php include("footer.php"); ?>
+   </body>
 </html>
 
 
