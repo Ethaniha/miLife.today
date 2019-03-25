@@ -72,19 +72,19 @@
 
 	  			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>".$sender_id."</strong> commented on your post: ".$postrow[0]." </span></li>";
   			}
-  			else {
-  				$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>You have no notifications</strong> </span></li>";
-  			}
 
   			$sqlupdate = "UPDATE notifications SET status=1 WHERE receiver_id = '$user_id' ";
   			$resultupdate = mysqli_query($db, $sqlupdate) or die(mysqli_error($db));
 
 
-  		}
+  		} 
 
   		echo $searchOuput;
 
-	}
+	} else {
+  		$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>You have no notifications</strong> </span></li>";
+  		echo $searchOuput;
+  	}
 ?>
 
 
