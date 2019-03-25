@@ -180,11 +180,10 @@ if (isset($_GET['postid'])) {
 
 $sql = "SELECT users.image, users.forename, users.username  FROM users, followers WHERE users.user_id = followers.user_id AND followers.follower_id = '$user_id' AND followers.follower_id != followers.user_id";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-$friends = "";
+$members = "";
 
-if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
-  $friends .= '<div class="friend">
+  $members .= '<div class="friend">
                 <div class="container">
                   <div class="row">
                   <div class="col-xs-3">
@@ -196,9 +195,7 @@ while ($row = mysqli_fetch_array($result)) {
                   </div>
                   </div>
                 </div>
-              </div>';} 
-} else {
-  $friends = '<h6>'.$forename.' is not currenty following anyone</h6>';
+              </div>';
 }
 
 $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.image FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
@@ -315,20 +312,13 @@ while ($row = mysqli_fetch_array($result)) {
   }
 }
 
-if($myusername == $email){
-  $whosProfile = 'My';
-}else{
-  $whosProfile = ucwords($forename)."'s";
-}
-
-
 ?>
 
 <html>
    
   <head>
 
-    <title>miLIFE | <?php echo $forename. ' ' .$surname ?></title>
+    <title>miLIFE | <?php echo $groupName ?></title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
@@ -347,15 +337,13 @@ if($myusername == $email){
 <?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto'/>"; ?>
 </div>
 <div class="col-md-4">
-<h2 id="profileHeader"><?php echo $whosProfile;?> Profile</h2>
+<h2 id="profileHeader"> Group Name Here
+<!-- <?php echo $groupName;?> -->
+</h2>
 
-<b>Forename: </b><?php echo $forename; ?><br>
+<b>Description: </b>Example Description<br>
 
-<b>Surname: </b><?php echo $surname; ?><br>
-
-<b>Email: </b><?php echo $email; ?><br>
-
-<b>Followers: </b><?php echo $followers; ?><br>
+<b>Members: </b>67<br>
 <?php 
 
   $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
@@ -373,12 +361,12 @@ if($myusername == $email){
 
   if (mysqli_num_rows($result) == 1) {
     echo '<form action="" method="post" >
-      <input type="submit" name="follow" value="Unfollow" class="btn btn-primary" id="followButton">
+      <input type="submit" name="follow" value="Leave Group" class="btn btn-primary" id="followButton">
 </form>';
   }
   else {
     echo '<form action="" method="post" >
-      <input type="submit" name="follow" value="Follow" class="btn btn-primary" id="followButton">
+      <input type="submit" name="follow" value="Join Group" class="btn btn-primary" id="followButton">
 </form>';
 
     //echo "user followed";
@@ -389,14 +377,14 @@ if($myusername == $email){
 </div>
 <div class="row profileBody">
 <div class="col-lg-3 order-2 order-lg-1">
-<h5 class="sectionHeader">Following</h5>
+<h5 class="sectionHeader">Members</h5>
 <br>
       <div class="sidebar">
-      <?php echo $friends ?>
+      <?php echo $members ?>
       </div>
     </div>
     <div class="col-lg-9 order-1 order-lg-2">
-    <h5 class="sectionHeader"><?php echo $whosProfile;?> Posts</h5>
+    <h5 class="sectionHeader">Posts</h5>
 <p>(in chronological order)</p>
     <?php echo $posts; ?>
 </div>
