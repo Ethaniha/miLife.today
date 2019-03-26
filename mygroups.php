@@ -10,6 +10,23 @@ $result = mysqli_query($db, $sql);
 $row=mysqli_fetch_array($result);
 $user_id = $row[0];
 
+if (isset($_POST['createGroup'])) {
+  $groupName = mysqli_real_escape_string($db, $_POST['groupName']);
+  $groupDesc = mysqli_real_escape_string($db, $_POST['groupDesc']);
+  if($_FILES['groupImage']['size'] != 0) {
+    $groupImage = mysqli_real_escape_string($db, $_POST['groupImage']);
+  } else {
+    $groupImage = mysqli_real_escape_string($db, "defaultGroup.jpg");
+  }
+
+  $sql = "INSERT INTO groups (owner, name, description, image) VALUES ('$user_id', '$groupName', '$groupDesc', '$groupImage')";
+  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+  $last_row = mysqli_insert_id($db);
+  $sql = "INSERT INTO group_users (group_id, user_id) VALUES ('$last_row', '$user_id')";
+  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+}
+
 
 ?>
 
@@ -32,37 +49,42 @@ $user_id = $row[0];
   <div class="container">
 
     <h1 class="pageHeader">My Groups</h1>
-                <a class="btn btn-primary" data-toggle="modal" data-target="#addGroup" href="#"><span class="fas fa-plus"></span> Create a new group</a> 
+                <a class="btn btn-primary" data-toggle="modal" data-target="#addGroup" href="#"><span class="fas fa-plus"></span> Create a new group</a></br><br> 
+                <div class="col-md-13">
+                  <ul class="list-group" id="users">
+                </ul>
+          </div>
         </div>
 
   </div>
   <div class="modal fade" id="addGroup" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalCenterTitle">Create a new Group</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <form action="" method="post" enctype="multipart/form-data">
-      <h6>ADD A GROUP NAME</h6>
-      <input type = "text" name = "name" class="form-control">
-      <br>
-      <h6>DESCRIPTION</h6>
-      <textarea  class="form-control" name="postbody" rows="5" cols="80"></textarea>
-      <br>
-      <h6>GROUP IMAGE</h6>
-      <input type = "file" name = "image" class="btn btn-light form-control">
-    </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input type="submit" name="createGroup" value="Create" class="btn btn-primary">
-      </div>
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content">
+       <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalCenterTitle">Create a new Group</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" enctype="multipart/form-data">
+            <h6>ADD A GROUP NAME</h6>
+            <input type = "text" name = "groupName" class="form-control">
+            <br>
+            <h6>DESCRIPTION</h6>
+            <textarea  class="form-control" name="groupDesc" rows="5" cols="80"></textarea>
+            <br>
+            <h6>GROUP IMAGE</h6>
+            <input type = "file" name = "groupImage" class="btn btn-light form-control">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input type="submit" name="createGroup" value="Create" class="btn btn-primary">
+        </div>
       </form>
     </div>
   </div>
+
 </div>
 
 
@@ -70,3 +92,24 @@ $user_id = $row[0];
   <?php include("footer.php"); ?>
   </body>
 </html>
+
+<script>
+$(document).ready(function(){
+
+  load_data();
+
+  function load_data(query)
+  {
+  $.ajax({
+   url:"fetch_groups.php",
+   success:function(data)
+   {
+    $('#users').html(data);
+    console.log(data);
+   }
+  });
+  }
+
+
+});
+</script>
