@@ -111,25 +111,43 @@ if (isset($_GET['postid'])) {
 
 }
 
-// $sql = "SELECT users.image, users.forename, users.username  FROM users, followers WHERE users.user_id = followers.user_id AND followers.follower_id = '$user_id' AND followers.follower_id != followers.user_id";
-// $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-// $members = "";
+if (isset($_GET['group_id'])) {
+  $group_id = $_GET['group_id'];
 
-// while ($row = mysqli_fetch_array($result)) {
-//   $members .= '<div class="friend">
-//                 <div class="container">
-//                   <div class="row">
-//                   <div class="col-xs-3">
-//                   <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
-//                   </div>
-//                   <div class="col-xs-9 postDetails">
-//                   <b><a href="user_profile.php?username='.$row[2].'">'.$row[1].'</a></b>
-//                   <p>@'.$row[2].'</p>
-//                   </div>
-//                   </div>
-//                 </div>
-//               </div>';
-// }
+  $sql = "SELECT name, description, owner,image FROM groups WHERE id = $group_id";
+  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  $row=mysqli_fetch_array($result);
+
+  $groupName = $row[0];
+  $groupDesc = $row[1];
+  $groupOwner = $row[2];
+  $groupImage = $row[3];
+
+  $sql = "SELECT * FROM group_users WHERE group_id = $group_id";
+  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  $groupMembers = mysqli_num_rows($result);
+
+  $sql = "SELECT users.image, users.forename, users.username  FROM users, group_users WHERE users.user_id = group_users.user_id AND group_users.group_id = $group_id AND $user_id != group_users.user_id";
+  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  $members = "";
+
+  while ($row = mysqli_fetch_array($result)) {
+    $members .= '<div class="friend">
+                  <div class="container">
+                    <div class="row">
+                    <div class="col-xs-3">
+                    <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
+                    </div>
+                    <div class="col-xs-9 postDetails">
+                    <b><a href="user_profile.php?username='.$row[2].'">'.$row[1].'</a></b>
+                    <p>@'.$row[2].'</p>
+                    </div>
+                    </div>
+                  </div>
+                </div>';
+  }
+
+}
 
 // $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.image FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
 // $result = mysqli_query($db, $sql) or die(mysqli_error($db));
@@ -267,29 +285,19 @@ if (isset($_GET['postid'])) {
     <div class="container">
     <div class="row">
 <div class="col-md-3">
-<?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto'/>"; ?>
+<?php echo "<img src='../Assets/imgs/groups/".$groupImage."' id='profilePagePhoto'/>"; ?>
 </div>
 <div class="col-md-4">
-<h2 id="profileHeader"> Group Name Here
-<!-- <?php echo $groupName;?> -->
+<h2 id="profileHeader"> 
+<?php echo $groupName;?>
 </h2>
 
-<b>Description: </b>Example Description<br>
+<b>Description: </b><?php echo $groupDesc; ?> <br>
 
-<b>Members: </b>67<br>
+<b>Members: </b><?php echo $groupMembers; ?><br>
 <?php 
 
-  $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
-  $result = mysqli_query($db, $sql);
-  $row=mysqli_fetch_array($result);
-  $user_id = $row[0];
-
-  $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
-  $result = mysqli_query($db, $sql);
-  $row=mysqli_fetch_array($result);
-  $follower_id = $row[0];
-
-  $sql = "SELECT id FROM followers WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
+  $sql = "SELECT id FROM group_users WHERE group_id = $group_id AND user_id = $group_id ";
   $result = mysqli_query($db, $sql);
 
   if (mysqli_num_rows($result) == 1) {
