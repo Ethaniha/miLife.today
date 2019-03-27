@@ -4,22 +4,7 @@ include ("db.php");
 
 function notify($body, $id, $type, $db) {
 
-  if ($type == 2) {
-    $sql = "SELECT post.user_id FROM post, post_likes WHERE post.post = post_likes.post_id";
-    $result = mysqli_query($db, $sql);
-    $row=mysqli_fetch_array($result);
-    $receiverID = $row[0];
-
-    $myusername = $_SESSION['login_user'];
-    $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
-    $result = mysqli_query($db, $sql);
-    $row=mysqli_fetch_array($result);
-    $user_id = $row[0];
-
-    $sql = "INSERT INTO notifications (type, sender_id, receiver_id, post_id) VALUES (2, '$user_id', '$receiverID', '$id')";
-    $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-  }
-  else if ($type == 3) {
+  if ($type == 3) {
     $sql = "SELECT user_id FROM users_comments WHERE id = '$id' ";
     $result = mysqli_query($db, $sql);
     $row=mysqli_fetch_array($result);
@@ -182,6 +167,7 @@ $sql = "SELECT users.image, users.forename, users.username  FROM users, follower
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $friends = "";
 
+if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
   $friends .= '<div class="friend">
                 <div class="container">
@@ -195,7 +181,9 @@ while ($row = mysqli_fetch_array($result)) {
                   </div>
                   </div>
                 </div>
-              </div>';
+              </div>';} 
+} else {
+  $friends = '<h6>'.$forename.' is not currenty following anyone</h6>';
 }
 
 $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.image FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
@@ -246,14 +234,12 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
           <hr>
           <div class='col-xs-10'>
-            <form action='index.php?&postid=".$row[0]."' method='post'>
-            <button type='submit' class='btn btn-secondary' name='like'>
+            <button type='submit' class='btn btn-secondary like' name='like' data-id='".$row[0]."''>
                 <i class='fas fa-heart'></i>
               </button>
-              </form>
           </div>
           <div class='col-xs-2'>
-          <p>Likes: " .$row[5]."</p>
+          <p data-id='".$row[0]."'>Likes: " .$row[5]."</p>
         </div>
         <form action='index.php?postid=".$row[0]."' method='post'>
         <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
@@ -291,14 +277,12 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
           <hr>
           <div class='col-xs-10'>
-            <form action='index.php?&postid=".$row[0]."' method='post'>
-            <button type='submit' class='btn btn-danger' name='like'>
-                <i class='fas fa-heart'></i>
-              </button>
-              </form>
-          </div>
-          <div class='col-xs-2'>
-          <p>Likes: " .$row[5]."</p>
+              <button type='submit' class='btn btn-danger like' name='like' data-id='".$row[0]."'>
+                  <i class='fas fa-heart'></i>
+                </button>
+            </div>
+            <div class='col-xs-2'>
+            <p data-id='".$row[0]."'>Likes: " .$row[5]."</p>
         </div>
         <form action='index.php?postid=".$row[0]."' method='post'>
         <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
@@ -322,90 +306,117 @@ if($myusername == $email){
 ?>
 
 <html>
-   
-  <head>
-
-    <title>miLIFE | <?php echo $forename. ' ' .$surname ?></title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-      
-  </head>
-   
-  <body bgcolor = "#FFFFFF">
-      
-    <?php include("head.php"); ?>
-    <div class="main-wrapper">
-
-    <div class="container">
-    <div class="row">
-<div class="col-md-3">
-<?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto'/>"; ?>
-</div>
-<div class="col-md-4">
-<h2 id="profileHeader"><?php echo $whosProfile;?> Profile</h2>
-
-<b>Forename: </b><?php echo $forename; ?><br>
-
-<b>Surname: </b><?php echo $surname; ?><br>
-
-<b>Email: </b><?php echo $email; ?><br>
-
-<b>Followers: </b><?php echo $followers; ?><br>
-<?php 
-
-  $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
-  $result = mysqli_query($db, $sql);
-  $row=mysqli_fetch_array($result);
-  $user_id = $row[0];
-
-  $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
-  $result = mysqli_query($db, $sql);
-  $row=mysqli_fetch_array($result);
-  $follower_id = $row[0];
-
-  $sql = "SELECT id FROM followers WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
-  $result = mysqli_query($db, $sql);
-
-  if (mysqli_num_rows($result) == 1) {
-    echo '<form action="" method="post" >
-      <input type="submit" name="follow" value="Unfollow" class="btn btn-primary" id="followButton">
-</form>';
-  }
-  else {
-    echo '<form action="" method="post" >
-      <input type="submit" name="follow" value="Follow" class="btn btn-primary" id="followButton">
-</form>';
-
-    //echo "user followed";
-}
-
-?>
-</div>
-</div>
-<div class="row profileBody">
-<div class="col-lg-3 order-2 order-lg-1">
-<h5 class="sectionHeader"><?php echo $whosProfile;?> Follows...</h5>
-<br>
-      <div class="sidebar">
-      <?php echo $friends ?>
+   <head>
+      <title>miLIFE | <?php echo $forename. ' ' .$surname ?></title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+      <link rel="stylesheet" href="css/main.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+   </head>
+   <body bgcolor = "#FFFFFF">
+      <?php include("head.php"); ?>
+      <div class="main-wrapper">
+      <div id="profileBanner" class="jumbotron jumbotron-fluid" >
+            <div class="container">
+            <div class="row">
+            <div class="col-md-3">
+               <?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto'/>"; ?>
+            </div>
+            <div class="col-md-9">
+               <h2 id="profileHeader"><?php echo $forename; ?> <?php echo $surname; ?></h2>
+               <h6>@<?php echo $username; ?></h6>
+               <b>Followers: </b><?php echo $followers; ?><br>
+               <?php 
+                  $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
+                  $result = mysqli_query($db, $sql);
+                  $row=mysqli_fetch_array($result);
+                  $user_id = $row[0];
+                  
+                  $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+                  $result = mysqli_query($db, $sql);
+                  $row=mysqli_fetch_array($result);
+                  $follower_id = $row[0];
+                  
+                  $sql = "SELECT id FROM followers WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
+                  $result = mysqli_query($db, $sql);
+                  
+                  if (mysqli_num_rows($result) == 1) {
+                    echo '<form action="" method="post" >
+                      <input type="submit" name="follow" value="Unfollow" class="btn btn-primary" id="followButton">
+                  </form>';
+                  }
+                  else {
+                    echo '<form action="" method="post" >
+                      <input type="submit" name="follow" value="Follow" class="btn btn-primary" id="followButton">
+                  </form>';
+                  
+                    //echo "user followed";
+                  }
+                  
+                  ?>
+            </div>
+         </div>
+            </div>
+         </div>
+      <div class="container">
+         
+         <div class="row">
+            <div class="col-lg-3 order-2 order-lg-1">
+               <div class="sidebar">
+               <div class="sidebarTitle">FOLLOWING</div>
+                  <?php echo $friends ?>
+               </div>
+            </div>
+            <div class="col-lg-9 order-1 order-lg-2">
+               <?php echo $posts; ?>
+            </div>
+         </div>
       </div>
-    </div>
-    <div class="col-lg-9 order-1 order-lg-2">
-    <h5 class="sectionHeader"><?php echo $whosProfile;?> Posts</h5>
-<p>(in chronological order)</p>
-    <?php echo $posts; ?>
-</div>
-</div>
-  </div>
-
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-    <?php include("footer.php"); ?>
-  </body>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+      <?php include("footer.php"); ?>
+   </body>
 </html>
+
+
+<script>
+  $(document).ready(function(){
+
+    $('.like').click(function() {
+        var postid = $(this).attr('data-id');
+        $.ajax({
+         url:"like_post.php?post_id="+postid,
+         success:function(data)
+         {
+          $('p[data-id="'+postid+'"]').text("Likes: " + data);
+
+          if ($('.like[data-id="'+postid+'"]').hasClass('btn-danger')) {
+            $('.like[data-id="'+postid+'"]').removeClass('btn-danger');
+            $('.like[data-id="'+postid+'"]').addClass('btn-secondary'); 
+          } else {
+            $('.like[data-id="'+postid+'"]').removeClass('btn-secondary');
+            $('.like[data-id="'+postid+'"]').addClass('btn-danger'); 
+          }
+         },
+         error: function(data)
+         {
+          console.log("fail");
+         }
+      });
+    });
+
+  // $('#like').click(function like_post(query)
+  // {
+  // $.ajax({
+  //  url:"like_post.php",
+  //  success:function(data)
+  //  {
+  //   //$('#users').html(data);
+  //  }
+  // });
+
+});
+
+
+</script>
 
 
 

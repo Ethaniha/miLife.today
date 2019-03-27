@@ -108,6 +108,7 @@ $sql = "SELECT users.image, users.forename, users.username  FROM users, follower
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $friends = "";
 
+if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
   $friends .= '<div class="friend">
                 <div class="container">
@@ -123,6 +124,9 @@ while ($row = mysqli_fetch_array($result)) {
                 </div>
               </div>';
 }
+} else {
+  $friends = '<h6>You are not currenty following anyone</h6>';
+}
 
 $sql = "SELECT users.image, users.forename, users.username FROM users
 INNER JOIN followers ff ON users.user_id = ff.user_id
@@ -137,7 +141,7 @@ AND ff.user_id NOT IN
 
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $recomendations = "";
-
+if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
   $recomendations .= '<div class="friend">
                 <div class="container">
@@ -153,7 +157,9 @@ while ($row = mysqli_fetch_array($result)) {
                 </div>
               </div>';
 }
-
+} else {
+  $recomendations = '<h6>In order to gain miLife recomendations, please follow at least one user.</h6>';
+}
 
 $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
@@ -196,14 +202,12 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
           <hr>
           <div class='col-xs-10'>
-            <form action='index.php?&postid=".$row[0]."' method='post'>
-            <button type='submit' class='btn btn-secondary' name='like'>
+            <button type='submit' class='btn btn-secondary like' name='like' data-id='".$row[0]."''>
                 <i class='fas fa-heart'></i>
               </button>
-              </form>
           </div>
           <div class='col-xs-2'>
-          <p>Likes: " .$row[5]."</p>
+          <p data-id='".$row[0]."'>Likes: " .$row[5]."</p>
         </div>
         <form action='index.php?postid=".$row[0]."' method='post'>
         <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
@@ -235,14 +239,12 @@ while ($row = mysqli_fetch_array($result)) {
           </div>
             <hr>
             <div class='col-xs-10'>
-              <form action='index.php?&postid=".$row[0]."' method='post'>
-              <button type='submit' class='btn btn-danger' name='like'>
+              <button type='submit' class='btn btn-danger like' name='like' data-id='".$row[0]."'>
                   <i class='fas fa-heart'></i>
                 </button>
-                </form>
             </div>
             <div class='col-xs-2'>
-            <p>Likes: " .$row[5]."</p>
+            <p data-id='".$row[0]."'>Likes: " .$row[5]."</p>
           </div>
           <form action='index.php?postid=".$row[0]."' method='post'>
             <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
@@ -264,51 +266,86 @@ if ($myusername==''){
 ?> 
 
 <html>
-   
-  <head>
-    <title>miLIFE | Home</title>
-      
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-      
-  </head>
-   
-  <body bgcolor = "#FFFFFF">
-    
-  <?php include($_SERVER['DOCUMENT_ROOT']."/head.php"); ?>
-  <div class="main-wrapper">
-<div id="feedHeader" class="jumbotron jumbotron-fluid" >
-    <div class="container">
-  <h1 class="display-2">Welcome, <?php echo $forename; ?></h1>
-  <p id="feedCaption">Here are all the updates since you last logged in</p>
-</div>
-</div>
-  <div class="container">
-    <div class="row">
-    <div class="col-lg-3 order-2 order-lg-1">
-      <div class="sidebar"><div class="sidebarTitle">YOU FOLLOW</div>
-      <?php echo $friends ?>
+   <head>
+      <title>miLIFE | Home</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+   </head>
+   <body bgcolor = "#FFFFFF">
+      <?php include($_SERVER['DOCUMENT_ROOT']."/head.php"); ?>
+      <div class="main-wrapper">
+         <div id="feedHeader" class="jumbotron jumbotron-fluid" >
+            <div class="container">
+               <h1 class="display-2">Welcome, <?php echo $forename; ?></h1>
+               <p id="feedCaption">Here are all the updates since you last logged in</p>
+            </div>
+         </div>
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-3 order-2 order-lg-1">
+                  <div class="sidebar">
+                     <div class="sidebarTitle">YOU FOLLOW</div>
+                     <?php echo $friends ?>
+                  </div>
+               </div>
+               <div class="col-lg-6 order-1 order-lg-2">
+                  <?php echo $posts; ?>
+               </div>
+               <div class="col-lg-3 order-3 order-lg-3">
+                  <div class="sidebar">
+                     <div class="sidebarTitle">RECOMENDATIONS</div>
+                     <small>(Related Users)</small>
+                     <?php echo $recomendations ?>
+                  </div>
+               </div>
+            </div>
+         </div>
       </div>
-    </div>
-    <div class="col-lg-6 order-1 order-lg-2">
-    <?php echo $posts; ?>
-    </div>
-    <div class="col-lg-3 order-3 order-lg-3">
-      <div class="sidebar"><div class="sidebarTitle">RECOMENDATIONS</div>
-      <small>(USERS WHO FOLLOW WHO YOU FOLLOW)</small>
-      <?php echo $recomendations ?>
-      </div>
-    </div>
-  </div>
-  </div>
-</div>
-
-
-
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-  <?php include("footer.php"); ?>
-  </body>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+      <?php include("footer.php"); ?>
+   </body>
 </html>
+
+<script>
+  $(document).ready(function(){
+
+    $('.like').click(function() {
+        var postid = $(this).attr('data-id');
+        $.ajax({
+         url:"like_post.php?post_id="+postid,
+         success:function(data)
+         {
+          $('p[data-id="'+postid+'"]').text("Likes: " + data);
+
+          if ($('.like[data-id="'+postid+'"]').hasClass('btn-danger')) {
+            $('.like[data-id="'+postid+'"]').removeClass('btn-danger');
+            $('.like[data-id="'+postid+'"]').addClass('btn-secondary'); 
+          } else {
+            $('.like[data-id="'+postid+'"]').removeClass('btn-secondary');
+            $('.like[data-id="'+postid+'"]').addClass('btn-danger'); 
+          }
+         },
+         error: function(data)
+         {
+          console.log("fail");
+         }
+      });
+    });
+
+  // $('#like').click(function like_post(query)
+  // {
+  // $.ajax({
+  //  url:"like_post.php",
+  //  success:function(data)
+  //  {
+  //   //$('#users').html(data);
+  //  }
+  // });
+
+});
+
+
+</script>
 
 
 

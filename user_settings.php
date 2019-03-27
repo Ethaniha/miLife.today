@@ -81,7 +81,7 @@ $followers = mysqli_num_rows($result);
   <?php include("head.php"); ?>
   <div class="main-wrapper">
 <div class="container">	
-<h3 class="pageHeader">User Settings</h3>
+<h1 class="pageHeader">My Settings</h1>
    <div class="row">
    <div class="col-sm-3"><!--left col-->
    <?php echo "<img src='Assets/imgs/users/".$avatar."' width=100 height=100 class='profilePhoto' id='settingProfile' />"; ?>

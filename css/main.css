@@ -12,6 +12,10 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+#loginBody{
+  overflow:hidden;
+}
+
 .main-wrapper {
   display: flex;
   flex-direction: column;
@@ -107,6 +111,8 @@ img.searchimg {
 }
 
 .navbar-icon{
+  transition: 0.3s;
+  text-decoration: none;
   color: rgb(92, 92, 92);
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 0px 5px 2px #dddddd;
@@ -118,6 +124,12 @@ img.searchimg {
   padding:10px;
   margin-top: 8px;
   float: right;
+}
+
+.navbar-icon:hover{
+  transition: 0.3s;
+  background-color:#D37262;
+  color:#FFF;
 }
 
 #groupsBtn{
@@ -161,8 +173,14 @@ font-weight: 600;
 }
 
 .friend{
+  transition: 0.3s;
   margin-top: 10px;
   padding: 10px;
+}
+.friend:hover{
+  transition: 0.3s;
+  background-color: #FFF;
+  border-radius: 5px;
 }
 
 .friend .profilePhoto{
@@ -229,7 +247,7 @@ height: 70px;
 }
 
 #profileHeader{
-  font-size: 3.5rem;
+  font-size: 54px;
   font-weight: 600;
   padding-top: 70px;
 }
@@ -265,6 +283,20 @@ height: 70px;
   text-shadow: 0 0 15px rgb(87, 87, 87);
   position: relative;
   z-index: 99;
+}
+
+
+#profileBanner{
+  background-image: url(../Assets/imgs/user-bg2.png) !important;
+  background-size: cover;
+  background-position: bottom;
+  padding: 50px 0px 50px 0px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 15px rgb(87, 87, 87);
+  position: relative;
+  z-index: 99;
+  text-align: left;
 }
 
 #feedCaption{
@@ -404,10 +436,6 @@ div.message-from-other {
   margin: auto;
   width: 100%;
   }
-
-  #feedHeader{
-    padding: 100px 0px 50px 0px;
-  }
   
   .display-2{
       font-size: 2.5rem;
@@ -420,6 +448,7 @@ div.message-from-other {
 
   .navbar-icon{
     list-style: none;
+    text-decoration: none;
     display: inline;
     margin: auto;
   }
