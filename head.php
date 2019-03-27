@@ -248,6 +248,7 @@
         
         document.getElementById("messagesBtn").remove();
         document.getElementById("alertsBtn").remove();
+        document.getElementById("groupsBtn").remove();
         document.getElementById("settingsBtn").remove();
         document.getElementById("navbar-profile-icon").remove();
         document.getElementById("mobileBtn").remove();

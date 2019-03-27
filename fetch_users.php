@@ -20,10 +20,10 @@
   			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>".$row[0]."</strong></span></li>";
 
   		}
-
-  		echo $searchOuput;
-
+  		
 	}
+	echo $searchOuput;
+
 ?>
 
 
