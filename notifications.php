@@ -34,28 +34,30 @@ if (isset($_POST['remove'])) {
     
   <?php include("head.php"); ?>
 <div class="main-wrapper">
-  <div class="container">
-
-    <h1 class="pageHeader">My Notifications</h1></div>
-      <div>
-          <div class="container">
-              <div class="row">
-                    <div class="col-md-3">
-                    <form method="post" action="">
-                      <button type="submit" class="btn btn-danger btn-sm" id="remove" name="remove">Remove All</button></br>
-                    </form>
-                    </div>
-                    <div class="col-md-12">
-                      <ul class="list-group" id="users">
-                      </ul>
-                    </div>
-          </div>
-</div>
-
+  <div id="notificationHeader" class="jumbotron jumbotron-fluid" >
+    <div class="container">
+      <h1 class="notificationHeader">My Notifications</h1>
+      
+    </div>
   </div>
-
+  <div class="container">
+    <div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <form method="post" action="">
+              <button type="submit" class="btn btn-danger btn-sm" id="remove" name="remove">Remove All</button></br>
+            </form>
+          </div>
+          <div class="col-md-12">
+            <ul class="list-group" id="users">
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   <?php include("footer.php"); ?>
