@@ -77,40 +77,6 @@ $current_username = $row[0];
 
 /////////////////
 
-if (isset($_GET['postid'])) {
-  $postid = $_GET['postid'];
-
-  if (isset($_POST['comment'])) {
-
-    $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
-    $result = mysqli_query($db, $sql);
-    $row=mysqli_fetch_array($result);
-    $commenter_id = $row[0];
-
-    $commentbody = $_POST['commentbody'];
-    $time = date("Y-m-d H:i:s");
-    $sql = "INSERT INTO users_comments (body, user_id, posted_at, post_id) VALUES ('$commentbody', '$commenter_id', '$time', '$postid' )";
-    $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-  }
-  
-  if (isset($_POST['like'])) {
-    $sql = "SELECT user_id FROM post_likes WHERE post_id= $postid AND user_id= $user_id";
-    $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-    if (mysqli_num_rows($result) < 1) {
-      $sql = "UPDATE post SET likes = likes + 1 WHERE post = $postid";
-      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-      $sql = "INSERT INTO post_likes (post_id, user_id) VALUES ($postid, $user_id)";
-      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-    } else {
-      $sql = "UPDATE post SET likes = likes - 1 WHERE post = $postid";
-      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-      $sql = "DELETE FROM post_likes WHERE post_id = $postid AND user_id = $user_id";
-      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-    }
-  }
-
-}
-
 if (isset($_GET['group_id'])) {
   $group_id = $_GET['group_id'];
 
@@ -201,6 +167,25 @@ if (isset($_GET['group_id'])) {
     }
   
   }
+
+  if (isset($_GET['postid'])) {
+    $postid = $_GET['postid'];
+
+    if (isset($_POST['comment'])) {
+
+      $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+      $result = mysqli_query($db, $sql);
+      $row=mysqli_fetch_array($result);
+      $commenter_id = $row[0];
+
+      $commentbody = $_POST['commentbody'];
+      $time = date("Y-m-d H:i:s");
+      $sql = "INSERT INTO groups_comments (body, user_id, posted_at, post_id) VALUES ('$commentbody', '$commenter_id', '$time', '$postid' )";
+      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+    }
+
+  }
+
 }
 
 
@@ -218,15 +203,15 @@ while ($row = mysqli_fetch_array($result)) {
   $sql = "SELECT post_id FROM group_post_likes WHERE group_id = $group_id AND post_id=$postid and user_id=$user_id";
   $result2 = mysqli_query($db, $sql) or die(mysqli_error($db));
 
-  //$commentsql = "SELECT users_comments.body, users.username, users.image FROM users_comments, users WHERE post_id = $postid AND users_comments.user_id = users.User_ID";
-  //$commentresult = mysqli_query($db, $commentsql) or die(mysqli_error($db));
+  $commentsql = "SELECT groups_comments.body, users.username, users.image FROM groups_comments, users WHERE post_id = $postid AND groups_comments.user_id = users.User_ID";
+  $commentresult = mysqli_query($db, $commentsql) or die(mysqli_error($db));
 
   $postBody = addMention($row[2]);
   
-  // while ($commentrow = mysqli_fetch_array($commentresult)) {
-  //   $commentBody = addMention($commentrow[0]);
-  //   $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
-  // }
+  while ($commentrow = mysqli_fetch_array($commentresult)) {
+    $commentBody = addMention($commentrow[0]);
+    $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
+  }
 
   if (mysqli_num_rows($result2) < 1) {
 
@@ -256,14 +241,14 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
           <hr>
           <div class='col-xs-10'>
-            <button type='submit' class='btn btn-secondary like' name='like' data-id='".$row[0]."''>
+            <button type='submit' class='btn btn-danger like' name='like' data-id='".$row[0]."''>
                 <i class='fas fa-heart'></i>
             </button>
           </div>
           <div class='col-xs-2'>
           <p data-id='".$row[0]."'>Likes: " .$row[5]."</p>
         </div>
-        <form action='index.php?postid=".$row[0]."' method='post'>
+        <form action='group_profile.php?group_id=".$group_id."&postid=".$row[0]."' method='post'>
         <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
         <div class='input-group-append'><button type='submit' name='comment' value='Comment!' class='btn btn-secondary'>Post</button>
         </div>
@@ -306,7 +291,7 @@ while ($row = mysqli_fetch_array($result)) {
           <div class='col-xs-2'>
           <p data-id='".$row[0]."'>Likes: " .$row[5]."</p>
         </div>
-        <form action='index.php?postid=".$row[0]."' method='post'>
+        <form action='group_profile.php?group_id=".$group_id."&postid=".$row[0]."' method='post'>
         <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
         <div class='input-group-append'><button type='submit' name='comment' value='Comment!' class='btn btn-secondary'>Post</button>
         </div>
