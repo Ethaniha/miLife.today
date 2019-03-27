@@ -189,7 +189,7 @@ if (isset($_GET['group_id'])) {
 }
 
 
-$sql = "SELECT group_post.post, group_post.posted_at, group_post.body, users.username, users.image, group_post.likes, group_post.image FROM users, group_post, groups WHERE groups.id = group_post.group_id AND users.user_id = group_post.user_id  ORDER BY `group_post`.`posted_at` DESC";
+$sql = "SELECT DISTINCT group_post.post, group_post.posted_at, group_post.body, users.username, users.image, group_post.likes, group_post.image FROM users, group_post, groups WHERE group_post.group_id = $group_id AND users.user_id = group_post.user_id  ORDER BY `group_post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $posts = "";
 
@@ -241,7 +241,7 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
           <hr>
           <div class='col-xs-10'>
-            <button type='submit' class='btn btn-danger like' name='like' data-id='".$row[0]."''>
+            <button type='submit' class='btn btn-secondary like' name='like' data-id='".$row[0]."''>
                 <i class='fas fa-heart'></i>
             </button>
           </div>
@@ -284,7 +284,7 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
           <hr>
           <div class='col-xs-10'>
-            <button type='submit' class='btn btn-secondary like' name='like' data-id='".$row[0]."''>
+            <button type='submit' class='btn btn-danger like' name='like' data-id='".$row[0]."''>
                 <i class='fas fa-heart'></i>
             </button>
           </div>
@@ -370,7 +370,6 @@ while ($row = mysqli_fetch_array($result)) {
         <textarea  class="form-control" name="postbody" rows="5" cols="80"></textarea>
         <br>
         <input type = "file" name = "image" class="btn btn-light">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <input type="submit" name="sendgrouppost" value="Post!" class="btn btn-primary">
       </form>
     </div>
