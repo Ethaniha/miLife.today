@@ -38,24 +38,24 @@ include ("db.php");
 
 // }
 
-// function addMention($post) {
-// $body = explode(" ", $post);
-// $newBody = "";
+function addMention($post) {
+$body = explode(" ", $post);
+$newBody = "";
 
-// foreach ($body as $word) {
-//   if (substr($word,0,1) == "@")
-//   {
-//     $link = str_replace("@","",$word);
-//     $newBody .= "<a href='user_profile.php?username=".$link."'>".$word." </a>";
-//   } 
-//   else 
-//   {
-//     $newBody .= $word." ";
-//   }
-// }
+foreach ($body as $word) {
+  if (substr($word,0,1) == "@")
+  {
+    $link = str_replace("@","",$word);
+    $newBody .= "<a href='user_profile.php?username=".$link."'>".$word." </a>";
+  } 
+  else 
+  {
+    $newBody .= $word." ";
+  }
+}
 
-// return $newBody;
-// }
+return $newBody;
+}
 
 $myusername = $_SESSION['login_user'];
 
@@ -147,121 +147,180 @@ if (isset($_GET['group_id'])) {
                 </div>';
   }
 
+  if(isset($_POST['sendpost'])) {
+
+    if($_FILES['image']['size'] != 0) {
+  
+      $errors= array();
+      $file_name = $_FILES['image']['name'];
+      $file_size = $_FILES['image']['size'];
+      $file_tmp = $_FILES['image']['tmp_name'];
+      $file_type = $_FILES['image']['type'];
+      $file_temp = explode('.',$_FILES['image']['name']);
+      $file_ext=strtolower(end($file_temp));
+      
+      $extensions= array("jpeg","jpg","png");
+      
+      if(in_array($file_ext,$extensions)=== false){
+         $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+      }
+      
+      if($file_size > 2097152) {
+         $errors[]='File size must be less than 2 MB';
+      }
+      
+      if(empty($errors)==true) {
+        move_uploaded_file($file_tmp,"Assets/imgs/posts/".$file_name);
+         
+  
+        $postbody = $_POST['postbody'];
+        $time = date("Y-m-d H:i:s");
+  
+        $sql = "INSERT INTO group_post (group_id body, posted_at, user_id, likes, image) VALUES ('$group_id','$postbody', '$time', '$user_id', 0, '$file_name')";
+        $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+        $last_row = mysqli_insert_id($db);
+
+        //notify($postbody);
+  
+      }
+  
+    } else if (!empty($errors)) {
+      print_r($errors);
+    }
+    else {
+      $postbody = $_POST['postbody'];
+      $time = date("Y-m-d H:i:s");
+  
+      $sql = "INSERT INTO group_post (group_id, body, posted_at, user_id, likes) VALUES ('$group_id','$postbody', '$time', '$user_id', 0)";
+      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+      $last_row = mysqli_insert_id($db);
+      //notifyPost($postbody, $last_row, 1, $db);
+
+    }
+  
+  }
 }
 
-// $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.image FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
+
+$sql = "SELECT group_post.post, group_post.posted_at, group_post.body, users.username, users.image, group_post.likes, group_post.image FROM users, group_post, groups WHERE groups.id = group_post.group_id AND users.user_id = group_post.user_id  ORDER BY `group_post`.`posted_at` DESC";
+$result = mysqli_query($db, $sql) or die(mysqli_error($db));
+$posts = "";
+
+// $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
 // $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 // $posts = "";
 
-// while ($row = mysqli_fetch_array($result)) {
-//   $postid = $row[0];
-//   $comments = "";
-//   $sql = "SELECT post_id FROM post_likes WHERE post_id=$postid and user_id=$user_id";
-//   $result2 = mysqli_query($db, $sql) or die(mysqli_error($db));
+while ($row = mysqli_fetch_array($result)) {
+  $postid = $row[0];
+  $comments = "";
+  $sql = "SELECT post_id FROM group_post_likes WHERE group_id = $group_id AND post_id=$postid and user_id=$user_id";
+  $result2 = mysqli_query($db, $sql) or die(mysqli_error($db));
 
-//   $commentsql = "SELECT users_comments.body, users.username, users.image FROM users_comments, users WHERE post_id = $postid AND users_comments.user_id = users.User_ID";
-//   $commentresult = mysqli_query($db, $commentsql) or die(mysqli_error($db));
+  //$commentsql = "SELECT users_comments.body, users.username, users.image FROM users_comments, users WHERE post_id = $postid AND users_comments.user_id = users.User_ID";
+  //$commentresult = mysqli_query($db, $commentsql) or die(mysqli_error($db));
 
-//   $postBody = addMention($row[2]);
+  $postBody = addMention($row[2]);
   
-//   while ($commentrow = mysqli_fetch_array($commentresult)) {
-//     $commentBody = addMention($commentrow[0]);
-//     $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
-//   }
+  // while ($commentrow = mysqli_fetch_array($commentresult)) {
+  //   $commentBody = addMention($commentrow[0]);
+  //   $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
+  // }
 
-//   if (mysqli_num_rows($result2) < 1) {
+  if (mysqli_num_rows($result2) < 1) {
 
-//     if(is_null($row[6])) {
-//       $img = "";
-//     } 
-//     else {
-//       $img = "<br><img src='/Assets/imgs/posts/".$row[6]."' height=400/><br>";
-//     }
+    if(is_null($row[6])) {
+      $img = "";
+    } 
+    else {
+      $img = "<br><img src='/Assets/imgs/posts/".$row[6]."' height=400/><br>";
+    }
 
-//     $posts .= "
-//     <div class='post' id='profilePost'>
-//       <div class='container'>
-//         <div class='row'>
-//             <div class='col-xs-3'>
-//               <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
-//             </div>
-//             <div class='col-xs-9 postDetails'>
-//               <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
-//               <p><i class='far fa-clock'></i> ".$row[1]."</p>
-//             </div>
-//           </div>
-//         <div class='row'>
-//           <div class='postContent'>".$img."
-//           <h2 class='postText'>".$postBody."</h2>
-//           </div>
-//         </div>
-//           <hr>
-//           <div class='col-xs-10'>
-//             <form action='index.php?&postid=".$row[0]."' method='post'>
-//             <button type='submit' class='btn btn-secondary' name='like'>
-//                 <i class='fas fa-heart'></i>
-//               </button>
-//               </form>
-//           </div>
-//           <div class='col-xs-2'>
-//           <p>Likes: " .$row[5]."</p>
-//         </div>
-//         <form action='index.php?postid=".$row[0]."' method='post'>
-//         <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
-//         <div class='input-group-append'><button type='submit' name='comment' value='Comment!' class='btn btn-secondary'>Post</button>
-//         </div>
-//         </div>
-//       </form>
-//       <div class='postComments'>".$comments."</div>
-//       </div>
-//     </div></br>";
-//   } else {
+    $posts .= "
+    <div class='post' id='profilePost'>
+      <div class='container'>
+        <div class='row'>
+            <div class='col-xs-3'>
+              <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+            </div>
+            <div class='col-xs-9 postDetails'>
+              <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
+              <p><i class='far fa-clock'></i> ".$row[1]."</p>
+            </div>
+          </div>
+        <div class='row'>
+          <div class='postContent'>".$img."
+          <h2 class='postText'>".$postBody."</h2>
+          </div>
+        </div>
+          <hr>
+          <div class='col-xs-10'>
+            <form action='index.php?&postid=".$row[0]."' method='post'>
+            <button type='submit' class='btn btn-secondary' name='like'>
+                <i class='fas fa-heart'></i>
+              </button>
+              </form>
+          </div>
+          <div class='col-xs-2'>
+          <p>Likes: " .$row[5]."</p>
+        </div>
+        <form action='index.php?postid=".$row[0]."' method='post'>
+        <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
+        <div class='input-group-append'><button type='submit' name='comment' value='Comment!' class='btn btn-secondary'>Post</button>
+        </div>
+        </div>
+      </form>
+      <div class='postComments'>".$comments."</div>
+      </div>
+    </div></br>";
+  } else {
 
-//     if(is_null($row[6])) {
-//       $img = "";
-//     } 
-//     else {
-//       $img = "<br><img src='/Assets/imgs/posts/".$row[6]."' height=400/><br>";
-//     }
-//     $posts .= "
-//     <div class='post' id='profilePost'>
-//       <div class='container'>
-//         <div class='row'>
-//             <div class='col-xs-3'>
-//               <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
-//             </div>
-//             <div class='col-xs-9 postDetails'>
-//               <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
-//               <p><i class='far fa-clock'></i> ".$row[1]."</p>
-//             </div>
-//           </div>
-//         <div class='row'>
-//           <div class='postContent'>".$img."
-//           <h2 class='postText'>".$postBody."</h2>
-//           </div>
-//         </div>
-//           <hr>
-//           <div class='col-xs-10'>
-//             <form action='index.php?&postid=".$row[0]."' method='post'>
-//             <button type='submit' class='btn btn-danger' name='like'>
-//                 <i class='fas fa-heart'></i>
-//               </button>
-//               </form>
-//           </div>
-//           <div class='col-xs-2'>
-//           <p>Likes: " .$row[5]."</p>
-//         </div>
-//         <form action='index.php?postid=".$row[0]."' method='post'>
-//         <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
-//         <div class='input-group-append'><button type='submit' name='comment' value='Comment!' class='btn btn-secondary'>Post</button>
-//         </div>
-//         </div>
-//       </form>
-//       <div class='postComments'>".$comments."</div>
-//       </div>
-//     </div></br>";
-//   }
-// }
+    if(is_null($row[6])) {
+      $img = "";
+    } 
+    else {
+      $img = "<br><img src='/Assets/imgs/posts/".$row[6]."' height=400/><br>";
+    }
+    $posts .= "
+    <div class='post' id='profilePost'>
+      <div class='container'>
+        <div class='row'>
+            <div class='col-xs-3'>
+              <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+            </div>
+            <div class='col-xs-9 postDetails'>
+              <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
+              <p><i class='far fa-clock'></i> ".$row[1]."</p>
+            </div>
+          </div>
+        <div class='row'>
+          <div class='postContent'>".$img."
+          <h2 class='postText'>".$postBody."</h2>
+          </div>
+        </div>
+          <hr>
+          <div class='col-xs-10'>
+            <form action='index.php?&postid=".$row[0]."' method='post'>
+            <button type='submit' class='btn btn-danger' name='like'>
+                <i class='fas fa-heart'></i>
+              </button>
+              </form>
+          </div>
+          <div class='col-xs-2'>
+          <p>Likes: " .$row[5]."</p>
+        </div>
+        <form action='index.php?postid=".$row[0]."' method='post'>
+        <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
+        <div class='input-group-append'><button type='submit' name='comment' value='Comment!' class='btn btn-secondary'>Post</button>
+        </div>
+        </div>
+      </form>
+      <div class='postComments'>".$comments."</div>
+      </div>
+    </div></br>";
+  }
+}
 
 ?>
 
@@ -325,6 +384,15 @@ if (isset($_GET['group_id'])) {
       </div>
     </div>
     <div class="col-lg-9 order-1 order-lg-2">
+    <div>
+      <form action="" method="post" enctype="multipart/form-data">
+        <textarea  class="form-control" name="postbody" rows="5" cols="80"></textarea>
+        <br>
+        <input type = "file" name = "image" class="btn btn-light">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" name="sendpost" value="Post!" class="btn btn-primary">
+      </form>
+    </div>
     <h5 class="sectionHeader">Posts</h5>
 <p>(in chronological order)</p>
     <?php echo $posts; ?>
