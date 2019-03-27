@@ -184,8 +184,8 @@ font-weight: 600;
   border-width: 0.5px;
   border-color: rgb(230, 230, 230);
   border-radius: 10px;
-  padding: 30px;
-  min-height: 400px;
+  padding: 30px 30px 30px 15px;
+  min-height: 385px;
   text-align: center;
   text-decoration: none;
 }
@@ -194,11 +194,13 @@ font-weight: 600;
   height: 200px;
   margin: auto;
   background-color: white;
+  border: solid 1px rgb(230, 230, 230);
 }
 
 .groupCard .card-title{
   font-weight: 600;
 }
+
 .groupCard a {
   color: rgb(43, 43, 43);
   text-decoration: none;
