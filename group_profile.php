@@ -166,7 +166,7 @@ if (isset($_GET['group_id'])) {
                 </div>';
   }
 
-  if(isset($_POST['sendpost'])) {
+  if(isset($_POST['sendgrouppost'])) {
 
     if($_FILES['image']['size'] != 0) {
   
@@ -589,7 +589,7 @@ while ($row = mysqli_fetch_array($result)) {
         <br>
         <input type = "file" name = "image" class="btn btn-light">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input type="submit" name="sendpost" value="Post!" class="btn btn-primary">
+        <input type="submit" name="sendgrouppost" value="Post!" class="btn btn-primary">
       </form>
     </div>
 >>>>>>> test
