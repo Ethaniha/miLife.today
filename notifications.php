@@ -36,7 +36,7 @@ if (isset($_POST['remove'])) {
 <div class="main-wrapper">
   <div id="notificationHeader" class="jumbotron jumbotron-fluid" >
     <div class="container">
-      <h1 class="notificationHeader">My Notifications</h1>
+      <h1 class="notificationH1">My Notifications</h1>
       
     </div>
   </div>
