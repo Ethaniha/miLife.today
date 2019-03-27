@@ -93,7 +93,7 @@ if (isset($_GET['group_id'])) {
   $result = mysqli_query($db, $sql) or die(mysqli_error($db));
   $groupMembers = mysqli_num_rows($result);
 
-  $sql = "SELECT users.image, users.forename, users.username  FROM users, group_users WHERE users.user_id = group_users.user_id AND group_users.group_id = $group_id AND $user_id != group_users.user_id";
+  $sql = "SELECT users.image, users.forename, users.username  FROM users, group_users WHERE users.user_id = group_users.user_id AND group_users.group_id = $group_id";
   $result = mysqli_query($db, $sql) or die(mysqli_error($db));
   $members = "";
 
@@ -197,6 +197,7 @@ $posts = "";
 // $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 // $posts = "";
 
+if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
   $postid = $row[0];
   $comments = "";
@@ -301,6 +302,8 @@ while ($row = mysqli_fetch_array($result)) {
       </div>
     </div></br>";
   }
+}}else{
+  $posts .= "<div id='noPosts'>THERE ARE NO POSTS YET</div>"; 
 }
 
 ?>
@@ -321,14 +324,14 @@ while ($row = mysqli_fetch_array($result)) {
       
     <?php include("head.php"); ?>
     <div class="main-wrapper">
-
-    <div class="container">
-    <div class="row">
-<div class="col-md-3">
-<?php echo "<img src='../Assets/imgs/groups/".$groupImage."' id='profilePagePhoto'/>"; ?>
-</div>
-<div class="col-md-4">
-<h2 id="profileHeader"> 
+    <div id="groupBanner" class="jumbotron jumbotron-fluid" >
+            <div class="container">
+            <div class="row">
+            <div class="col-md-3">
+               <?php echo "<img src='/Assets/imgs/groups/".$groupImage."' id='profilePagePhoto' class='profilePhoto'/>"; ?>
+            </div>
+            <div class="col-md-9">
+               <h2 id="profileHeader">
 <?php echo $groupName;?>
 </h2>
 
@@ -354,29 +357,31 @@ while ($row = mysqli_fetch_array($result)) {
 }
 
 ?>
+            </div>
+         </div>
+            </div>
+         </div>
+         <div class="container">
+<div class="row">
+    <div class="col-lg-9">
+    <div>
+      <form action="" method="post" enctype="multipart/form-data">
+      <textarea  class="form-control" name="postbody" rows="2" cols="80" placeholder="Add a post to the group '<?php echo $groupName?>'"></textarea>
+      <br>
+      <div class='input-group mb-3'><input type = "file" name = "image" class="btn btn-light">
+      <div class='input-group-append'><input type="submit" name="sendgrouppost" value="Post!" class="btn btn-primary">
+</div></div>
+
+      </form>
+    </div>
+    <?php echo $posts; ?>
 </div>
-</div>
-<div class="row profileBody">
-<div class="col-lg-3 order-2 order-lg-1">
-<h5 class="sectionHeader">Members</h5>
-<br>
+<div class="col-lg-3">
       <div class="sidebar">
+      <div class="sidebarTitle">MEMBERS</div>
       <?php echo $members ?>
       </div>
     </div>
-    <div class="col-lg-9 order-1 order-lg-2">
-    <div>
-      <form action="" method="post" enctype="multipart/form-data">
-        <textarea  class="form-control" name="postbody" rows="5" cols="80"></textarea>
-        <br>
-        <input type = "file" name = "image" class="btn btn-light">
-        <input type="submit" name="sendgrouppost" value="Post!" class="btn btn-primary">
-      </form>
-    </div>
-    <h5 class="sectionHeader">Posts</h5>
-<p>(in chronological order)</p>
-    <?php echo $posts; ?>
-</div>
 </div>
   </div>
 

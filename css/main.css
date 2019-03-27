@@ -239,6 +239,15 @@ width:70px;
 height: 70px;
 }
 
+#noPosts{
+  padding: 20%;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #b9b9b9;
+  font-weight: 600;
+}
+
 .postComments{
   padding: 10px 20px;
 }
@@ -358,6 +367,19 @@ height: 70px;
   text-align: left;
 }
 
+#groupBanner{
+  background-image: url(../Assets/imgs/group-bg.jpg) !important;
+  background-size: cover;
+  background-position: bottom;
+  padding: 50px 0px 50px 0px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 15px rgb(87, 87, 87);
+  position: relative;
+  z-index: 99;
+  text-align: left;
+}
+
 #feedCaption{
   font-variant-caps: all-small-caps;
   font-weight: 300;
@@ -370,6 +392,7 @@ height: 70px;
 
 .profilePhoto{
     border-radius:50%;
+    background-color: white;
 }
 
 #settingProfile{
