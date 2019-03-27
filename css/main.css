@@ -63,7 +63,7 @@ body {
 }
 
 .navbar-rightside{
-  width: 25%;
+  width: 20%;
   float: right;
   padding: auto auto 0px auto;
   }
@@ -303,6 +303,11 @@ height: 70px;
     font-size: 2.5rem;
     font-weight: 600;
 }
+.notificationH1{
+  padding: 10px 0px 10px 0px;
+  font-size: 4rem;
+  font-weight: 600;
+}
 
 .btn-primary{
     background-color: #D47262 !important;
@@ -324,6 +329,19 @@ height: 70px;
   text-shadow: 0 0 15px rgb(87, 87, 87);
   position: relative;
   z-index: 99;
+}
+
+#notificationHeader{
+  background-image: url(../Assets/imgs/no-notifications.png) !important;
+  background-size: cover;
+  background-position: bottom;
+  padding: 150px 0px 150px 0px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 15px rgb(87, 87, 87);
+  position: relative;
+  z-index: 99;
+  font-size: 5.5rem;
 }
 
 
