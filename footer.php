@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="page-footer font-small">
+<footer class="page-footer font-small" id="footer">
 
   <!-- Copyright -->
   <div class="container">

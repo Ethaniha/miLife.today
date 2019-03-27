@@ -49,13 +49,17 @@ body {
     box-shadow: 0px 0px 5px 2px #dddddd;
 }
 
+.btn{
+  box-shadow: 0px 0px 20px 0px #38383827;
+}
+
 .navbar{
   overflow: visible !important;
   position: fixed; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
   width: 100%; /* Full width */
   z-index: 101;
-  
+  box-shadow: 0px 0px 20px 0px #38383827;
 }
 
 .navbar-rightside{
@@ -156,6 +160,8 @@ img.searchimg {
 
 .sidebar{
   background-color: rgb(238, 239, 241);
+  box-shadow: 0px 0px 50px 2px #e4e4e4b7;
+  border: solid 0.5px rgb(230, 230, 230);
   border-radius: 5px;
   padding: 15px;
   margin-bottom: 20px;
@@ -170,6 +176,37 @@ img.searchimg {
 
 .sidebarTitle{
 font-weight: 600;
+}
+
+.groupCard{
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 50px 2px #f1f1f1;
+  border-width: 0.5px;
+  border-color: rgb(230, 230, 230);
+  border-radius: 10px;
+  padding: 30px;
+  min-height: 400px;
+  text-align: center;
+  text-decoration: none;
+}
+.groupCard .profilePhoto{
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  background-color: white;
+}
+
+.groupCard .card-title{
+  font-weight: 600;
+}
+.groupCard a {
+  color: rgb(43, 43, 43);
+  text-decoration: none;
+}
+
+.groupCard:hover{
+  background-color: rgb(240, 240, 240);
+  box-shadow: 0px 0px 30px 10px #f1f1f1;
 }
 
 .friend{
@@ -190,8 +227,11 @@ font-weight: 600;
 
 .post{
   background-color: rgb(245, 246, 248);
+  box-shadow: 0px 0px 50px 2px #e4e4e4b7;
+  border: solid 0.5px rgba(230, 230, 230, 0.76);
   border-radius: 5px;
   padding: 15px;
+
 }
 
 .post .profilePhoto{
@@ -224,6 +264,7 @@ height: 70px;
 
 .postDetails{
   padding: 10px 20px;
+  text-overflow:ellipsis;
 }
 
 .postContent{
