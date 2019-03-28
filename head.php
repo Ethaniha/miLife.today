@@ -96,13 +96,25 @@
     
           $postbody = $_POST['postbody'];
           $time = date("Y-m-d H:i:s");
+          $postType = $_POST['postType'];
+
+          if ($postType == "post") {
     
-          $sql = "INSERT INTO post (body, posted_at, user_id, likes, image) VALUES ('$postbody', '$time', '$user_id', 0, '$file_name')";
-          $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+            $sql = "INSERT INTO post (body, posted_at, user_id, likes, image, type, price) VALUES ('$postbody', '$time', '$user_id', 0, '$file_name', 0, NULL)";
+            $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 
-          $last_row = mysqli_insert_id($db);
+            $last_row = mysqli_insert_id($db);
 
-          //notify($postbody);
+            //notify($postbody);
+          } else {
+            $price = $_POST['price'];
+
+            $sql = "INSERT INTO post (body, posted_at, user_id, likes, image, type, price) VALUES ('$postbody', '$time', '$user_id', 0, '$file_name', 1, '$price')";
+            $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+            $last_row = mysqli_insert_id($db);
+
+          }
     
         }
     
@@ -113,12 +125,25 @@
       else {
         $postbody = $_POST['postbody'];
         $time = date("Y-m-d H:i:s");
-    
-        $sql = "INSERT INTO post (body, posted_at, user_id, likes) VALUES ('$postbody', '$time', '$user_id', 0)";
-        $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+        $postType = $_POST['postType'];
 
-        $last_row = mysqli_insert_id($db);
-        notifyPost($postbody, $last_row, 1, $db);
+        if ($postType == "post") {
+    
+          $sql = "INSERT INTO post (body, posted_at, user_id, likes, type, price) VALUES ('$postbody', '$time', '$user_id', 0, 0, NULL)";
+          $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+          $last_row = mysqli_insert_id($db);
+          notifyPost($postbody, $last_row, 1, $db);
+        }
+        else {
+
+          $price = $_POST['price'];
+          $sql = "INSERT INTO post (body, posted_at, user_id, likes, type, price) VALUES ('$postbody', '$time', '$user_id', 0, 1, '$price')";
+          $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+          $last_row = mysqli_insert_id($db);
+          notifyPost($postbody, $last_row, 1, $db);
+        }
 
       }
     
@@ -217,6 +242,14 @@
       <textarea  class="form-control" name="postbody" rows="5" cols="80"></textarea>
       <br>
       <input type = "file" name = "image" class="btn btn-light">
+      <br><br>
+      Type of post:
+      <select class="form-control" id="postType" name="postType">
+        <option value="post">Post</option>
+        <option value="auction">Auction</option>
+      </select>
+      <br>
+      <input type="text" class="form-control" placeholder="Input an asking price.." id="price" name="price" style="display: none;">
     </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -259,6 +292,35 @@
         document.getElementById("mobileBtn").remove();
       }
 }
+
+
+      document.getElementById("postType").onchange = function(e) {
+        var priceField = document.getElementById("price");
+       
+        if (this[this.selectedIndex].text == 'Post') {
+          priceField.style.display = "none";
+        }
+        else {
+          priceField.style.display = "block";
+        }
+      };
+      // var selector = document.getElementById("psostType").value;
+      // selector.onchange = (event) => {
+      //   var inputText = event.target.value;
+      //   console.log(inputText);
+      // }
+
+    // function changePost() {
+    //   var selector = document.getElementById("postType").value;
+    //   var priceField = document.getElementById("price");
+
+    //   if (selector == 'Post') {
+    //     priceField.style.display = "none";
+    //   }
+    //   else {
+    //     priceField.style.display = "block";
+    //   }
+    // }
    function load_data(query)
    {
     $.ajax({

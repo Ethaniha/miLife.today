@@ -161,7 +161,7 @@ while ($row = mysqli_fetch_array($result)) {
   $recomendations = '<h6>In order to gain miLife recomendations, please follow at least one user.</h6>';
 }
 
-$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
+$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $posts = "";
 
@@ -181,8 +181,11 @@ while ($row = mysqli_fetch_array($result)) {
     $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
   }
 
+
   if (mysqli_num_rows($result2) < 1) {
     $date = date_format(new DateTime($row[1]),"d F Y G:i");
+    $price = "";
+    if ($row[6] == 1) { $price = "<p style='color: green;'><i class='fas fa-hand-holding-usd'></i> £".$row[7]."</p>" ;} else {$price = "";}
     $posts .= "
     <div class='post' data-aos='fade-up'
     data-aos-duration='400'>
@@ -193,7 +196,8 @@ while ($row = mysqli_fetch_array($result)) {
             </div>
             <div class='col-xs-9 postDetails'>
               <b><a href='user_profile.php?username=".$row[3]."'>" .$row[3]."</a></b>
-              <p><i class='far fa-clock'></i> ".$date."</p>
+              <p><i class='far fa-clock'></i> ".$date."</p>".$price."
+
             </div>
           </div>
         <div class='row'>
@@ -221,6 +225,7 @@ while ($row = mysqli_fetch_array($result)) {
     </div></br>";
   } else {
       $date = date_format(new DateTime($row[1]),"d F Y G:i");
+      if ($row[6] == 1) { $price = "<p style='color: green;'><i class='fas fa-hand-holding-usd'></i> £".$row[7]."</p>" ;} else {$price = "";}
       $posts .= "
       <div class='post' data-aos='fade-up'
       data-aos-duration='400'>
@@ -231,7 +236,7 @@ while ($row = mysqli_fetch_array($result)) {
               </div>
               <div class='col-xs-9 postDetails'>
                 <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
-                <p><i class='far fa-clock'></i> ".$date."</p>
+                <p><i class='far fa-clock'></i> ".$date."</p>".$price."
               </div>
             </div>
           <div class='row'>
