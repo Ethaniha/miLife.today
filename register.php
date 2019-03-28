@@ -28,10 +28,10 @@
 
         if(mysqli_num_rows($resultemail) == 1)
         {
-          $msg = "Sorry...This email already exist...";
+          $msg = "Sorry...This email already exist...\n";
         }
         elseif(mysqli_num_rows($resultuser) == 1) {
-          $msg = "Sorry...This username already exist...";
+          $msg = "Sorry...This username already exist...\n";
         }
         else
         {
@@ -104,13 +104,13 @@
           </div>
         </div>
         <p class="signinH1">Or click <a class="signinH1" href="login.php">here</a> to login with an existing Account</p>
+        <?php if (!empty($msg)) { echo '
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          <strong><?php if (!empty($msg)) { echo $msg; } ?></strong>  
+          <strong>'.$msg.'</strong>  
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
           </button>
-        </div>
-          <p class="mt-5 mb-3 darkLegalTM">&copy; 2019</p>
+        </div>';} ?>
       </form>
     </div>
 
