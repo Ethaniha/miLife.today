@@ -49,7 +49,8 @@ if (isset($_POST['remove'])) {
               <button type="submit" class="btn btn-danger btn-sm" id="remove" name="remove">Remove All</button></br>
             </form>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12" data-aos='fade-up'
+    data-aos-duration='400'>
             <ul class="list-group" id="users">
             </ul>
           </div>

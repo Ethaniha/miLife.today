@@ -8,7 +8,7 @@
 	$row=mysqli_fetch_array($result);
 	$user_id = $row[0];
 
-	$searchOuput = "<div data-aos='fade-right'
+	$searchOuput = "<div data-aos='fade-up'
     data-aos-duration='400'>";
 
   	$sql = "SELECT users.username FROM users, followers WHERE users.user_id = followers.user_id AND followers.follower_id = '$user_id'";
