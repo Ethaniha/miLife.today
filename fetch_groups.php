@@ -8,7 +8,8 @@
 	$row=mysqli_fetch_array($result);
 	$user_id = $row[0];
 
-	$searchOuput = "<div class='row'>";
+	$searchOuput = "<div class='row'data-aos='fade-up'
+	data-aos-duration='400'> ";
  
 
   	$sql = "SELECT groups.name, groups.description, groups.image, groups.owner, groups.id FROM groups, group_users WHERE groups.id = group_users.group_id AND group_users.user_id = '$user_id'";
@@ -19,7 +20,7 @@
   		while ($row = mysqli_fetch_array($result)) {
 
 			  $searchOuput .= "<div class='col-md-4'>
-			  <a href='group_profile.php?group_id=".$row[4]."'><div class='card groupCard'>
+			  <a href='group_profile.php?group_id=".$row[4]."'><div class='card groupCard' >
 								  <img class='card-img-top profilePhoto' src=../Assets/imgs/groups/".$row[2]." alt='Card image cap'>
 									<div class='card-body'>
 									  	

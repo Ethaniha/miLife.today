@@ -225,7 +225,8 @@ while ($row = mysqli_fetch_array($result)) {
     }
 
     $posts .= "
-    <div class='post' id='profilePost'>
+    <div class='post' id='profilePost' data-aos='fade-up'
+    data-aos-duration='400'>
       <div class='container'>
         <div class='row'>
             <div class='col-xs-3'>
@@ -268,7 +269,8 @@ while ($row = mysqli_fetch_array($result)) {
       $img = "<br><img src='/Assets/imgs/posts/".$row[6]."' height=400/><br>";
     }
     $posts .= "
-    <div class='post' id='profilePost'>
+    <div class='post' id='profilePost' data-aos='fade-up'
+    data-aos-duration='400'>
       <div class='container'>
         <div class='row'>
             <div class='col-xs-3'>
@@ -368,7 +370,8 @@ while ($row = mysqli_fetch_array($result)) {
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-9" data-aos='fade-in'
+    data-aos-duration='1000'>
                     <div class="sidebar">
                         <form action="" method="post" enctype="multipart/form-data">
                             <textarea class="form-control" name="postbody" rows="2" cols="80" placeholder="Add a post to the group '<?php echo $groupName?>'"></textarea>
@@ -382,7 +385,8 @@ while ($row = mysqli_fetch_array($result)) {
                     </div>
                     <?php echo $posts; ?>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3" data-aos='fade-up'
+    data-aos-duration='600'>
                     <div class="sidebar">
                         <div class="sidebarTitle">MEMBERS</div>
                         <?php echo $members ?>

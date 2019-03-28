@@ -216,7 +216,8 @@ while ($row = mysqli_fetch_array($result)) {
     }
 
     $posts .= "
-    <div class='post' id='profilePost'>
+    <div class='post' id='profilePost' data-aos='fade-up'
+    data-aos-duration='400'>
       <div class='container'>
         <div class='row'>
             <div class='col-xs-3'>
@@ -259,7 +260,8 @@ while ($row = mysqli_fetch_array($result)) {
       $img = "<br><img src='/Assets/imgs/posts/".$row[6]."' height=400/><br>";
     }
     $posts .= "
-    <div class='post' id='profilePost'>
+    <div class='post' id='profilePost' data-aos='fade-up'
+    data-aos-duration='400'>
       <div class='container'>
         <div class='row'>
             <div class='col-xs-3'>
@@ -360,7 +362,8 @@ if($myusername == $email){
       <div class="container">
          
          <div class="row">
-            <div class="col-lg-3 order-2 order-lg-1">
+            <div class="col-lg-3 order-2 order-lg-1" data-aos='fade-up'
+    data-aos-duration='600'>
                <div class="sidebar">
                <div class="sidebarTitle">FOLLOWING</div>
                   <?php echo $friends ?>

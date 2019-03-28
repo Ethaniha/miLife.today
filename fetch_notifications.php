@@ -78,13 +78,11 @@
 
 
   		} 
-
-  		echo $searchOuput;
-
 	} else {
-  		$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>You have no notifications</strong> </span></li>";
-  		echo $searchOuput;
-  	}
+  		$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>You have no notifications</strong> </span></li></div>";
+	  }
+	  echo $searchOuput;
+
 ?>
 
 

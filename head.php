@@ -126,6 +126,11 @@
   }
   ?>
   <link rel="stylesheet" href="css/main.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+  AOS.init();
+</script>
   <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Roboto:400,400i,500,700" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <meta name="apple-mobile-web-app-capable" content="yes">

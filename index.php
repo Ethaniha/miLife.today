@@ -184,7 +184,8 @@ while ($row = mysqli_fetch_array($result)) {
   if (mysqli_num_rows($result2) < 1) {
     $date = date_format(new DateTime($row[1]),"d F Y G:i");
     $posts .= "
-    <div class='post'>
+    <div class='post' data-aos='fade-up'
+    data-aos-duration='400'>
       <div class='container'>
         <div class='row'>
             <div class='col-xs-3'>
@@ -221,7 +222,8 @@ while ($row = mysqli_fetch_array($result)) {
   } else {
       $date = date_format(new DateTime($row[1]),"d F Y G:i");
       $posts .= "
-      <div class='post'>
+      <div class='post' data-aos='fade-up'
+      data-aos-duration='400'>
         <div class='container'>
           <div class='row'>
               <div class='col-xs-3'>
@@ -282,7 +284,8 @@ if ($myusername==''){
          </div>
          <div class="container">
             <div class="row">
-               <div class="col-lg-3 order-2 order-lg-1">
+               <div class="col-lg-3 order-2 order-lg-1" data-aos='fade-up'
+    data-aos-duration='600'>
                   <div class="sidebar">
                      <div class="sidebarTitle">YOU FOLLOW</div>
                      <?php echo $friends ?>
@@ -291,7 +294,8 @@ if ($myusername==''){
                <div class="col-lg-6 order-1 order-lg-2">
                   <?php echo $posts; ?>
                </div>
-               <div class="col-lg-3 order-3 order-lg-3">
+               <div class="col-lg-3 order-3 order-lg-3" data-aos='fade-up'
+    data-aos-duration='600'>
                   <div class="sidebar">
                      <div class="sidebarTitle">RECOMENDATIONS</div>
                      <small>(Related Users)</small>
