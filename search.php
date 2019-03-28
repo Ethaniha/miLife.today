@@ -28,7 +28,7 @@
 	  
 				while ($row = mysqli_fetch_array($result)) {
 	  
-					$searchOuput .= "<li class='list-group-item'><span><a href='group_profile.php?group_id=".$row[0]."'><img class='searchimg profilePhoto' src='../Assets/imgs/users/".$row[2]."' width=50 height=50/>".$row[1]."</a></span></li>";
+					$searchOuput .= "<li class='list-group-item'><span><a href='group_profile.php?group_id=".$row[0]."'><img class='searchimg profilePhoto' src='../Assets/imgs/groups/".$row[2]."' width=50 height=50/>".$row[1]."</a></span></li>";
 	  
 				}
 	  

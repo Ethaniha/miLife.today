@@ -104,7 +104,12 @@
           </div>
         </div>
         <p class="signinH1">Or click <a class="signinH1" href="login.php">here</a> to login with an existing Account</p>
-        <?php if (!empty($msg)) { echo $msg; } ?>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong><?php if (!empty($msg)) { echo $msg; } ?></strong>  
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
           <p class="mt-5 mb-3 darkLegalTM">&copy; 2019</p>
       </form>
     </div>

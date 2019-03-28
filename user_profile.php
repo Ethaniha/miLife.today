@@ -169,18 +169,18 @@ $friends = "";
 
 if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
-  $friends .= '<div class="friend">
+  $friends .= '<div class="friend"><a href="user_profile.php?username='.$row[2].'">
                 <div class="container">
                   <div class="row">
                   <div class="col-xs-3">
                   <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
                   </div>
                   <div class="col-xs-9 postDetails">
-                  <b><a href="user_profile.php?username='.$row[2].'">'.$row[1].'</a></b>
+                  <b>'.$row[1].'</b>
                   <p>@'.$row[2].'</p>
                   </div>
                   </div>
-                </div>
+                </div></a>
               </div>';} 
 } else {
   $friends = '<h6>'.$forename.' is not currenty following anyone</h6>';

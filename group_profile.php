@@ -98,18 +98,19 @@ if (isset($_GET['group_id'])) {
   $members = "";
 
   while ($row = mysqli_fetch_array($result)) {
-    $members .= '<div class="friend">
+    $members .= '<div class="friend"><a href="user_profile.php?username='.$row[2].'">
                   <div class="container">
                     <div class="row">
                     <div class="col-xs-3">
                     <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
                     </div>
                     <div class="col-xs-9 postDetails">
-                    <b><a href="user_profile.php?username='.$row[2].'">'.$row[1].'</a></b>
+                    <b>'.$row[1].'</b>
                     <p>@'.$row[2].'</p>
                     </div>
                     </div>
-                  </div>
+                   </div>
+                  </a>
                 </div>';
   }
 
@@ -309,36 +310,40 @@ while ($row = mysqli_fetch_array($result)) {
 ?>
 
 <html>
-   
-  <head>
 
-    <title>miLIFE | <?php echo $groupName ?></title>
+<head>
+
+    <title>miLIFE |
+        <?php echo $groupName ?>
+    </title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-      
-  </head>
-   
-  <body bgcolor = "#FFFFFF">
-      
+
+</head>
+
+<body bgcolor="#FFFFFF">
+
     <?php include("head.php"); ?>
     <div class="main-wrapper">
-    <div id="groupBanner" class="jumbotron jumbotron-fluid" >
+        <div id="groupBanner" class="jumbotron jumbotron-fluid">
             <div class="container">
-            <div class="row">
-            <div class="col-md-3">
-               <?php echo "<img src='/Assets/imgs/groups/".$groupImage."' id='profilePagePhoto' class='profilePhoto'/>"; ?>
-            </div>
-            <div class="col-md-9">
-               <h2 id="profileHeader">
-<?php echo $groupName;?>
-</h2>
+                <div class="row">
+                    <div class="col-md-3">
+                        <?php echo "<img src='/Assets/imgs/groups/".$groupImage."' id='profilePagePhoto' class='profilePhoto'/>"; ?>
+                    </div>
+                    <div class="col-md-9">
+                        <h2 id="profileHeader">
+                            <?php echo $groupName;?>
+                        </h2>
 
-<b>Description: </b><?php echo $groupDesc; ?> <br>
+                        <b>Description: </b>
+                        <?php echo $groupDesc; ?> <br>
 
-<b>Members: </b><?php echo $groupMembers; ?><br>
-<?php 
+                        <b>Members: </b>
+                        <?php echo $groupMembers; ?><br>
+                        <?php 
 
   $sql = "SELECT id FROM group_users WHERE group_id = $group_id AND user_id = $group_id ";
   $result = mysqli_query($db, $sql);
@@ -357,82 +362,78 @@ while ($row = mysqli_fetch_array($result)) {
 }
 
 ?>
+                    </div>
+                </div>
             </div>
-         </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="sidebar">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <textarea class="form-control" name="postbody" rows="2" cols="80" placeholder="Add a post to the group '<?php echo $groupName?>'"></textarea>
+                            <br>
+                            <div class='input-group mb-3'><input type="file" name="image" class="btn btn-light">
+                                <div class='input-group-append'><input type="submit" name="sendgrouppost" value="Post!" class="btn btn-primary">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <?php echo $posts; ?>
+                </div>
+                <div class="col-lg-3">
+                    <div class="sidebar">
+                        <div class="sidebarTitle">MEMBERS</div>
+                        <?php echo $members ?>
+                    </div>
+                </div>
             </div>
-         </div>
-         <div class="container">
-<div class="row">
-    <div class="col-lg-9">
-    <div>
-      <form action="" method="post" enctype="multipart/form-data">
-      <textarea  class="form-control" name="postbody" rows="2" cols="80" placeholder="Add a post to the group '<?php echo $groupName?>'"></textarea>
-      <br>
-      <div class='input-group mb-3'><input type = "file" name = "image" class="btn btn-light">
-      <div class='input-group-append'><input type="submit" name="sendgrouppost" value="Post!" class="btn btn-primary">
-</div></div>
-
-      </form>
-    </div>
-    <?php echo $posts; ?>
-</div>
-<div class="col-lg-3">
-      <div class="sidebar">
-      <div class="sidebarTitle">MEMBERS</div>
-      <?php echo $members ?>
-      </div>
-    </div>
-</div>
-  </div>
+        </div>
 
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
-    <?php include("footer.php"); ?>
-  </body>
+        <?php include("footer.php"); ?>
+</body>
+
 </html>
 
 <script>
-  $(document).ready(function(){
-
-    $('.like').click(function() {
-        var postid = $(this).attr('data-id');
-        $.ajax({
-         url:"like_group_post.php?post_id="+postid,
-         success:function(data)
-         {
-          $('p[data-id="'+postid+'"]').text("Likes: " + data);
-
-          if ($('.like[data-id="'+postid+'"]').hasClass('btn-danger')) {
-            $('.like[data-id="'+postid+'"]').removeClass('btn-danger');
-            $('.like[data-id="'+postid+'"]').addClass('btn-secondary'); 
-          } else {
-            $('.like[data-id="'+postid+'"]').removeClass('btn-secondary');
-            $('.like[data-id="'+postid+'"]').addClass('btn-danger'); 
-          }
-         },
-         error: function(data)
-         {
-          console.log("fail");
-         }
-      });
+    $(document).ready(function(){
+    
+        $('.like').click(function() {
+            var postid = $(this).attr('data-id');
+            $.ajax({
+             url:"like_group_post.php?post_id="+postid,
+             success:function(data)
+             {
+              $('p[data-id="'+postid+'"]').text("Likes: " + data);
+    
+              if ($('.like[data-id="'+postid+'"]').hasClass('btn-danger')) {
+                $('.like[data-id="'+postid+'"]').removeClass('btn-danger');
+                $('.like[data-id="'+postid+'"]').addClass('btn-secondary'); 
+              } else {
+                $('.like[data-id="'+postid+'"]').removeClass('btn-secondary');
+                $('.like[data-id="'+postid+'"]').addClass('btn-danger'); 
+              }
+             },
+             error: function(data)
+             {
+              console.log("fail");
+             }
+          });
+        });
+    
+      // $('#like').click(function like_post(query)
+      // {
+      // $.ajax({
+      //  url:"like_post.php",
+      //  success:function(data)
+      //  {
+      //   //$('#users').html(data);
+      //  }
+      // });
+    
     });
-
-  // $('#like').click(function like_post(query)
-  // {
-  // $.ajax({
-  //  url:"like_post.php",
-  //  success:function(data)
-  //  {
-  //   //$('#users').html(data);
-  //  }
-  // });
-
-});
-
-
 </script>
-
-
-
-

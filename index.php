@@ -110,31 +110,31 @@ $friends = "";
 
 if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
-  $friends .= '<div class="friend">
+  $friends .= '<div class="friend"><a href="user_profile.php?username='.$row[2].'">
                 <div class="container">
                   <div class="row">
                   <div class="col-xs-3">
                   <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
                   </div>
                   <div class="col-xs-9 postDetails">
-                  <b><a href="user_profile.php?username='.$row[2].'">'.$row[1].'</a></b>
+                  <b>'.$row[1].'</b>
                   <p>@'.$row[2].'</p>
                   </div>
                   </div>
-                </div>
+                </div></a>
               </div>';
 }
 } else {
   $friends = '<h6>You are not currenty following anyone</h6>';
 }
 
-$sql = "SELECT users.image, users.forename, users.username FROM users
+$sql = "SELECT DISTINCT users.image, users.forename, users.username FROM users
 INNER JOIN followers ff ON users.user_id = ff.user_id
 INNER JOIN followers f ON ff.follower_id = f.user_id
 WHERE
 f.follower_id = '$user_id'
 AND ff.user_id NOT IN
-(SELECT user_id FROM followers WHERE follower_id = '$user_id')
+(SELECT DISTINCT user_id FROM followers WHERE follower_id = '$user_id')
 -- AND ff.follower_id NOT IN
 -- (SELECT user_id FROM followers WHERE followers.user_id = '$user_id')
 ";
@@ -143,18 +143,18 @@ $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $recomendations = "";
 if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
-  $recomendations .= '<div class="friend">
+  $recomendations .= '<div class="friend"><a href="user_profile.php?username='.$row[2].'">
                 <div class="container">
                   <div class="row">
                   <div class="col-xs-3">
                   <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
                   </div>
                   <div class="col-xs-9 postDetails">
-                  <b><a href="user_profile.php?username='.$row[2].'">'.$row[1].'</a></b>
+                  <b>'.$row[1].'</b>
                   <p>@'.$row[2].'</p>
                   </div>
                   </div>
-                </div>
+                </div></a>
               </div>';
 }
 } else {
