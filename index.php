@@ -185,10 +185,15 @@ while ($row = mysqli_fetch_array($result)) {
   if (mysqli_num_rows($result2) < 1) {
 
     if(is_null($row[8])) {
-      $img = "";
+      $img = "<div class='postContent'>
+                <h2 class='postText'>".$postBody."</h2>
+              </div>";
     } 
     else {
-      $img = "<br><img src='/Assets/imgs/posts/".$row[8]."' height=400/><br>";
+      $img = "<div class='postContentImage'>
+                <img src='/Assets/imgs/posts/".$row[8]."' height=400/><br>
+                <h2 class='postText'>".$postBody."</h2>
+              </div>";
     }
 
     $date = date_format(new DateTime($row[1]),"d F Y G:i");
@@ -209,10 +214,7 @@ while ($row = mysqli_fetch_array($result)) {
             </div>
           </div>
         <div class='row'>
-          <div class='postContent'>
-          ".$img."
-          <h2 class='postText'>".$postBody."</h2>
-          </div>
+        ".$img."
         </div>
           <hr>
           <div class='col-xs-10'>
@@ -235,10 +237,15 @@ while ($row = mysqli_fetch_array($result)) {
   } else {
 
     if(is_null($row[8])) {
-      $img = "";
+      $img = "<div class='postContent'>
+                <h2 class='postText'>".$postBody."</h2>
+              </div>";
     } 
     else {
-      $img = "<br><img src='/Assets/imgs/posts/".$row[8]."' height=400/><br>";
+      $img = "<div class='postContentImage'>
+                <img src='/Assets/imgs/posts/".$row[8]."' height=400/><br>
+                <h2 class='postText'>".$postBody."</h2>
+              </div>";
     }
 
       $date = date_format(new DateTime($row[1]),"d F Y G:i");
@@ -257,10 +264,7 @@ while ($row = mysqli_fetch_array($result)) {
               </div>
             </div>
           <div class='row'>
-            <div class='postContent'>
-            ".$img."
-            <h2 class='postText'>".$postBody."</h2>
-            </div>
+          ".$img."
           </div>
             <hr>
             <div class='col-xs-10'>

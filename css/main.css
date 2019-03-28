@@ -295,6 +295,12 @@ height: 70px;
   margin: auto;
 }
 
+.postContent{
+  padding: 70px 20px 70px 20px;
+  min-height: 280px;
+  margin: auto;
+}
+
 .postText{
   font-family: 'Noto Serif', serif;
   font-size: 2.5rem;
