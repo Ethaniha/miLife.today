@@ -161,7 +161,7 @@ while ($row = mysqli_fetch_array($result)) {
   $recomendations = '<h6>In order to gain miLife recomendations, please follow at least one user.</h6>';
 }
 
-$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
+$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $posts = "";
 
@@ -183,6 +183,14 @@ while ($row = mysqli_fetch_array($result)) {
 
 
   if (mysqli_num_rows($result2) < 1) {
+
+    if(is_null($row[8])) {
+      $img = "";
+    } 
+    else {
+      $img = "<br><img src='/Assets/imgs/posts/".$row[8]."' height=400/><br>";
+    }
+
     $date = date_format(new DateTime($row[1]),"d F Y G:i");
     $price = "";
     if ($row[6] == 1) { $price = "<p style='color: green;'><i class='fas fa-hand-holding-usd'></i> £".$row[7]."</p>" ;} else {$price = "";}
@@ -202,6 +210,7 @@ while ($row = mysqli_fetch_array($result)) {
           </div>
         <div class='row'>
           <div class='postContent'>
+          ".$img."
           <h2 class='postText'>".$postBody."</h2>
           </div>
         </div>
@@ -224,6 +233,14 @@ while ($row = mysqli_fetch_array($result)) {
       </div>
     </div></br>";
   } else {
+
+    if(is_null($row[8])) {
+      $img = "";
+    } 
+    else {
+      $img = "<br><img src='/Assets/imgs/posts/".$row[8]."' height=400/><br>";
+    }
+
       $date = date_format(new DateTime($row[1]),"d F Y G:i");
       if ($row[6] == 1) { $price = "<p style='color: green;'><i class='fas fa-hand-holding-usd'></i> £".$row[7]."</p>" ;} else {$price = "";}
       $posts .= "
@@ -241,6 +258,7 @@ while ($row = mysqli_fetch_array($result)) {
             </div>
           <div class='row'>
             <div class='postContent'>
+            ".$img."
             <h2 class='postText'>".$postBody."</h2>
             </div>
           </div>
