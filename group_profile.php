@@ -202,7 +202,7 @@ if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
   $postid = $row[0];
   $comments = "";
-  $sql = "SELECT post_id FROM group_post_likes WHERE group_id = $group_id AND post_id=$postid and user_id=$user_id";
+  $sql = "SELECT post_id FROM group_post_likes WHERE group_id = $group_id AND post_id = $postid AND user_id = $user_id";
   $result2 = mysqli_query($db, $sql) or die(mysqli_error($db));
 
   $commentsql = "SELECT groups_comments.body, users.username, users.image FROM groups_comments, users WHERE post_id = $postid AND groups_comments.user_id = users.User_ID";
@@ -411,11 +411,11 @@ while ($row = mysqli_fetch_array($result)) {
               $('p[data-id="'+postid+'"]').text("Likes: " + data);
     
               if ($('.like[data-id="'+postid+'"]').hasClass('btn-danger')) {
-                $('.like[data-id="'+postid+'"]').removeClass('btn-danger');
-                $('.like[data-id="'+postid+'"]').addClass('btn-secondary'); 
-              } else {
-                $('.like[data-id="'+postid+'"]').removeClass('btn-secondary');
-                $('.like[data-id="'+postid+'"]').addClass('btn-danger'); 
+            $('.like[data-id="'+postid+'"]').removeClass('btn-danger pulsate-fwd');
+            $('.like[data-id="'+postid+'"]').addClass('btn-secondary'); 
+          } else {
+            $('.like[data-id="'+postid+'"]').removeClass('btn-secondary pulsate-fwd');
+            $('.like[data-id="'+postid+'"]').addClass('btn-danger pulsate-fwd'); 
               }
              },
              error: function(data)

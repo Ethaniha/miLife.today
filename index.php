@@ -318,11 +318,11 @@ if ($myusername==''){
           $('p[data-id="'+postid+'"]').text("Likes: " + data);
 
           if ($('.like[data-id="'+postid+'"]').hasClass('btn-danger')) {
-            $('.like[data-id="'+postid+'"]').removeClass('btn-danger');
+            $('.like[data-id="'+postid+'"]').removeClass('btn-danger pulsate-fwd');
             $('.like[data-id="'+postid+'"]').addClass('btn-secondary'); 
           } else {
-            $('.like[data-id="'+postid+'"]').removeClass('btn-secondary');
-            $('.like[data-id="'+postid+'"]').addClass('btn-danger'); 
+            $('.like[data-id="'+postid+'"]').removeClass('btn-secondary pulsate-fwd');
+            $('.like[data-id="'+postid+'"]').addClass('btn-danger pulsate-fwd'); 
           }
          },
          error: function(data)
