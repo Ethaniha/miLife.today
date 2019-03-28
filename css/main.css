@@ -105,6 +105,7 @@ div.searchbox {
 
 img.searchimg {
   margin-right: 15px;
+  border: solid 1px rgb(230, 230, 230);
 }
 
 #searchresult{
