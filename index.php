@@ -161,7 +161,7 @@ while ($row = mysqli_fetch_array($result)) {
   $recomendations = '<h6>In order to gain miLife recomendations, please follow at least one user.</h6>';
 }
 
-$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
+$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image, post.user_id FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $posts = "";
 
@@ -194,6 +194,12 @@ while ($row = mysqli_fetch_array($result)) {
                 <img src='/Assets/imgs/posts/".$row[8]."' height=400/><br>
                 <h2 class='postText'>".$postBody."</h2>
               </div>";
+    }
+
+    if ($row[9] == $user_id) {
+      $deleteButton = "<button class='delete' data-id='".$row[0]."'>x</button>";
+    } else {
+      $deleteButton = "";
     }
 
     $date = date_format(new DateTime($row[1]),"d F Y G:i");
@@ -233,6 +239,7 @@ while ($row = mysqli_fetch_array($result)) {
       </form>
       <div class='postComments'>".$comments."</div>
       </div>
+      ".$deleteButton."
     </div></br>";
   } else {
 
@@ -246,6 +253,12 @@ while ($row = mysqli_fetch_array($result)) {
                 <img src='/Assets/imgs/posts/".$row[8]."' height=400/><br>
                 <h2 class='postText'>".$postBody."</h2>
               </div>";
+    }
+
+    if ($row[9] == $user_id) {
+      $deleteButton = "<button class='delete' data-id='".$row[0]."'>x</button>";
+    } else {
+      $deleteButton = "";
     }
 
       $date = date_format(new DateTime($row[1]),"d F Y G:i");
@@ -283,6 +296,7 @@ while ($row = mysqli_fetch_array($result)) {
           </form>
         <div class='postComments'>".$comments."</div>
       </div>
+      ".$deleteButton."
     </div></br>";
   }
 }
@@ -340,6 +354,8 @@ if ($myusername==''){
 <script>
   $(document).ready(function(){
 
+
+
     $('.like').click(function() {
         var postid = $(this).attr('data-id');
         $.ajax({
@@ -355,6 +371,21 @@ if ($myusername==''){
             $('.like[data-id="'+postid+'"]').removeClass('btn-secondary pulsate-fwd');
             $('.like[data-id="'+postid+'"]').addClass('btn-danger pulsate-fwd'); 
           }
+         },
+         error: function(data)
+         {
+          console.log("fail");
+         }
+      });
+    });
+
+    $('.delete').click(function() {
+        var postid = $(this).attr('data-id');
+        $.ajax({
+         url:"delete_post.php?post_id="+postid,
+         success:function(data)
+         {
+            console.log("deleted");
          },
          error: function(data)
          {
