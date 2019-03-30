@@ -232,28 +232,29 @@
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalCenterTitle">Add a new post</h3>
+        <h3 class="modal-title" id="exampleModalCenterTitle">ADD A NEW POST</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
       <form action="" method="post" enctype="multipart/form-data">
-      <textarea  class="form-control" name="postbody" rows="5" cols="80"></textarea>
+      <h6>YOUR POST</h6>
+      <textarea  class="form-control" name="postbody" rows="5" cols="80" autofocus="autofocus" onfocus="this.select()" placeholder="Write your post message..."></textarea>
       <br>
-      <input type = "file" name = "image" class="btn btn-light">
+      <h6>ADD AN IMAGE</h6>
+      <input type = "file" name = "image" class="btn btn-light btn-block">
       <br><br>
-      Type of post:
+      <h6>SELECT A POST TYPE</h6>
       <select class="form-control" id="postType" name="postType">
-        <option value="post">Post</option>
+        <option value="post">Standard Post</option>
         <option value="auction">Auction</option>
       </select>
       <br>
       <input type="text" class="form-control" placeholder="Input an asking price.." id="price" name="price" style="display: none;">
     </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input type="submit" name="sendpost" value="Post!" class="btn btn-primary">
+        <input type="submit" name="sendpost" value="Post" class="btn btn-primary">
       </div>
       </form>
     </div>

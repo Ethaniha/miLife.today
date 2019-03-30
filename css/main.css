@@ -295,8 +295,8 @@ height: 70px;
   margin: auto;
 }
 
-.postContent{
-  padding: 70px 20px 70px 20px;
+.postContentImage{
+  padding: 30px 10px 30px 10px;
   min-height: 280px;
   margin: auto;
 }

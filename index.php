@@ -197,7 +197,7 @@ while ($row = mysqli_fetch_array($result)) {
     }
 
     if ($row[9] == $user_id) {
-      $deleteButton = "<button class='delete' data-id='".$row[0]."'>x</button>";
+      $deleteButton = "<button class='delete btn btn-light' data-id='".$row[0]."'>Remove Post</button>";
     } else {
       $deleteButton = "";
     }
@@ -213,10 +213,13 @@ while ($row = mysqli_fetch_array($result)) {
             <div class='col-xs-3'>
               <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
             </div>
-            <div class='col-xs-9 postDetails'>
+            <div class='col-xs-8 postDetails'>
               <b><a href='user_profile.php?username=".$row[3]."'>" .$row[3]."</a></b>
               <p><i class='far fa-clock'></i> ".$date."</p>".$price."
 
+            </div>
+            <div class='col-xs-1 ml-auto mr-3'>
+            ".$deleteButton."
             </div>
           </div>
         <div class='row'>
@@ -239,7 +242,6 @@ while ($row = mysqli_fetch_array($result)) {
       </form>
       <div class='postComments'>".$comments."</div>
       </div>
-      ".$deleteButton."
     </div></br>";
   } else {
 
@@ -256,7 +258,7 @@ while ($row = mysqli_fetch_array($result)) {
     }
 
     if ($row[9] == $user_id) {
-      $deleteButton = "<button class='delete' data-id='".$row[0]."'>x</button>";
+      $deleteButton = "<button class='delete btn btn-light' data-id='".$row[0]."'>Remove Post</button>";
     } else {
       $deleteButton = "";
     }
@@ -271,9 +273,12 @@ while ($row = mysqli_fetch_array($result)) {
               <div class='col-xs-3'>
                 <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
               </div>
-              <div class='col-xs-9 postDetails'>
+              <div class='col-xs-7 postDetails'>
                 <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
                 <p><i class='far fa-clock'></i> ".$date."</p>".$price."
+              </div>
+              <div class='col-xs-2 ml-auto mr-3'>
+              ".$deleteButton."
               </div>
             </div>
           <div class='row'>
@@ -296,7 +301,6 @@ while ($row = mysqli_fetch_array($result)) {
           </form>
         <div class='postComments'>".$comments."</div>
       </div>
-      ".$deleteButton."
     </div></br>";
   }
 }
