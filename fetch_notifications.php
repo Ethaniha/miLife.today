@@ -34,7 +34,7 @@
 				$row2=mysqli_fetch_array($result2);
 				$sender_id = $row2[0];  			
 
-	  			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee; display: inline;'><span style='font-size:16px;'><strong>".$sender_id."</strong> mentioned you in a post: ".$postrow[0]." </span></li> ";
+	  			$searchOuput .= "<div class='alert' id='user'><strong>".$sender_id."</strong> mentioned you in a post: ".$postrow[0]." </div> ";
 
   			}
   			else if ($type == 2) {
@@ -52,7 +52,7 @@
 				$row2=mysqli_fetch_array($result2);
 				$sender_id = $row2[0];  			
 
-	  			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>".$sender_id."</strong> liked your post </span></li>";
+	  			$searchOuput .= "<div class='alert' id='user'><strong>".$sender_id."</strong> liked your post </div>";
 
   			}
   			else if ($type == 3) {
@@ -70,7 +70,7 @@
 				$row2=mysqli_fetch_array($result2);
 				$sender_id = $row2[0];  			
 
-	  			$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>".$sender_id."</strong> commented on your post: ".$postrow[0]." </span></li>";
+	  			$searchOuput .= "<div class='alert' id='user'><strong>".$sender_id."</strong> commented on your post: ".$postrow[0]."</div>";
   			}
 
   			$sqlupdate = "UPDATE notifications SET status=1 WHERE receiver_id = '$user_id' ";
@@ -79,7 +79,7 @@
 
   		} 
 	} else {
-  		$searchOuput .= "<li class='list-group-item' id='user' style='background-color:#f1eeee;'><span style='font-size:16px;'><strong>You have no notifications</strong> </span></li></div>";
+  		$searchOuput .= "<div class='alert' id='user'><strong>You have no notifications</strong></div></div>";
 	  }
 	  echo $searchOuput;
 

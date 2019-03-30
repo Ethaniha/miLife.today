@@ -46,7 +46,7 @@ if (isset($_POST['remove'])) {
         <div class="row">
           <div class="col-md-3">
             <form method="post" action="">
-              <button type="submit" class="btn btn-danger btn-sm" id="remove" name="remove">Remove All</button></br>
+              <button type="submit" class="btn btn-danger" id="remove" name="remove">Remove All</button></br>
             </form>
           </div>
           <div class="col-md-12" data-aos='fade-up'

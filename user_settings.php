@@ -96,7 +96,6 @@ $followers = mysqli_num_rows($result);
               
               <ul class="list-group">
                 <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> <?php echo $likes; ?></li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> <?php echo $posts; ?></li>
 

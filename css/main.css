@@ -164,7 +164,7 @@ img.searchimg {
   background-color: rgb(238, 239, 241);
   box-shadow: 0px 0px 50px 2px #e4e4e4b7;
   border: solid 0.5px rgb(230, 230, 230);
-  border-radius: 5px;
+  border-radius: 15px;
   padding: 15px;
   margin-bottom: 20px;
 }
@@ -240,9 +240,9 @@ font-weight: 600;
 
 .post{
   background-color: rgb(255, 255, 255);
-  box-shadow: 0px 0px 50px 2px #e4e4e4b7;
+  box-shadow: 0px 0px 50px 2px #31313125;
   border: solid 0.5px rgba(230, 230, 230, 0.76);
-  border-radius: 5px;
+  border-radius: 15px;
   padding: 20px;
 
 }
@@ -305,6 +305,16 @@ height: 70px;
   font-family: 'Noto Serif', serif;
   font-size: 2.5rem;
   color: rgb(87, 87, 87);
+}
+
+.postsColumnIndex{
+  margin-top: -75px;
+  z-index: 99;
+}
+
+.delete{
+  box-shadow: 0px 0px 10px 2px #dddddd;
+  margin-top: 10px;
 }
 
 #profilePagePhoto{
@@ -370,6 +380,49 @@ height: 70px;
   position: relative;
   z-index: 99;
   font-size: 5.5rem;
+}
+
+.alert{
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 50px 2px #31313125;
+  border: solid 0.5px rgba(230, 230, 230, 0.76);
+  border-radius: 15px;
+  padding: 20px;
+  width: 100%;
+  font-size: 1rem;
+}
+.messageUsers{
+  box-shadow: 0px 0px 50px 2px #31313125;
+}
+
+.messageUser{
+  background-color: rgb(255, 255, 255);
+  border: solid 0.5px rgba(230, 230, 230, 0.76);
+  padding: 15px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.messageUser .profilePhoto{
+width: 50px;
+height: 50px;
+}
+
+.messageUserDetails{
+  margin-left: 10px;
+  margin-top: 12px;
+}
+
+.messageUser:hover{
+  background-color: rgb(240, 240, 240);
+  border: solid 0.5px rgba(230, 230, 230, 0.76);
+  padding: 15px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.btn{
+  border-radius: 10px; 
 }
 
 
@@ -499,7 +552,6 @@ div.message-from-me {
   float: right;
   border-radius: 10px;
   background: rgb(212, 114, 98);
-  box-shadow: 0px 0px 5px 0px #dddddd;
   color: #FFF;
   padding: 5px 10px;
   margin-top: 5px;

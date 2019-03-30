@@ -324,7 +324,7 @@ if ($myusername==''){
          <div id="feedHeader" class="jumbotron jumbotron-fluid" >
             <div class="container">
                <h1 class="display-2">Welcome, <?php echo $forename; ?></h1>
-               <p id="feedCaption">Here are all the updates since you last logged in</p>
+               <p id="feedCaption">Keep up to date with all the posts from people you follow</p>
             </div>
          </div>
          <div class="container">
@@ -336,7 +336,7 @@ if ($myusername==''){
                      <?php echo $friends ?>
                   </div>
                </div>
-               <div class="col-lg-6 order-1 order-lg-2">
+               <div class="col-lg-6 order-1 order-lg-2 postsColumnIndex">
                   <?php echo $posts; ?>
                </div>
                <div class="col-lg-3 order-3 order-lg-3" data-aos='fade-up'
