@@ -161,19 +161,12 @@ img.searchimg {
 }
 
 .sidebar{
-  background-color: rgb(238, 239, 241);
+  background-color: rgb(255, 255, 255);
   box-shadow: 0px 0px 50px 2px #e4e4e4b7;
   border: solid 0.5px rgb(230, 230, 230);
   border-radius: 15px;
   padding: 15px;
   margin-bottom: 20px;
-}
-
-.profileBody .sidebar{
-  background-color: rgb(238, 239, 241);
-  border-radius: 5px;
-  padding: 15px;
-  margin-top: 18px;
 }
 
 .sidebarTitle{
@@ -214,10 +207,25 @@ font-weight: 600;
   box-shadow: 0px 0px 30px 10px #f1f1f1;
 }
 
+#groupPostForm{
+  margin: 0px -15px 20px -15px;
+}
+
 .friend{
   transition: 0.3s;
-  margin-top: 10px;
-  padding: 15px 10px 5px 10px;
+  margin-top: 5px;
+  padding: 18px 10px 10px 10px;
+}
+
+.friendDetails{
+  padding: 5px 0px 0px 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;    
+}
+
+.friendDetails p{
+  font-size: 0.9rem;
 }
 
 .friend a {
@@ -227,13 +235,13 @@ font-weight: 600;
 
 .friend:hover{
   transition: 0.3s;
-  background-color: #FFF;
-  border-radius: 5px;
+  background-color: rgb(242, 242, 242);
+  border-radius: 10px;
 }
 
 .friend .profilePhoto{
-  width:70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   background-color: white;
   border: solid 1px rgb(230, 230, 230);
   }

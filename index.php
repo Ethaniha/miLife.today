@@ -113,11 +113,11 @@ while ($row = mysqli_fetch_array($result)) {
   $friends .= '<div class="friend"><a href="user_profile.php?username='.$row[2].'">
                 <div class="container">
                   <div class="row">
-                  <div class="col-xs-3">
+                  <div class="col-xs-2">
                   <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
                   </div>
-                  <div class="col-xs-9 postDetails">
-                  <b>'.$row[1].'</b>
+                  <div class="col-xs-10 friendDetails">
+                  <b>'.ucwords($row[1]).'</b>
                   <p>@'.$row[2].'</p>
                   </div>
                   </div>
@@ -146,11 +146,11 @@ while ($row = mysqli_fetch_array($result)) {
   $recomendations .= '<div class="friend"><a href="user_profile.php?username='.$row[2].'">
                 <div class="container">
                   <div class="row">
-                  <div class="col-xs-3">
+                  <div class="col-xs-2">
                   <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
                   </div>
-                  <div class="col-xs-9 postDetails">
-                  <b>'.$row[1].'</b>
+                  <div class="col-xs-10 friendDetails">
+                  <b>'.ucwords($row[1]).'</b>
                   <p>@'.$row[2].'</p>
                   </div>
                   </div>
