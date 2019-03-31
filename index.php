@@ -323,7 +323,7 @@ if ($myusername==''){
       <div class="main-wrapper">
          <div id="feedHeader" class="jumbotron jumbotron-fluid" >
             <div class="container">
-               <h1 class="display-2">Welcome, <?php echo $forename; ?></h1>
+               <h1 class="display-2">WELCOME, <?php echo strtoupper($forename); ?></h1>
                <p id="feedCaption">Keep up to date with all the posts from people you follow</p>
             </div>
          </div>

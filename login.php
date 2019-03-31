@@ -59,7 +59,7 @@
   </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
   <br>
-   <p class="signinH1">Or click <a class="signinH1" href="register.php">here</a> to register</p>
+   <p class="signinH1"><a class="signinH1" href="register.php">Or click here to register</a></p>
    <?php if (!empty($error)) { echo '
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
       <strong>'.$error.'</strong>  

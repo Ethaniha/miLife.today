@@ -244,7 +244,7 @@ font-weight: 600;
   border: solid 0.5px rgba(230, 230, 230, 0.76);
   border-radius: 15px;
   padding: 20px;
-
+  margin: 0px -15px;
 }
 
 .post .profilePhoto{
@@ -460,6 +460,7 @@ height: 50px;
 
 .display-2{
     font-weight: 500;
+    font-size: 4.5rem;
 }
 
 .profilePhoto{
@@ -500,6 +501,10 @@ display: block;
   /*background-color: rgba(255, 255, 255, 0.8);*/
 }
 
+.form-control{
+  border-radius: 10px; 
+}
+
 #form-register{
   max-width: 600px;
 }
@@ -521,6 +526,12 @@ display: block;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
+
+#form-register input[type="text"] {
+  margin-bottom: 0px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
 .form-signin input[type="email"] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
@@ -539,6 +550,10 @@ display: block;
   font-weight:normal; 
 }
 .signinH1 a:link { 
+  color:#FFF; 
+}
+
+.signinH1 a:hover { 
   color:#FFF; 
 }
 
@@ -626,6 +641,10 @@ div.message-from-other {
   
   .display-2{
       font-size: 2.5rem;
+  }
+
+  .post{
+    margin: 0px;
   }
 
   .postContent{

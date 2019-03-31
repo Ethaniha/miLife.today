@@ -376,7 +376,7 @@ while ($row = mysqli_fetch_array($result)) {
                         <form action="" method="post" enctype="multipart/form-data">
                             <textarea class="form-control" name="postbody" rows="2" cols="80" placeholder="Add a post to the group '<?php echo $groupName?>'"></textarea>
                             <br>
-                            <div class='input-group mb-3'><input type="file" name="image" class="btn btn-light">
+                            <div class='input-group mb-3'><input type="file" name="image" class="btn btn-sm form-control">
                                 <div class='input-group-append'><input type="submit" name="sendgrouppost" value="Post!" class="btn btn-primary">
                                 </div>
                             </div>

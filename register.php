@@ -68,12 +68,12 @@
 
           <div class="form-group col-md-6">
             <label class="sr-only" for="inputEmail4">Forename:</label>
-            <input type="text" class="form-control" id="forename" placeholder="forename" name="forename">
+            <input type="text" class="form-control" id="forename" placeholder="Forename" name="forename">
           </div>
 
           <div class="form-group col-md-6">
             <label class="sr-only" for="inputEmail4">Surname:</label>
-            <input type="text" class="form-control" id="surname" placeholder="surname" name="surname">
+            <input type="text" class="form-control" id="surname" placeholder="Surname" name="surname">
           </div>
 
         </div>
@@ -103,7 +103,7 @@
             <button type="submit" class="btn btn-lg btn-primary btn-block" name="submit">Submit</button>
           </div>
         </div>
-        <p class="signinH1">Or click <a class="signinH1" href="login.php">here</a> to login with an existing Account</p>
+        <p class="signinH1"><a class="signinH1" href="login.php">Or click here to login with an existing Account</a></p>
         <?php if (!empty($msg)) { echo '
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
           <strong>'.$msg.'</strong>  
