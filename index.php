@@ -191,13 +191,13 @@ while ($row = mysqli_fetch_array($result)) {
     } 
     else {
       $img = "<div class='postContentImage'>
-                <img src='../Assets/imgs/posts/".$row[8]."' width=280/><br>
+                <img src='../Assets/imgs/posts/".$row[8]."' class='postImg'/><br>
                 <h2 class='postText'>".$postBody."</h2>
               </div>";
     }
 
     if ($row[9] == $user_id) {
-      $deleteButton = "<button class='delete btn btn-light' data-id='".$row[0]."'>Remove Post</button>";
+      $deleteButton = "<button class='delete btn btn-light' data-id='".$row[0]."'><i class='fas fa-trash-alt'></i></button>";
     } else {
       $deleteButton = "";
     }
@@ -252,13 +252,13 @@ while ($row = mysqli_fetch_array($result)) {
     } 
     else {
       $img = "<div class='postContentImage'>
-                <img src='../Assets/imgs/posts/".$row[8]."' width=280/><br>
+                <img src='../Assets/imgs/posts/".$row[8]."' class='postImg'/><br>
                 <h2 class='postText'>".$postBody."</h2>
               </div>";
     }
 
     if ($row[9] == $user_id) {
-      $deleteButton = "<button class='delete btn btn-light' data-id='".$row[0]."'>Remove Post</button>";
+      $deleteButton = "<button class='delete btn btn-light' data-id='".$row[0]."'><i class='fas fa-trash-alt'></i></button>";
     } else {
       $deleteButton = "";
     }

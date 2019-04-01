@@ -192,7 +192,3 @@ $followers = mysqli_num_rows($result);
   </script>
 </body>
 </html>
-
-
-
-

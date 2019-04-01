@@ -255,6 +255,11 @@ font-weight: 600;
   margin: 0px -15px;
 }
 
+.postImg{ 
+width: 100%;
+max-width: 600px;
+}
+
 .post .profilePhoto{
 width:70px;
 height: 70px;
@@ -307,6 +312,7 @@ height: 70px;
   padding: 30px 10px 30px 10px;
   min-height: 280px;
   margin: auto;
+width: auto;
 }
 
 .postText{
