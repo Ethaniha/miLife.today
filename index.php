@@ -191,7 +191,7 @@ while ($row = mysqli_fetch_array($result)) {
     } 
     else {
       $img = "<div class='postContentImage'>
-                <img src='/Assets/imgs/posts/".$row[8]."' height=400/><br>
+                <img src='../Assets/imgs/posts/".$row[8]."' width=280/><br>
                 <h2 class='postText'>".$postBody."</h2>
               </div>";
     }
@@ -252,7 +252,7 @@ while ($row = mysqli_fetch_array($result)) {
     } 
     else {
       $img = "<div class='postContentImage'>
-                <img src='/Assets/imgs/posts/".$row[8]."' height=400/><br>
+                <img src='../Assets/imgs/posts/".$row[8]."' width=280/><br>
                 <h2 class='postText'>".$postBody."</h2>
               </div>";
     }
@@ -412,7 +412,3 @@ if ($myusername==''){
 
 
 </script>
-
-
-
-

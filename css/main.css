@@ -474,6 +474,10 @@ height: 50px;
 .profilePhoto{
     border-radius:50%;
     background-color: white;
+  margin-top: 0px;
+  background-position: center center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
 }
 
 #settingProfile{
@@ -690,4 +694,16 @@ div.message-from-other {
   #groupsBtn{
     display: none;
   }
+
+.postContent{
+  padding: 60px 20px 60px 20px;
+  min-height: 100px;
+}
+.postText{
+  font-size: 1.5rem;
+}
+
+.postContentImage{
+max-width 200px;
+}
 }

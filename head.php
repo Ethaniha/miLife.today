@@ -70,14 +70,14 @@
 
     if(isset($_POST['sendpost'])) {
 
-      if($_FILES['image']['size'] != 0) {
+      if($_FILES['postImage']['size'] != 0) {
     
         $errors= array();
-        $file_name = $_FILES['image']['name'];
-        $file_size = $_FILES['image']['size'];
-        $file_tmp = $_FILES['image']['tmp_name'];
-        $file_type = $_FILES['image']['type'];
-        $file_temp = explode('.',$_FILES['image']['name']);
+        $file_name = $_FILES['postImage']['name'];
+        $file_size = $_FILES['postImage']['size'];
+        $file_tmp = $_FILES['postImage']['tmp_name'];
+        $file_type = $_FILES['postImage']['type'];
+        $file_temp = explode('.',$_FILES['postImage']['name']);
         $file_ext=strtolower(end($file_temp));
         
         $extensions= array("jpeg","jpg","png");
@@ -243,7 +243,7 @@
       <textarea  class="form-control" name="postbody" rows="5" cols="80" autofocus="autofocus" onfocus="this.select()" placeholder="Write your post message..."></textarea>
       <br>
       <h6>ADD AN IMAGE</h6>
-      <input type = "file" name = "image" class="btn btn-light btn-block">
+      <input type = "file" name = "postImage" class="btn btn-light btn-block">
       <br><br>
       <h6>SELECT A POST TYPE</h6>
       <select class="form-control" id="postType" name="postType">
