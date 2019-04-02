@@ -38,7 +38,33 @@
           $query = mysqli_query($db, "INSERT INTO users (forename, surname, email, username, password)VALUES ('$forename', '$surname', '$email', '$username', '$pass')");
           if($query)
           {
-            $msg = "Thank You! you are now registered.";
+
+            $sql = "SELECT User_ID FROM users WHERE email = '$email' ";
+            $result = mysqli_query($db, $sql);
+            $row=mysqli_fetch_array($result);
+            $user_id = $row[0];
+
+            $sql = "INSERT INTO followers (user_id, follower_id) VALUES ($user_id, $user_id)";
+            $result = mysqli_query($db, $sql);
+
+            $myusername = mysqli_real_escape_string($db,$_POST['email']);
+            $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
+            
+            $sql = "SELECT User_ID, username FROM users WHERE email = '$myusername' and password = '$mypassword'";
+            $result = mysqli_query($db,$sql);
+            $row = mysqli_fetch_array($result);
+      
+            
+            $count = mysqli_num_rows($result);
+            
+            // If result matched $myusername and $mypassword, table row must be 1 row
+              
+            if($count == 1) {
+               $_SESSION['login_user'] = $myusername;
+               $_SESSION['username'] = $row[1];
+               
+               header("location: index.php");
+            }
           }
         }
       }

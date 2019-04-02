@@ -373,7 +373,9 @@ if($myusername == $email){
                   $sql = "SELECT id FROM followers WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
                   $result = mysqli_query($db, $sql);
                   
-                  if (mysqli_num_rows($result) == 1) {
+                  if (mysqli_num_rows($result) == 1 && $follower_id = $user_id) {
+
+                  }else if (mysqli_num_rows($result) == 1){
                     echo '<form action="" method="post" >
                       <input type="submit" name="follow" value="Unfollow" class="btn btn-primary" id="followButton">
                   </form>';
