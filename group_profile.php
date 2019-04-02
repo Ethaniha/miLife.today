@@ -367,11 +367,22 @@ while ($row = mysqli_fetch_array($result)) {
 
   $sql = "SELECT id FROM group_users WHERE group_id = $group_id AND user_id = $user_id ";
   $result = mysqli_query($db, $sql);
-
+  $postForm = "";
   if (mysqli_num_rows($result) == 1) {
     echo '<form action="" method="post" >
       <input type="submit" name="join" value="Leave Group" class="btn btn-primary" id="followButton">
 </form>';
+    $postForm .= '<div class="sidebar" id="groupPostForm">
+    <form action="" method="post" enctype="multipart/form-data">
+        <textarea class="form-control" name="postbody" rows="2" cols="80" placeholder="Add a post to the group '.$groupName.'"></textarea>
+        <br>
+        <div class="input-group mb-3"><input type="file" name="image" class="btn btn-sm form-control">
+            <div class="input-group-append"><input type="submit" name="sendgrouppost" value="Post!" class="btn btn-primary">
+            </div>
+        </div>
+
+    </form>
+</div>';
   }
   else {
     echo '<form action="" method="post" >
@@ -389,17 +400,7 @@ while ($row = mysqli_fetch_array($result)) {
             <div class="row">
                 <div class="col-lg-9" data-aos='fade-in'
     data-aos-duration='1000'>
-                    <div class="sidebar" id="groupPostForm">
-                        <form action="" method="post" enctype="multipart/form-data">
-                            <textarea class="form-control" name="postbody" rows="2" cols="80" placeholder="Add a post to the group '<?php echo $groupName?>'"></textarea>
-                            <br>
-                            <div class='input-group mb-3'><input type="file" name="image" class="btn btn-sm form-control">
-                                <div class='input-group-append'><input type="submit" name="sendgrouppost" value="Post!" class="btn btn-primary">
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
+<?php echo $postForm; ?>
                     <?php echo $posts; ?>
                 </div>
                 <div class="col-lg-3" data-aos='fade-up'
