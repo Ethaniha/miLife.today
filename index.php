@@ -21,16 +21,20 @@ include("db.php");
       $result = mysqli_query($db, $sql) or die(mysqli_error($db));
     }
     else if ($type == 3) {
-      $sql = "SELECT user_id FROM users_comments WHERE id = '$id' ";
-      $result = mysqli_query($db, $sql);
-      $row=mysqli_fetch_array($result);
-      $receiverID = $row[0];
-
+      
       $myusername = $_SESSION['login_user'];
       $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
       $result = mysqli_query($db, $sql);
       $row=mysqli_fetch_array($result);
       $user_id = $row[0];
+
+
+      $sql = "SELECT post.user_id FROM post
+      JOIN users_comments ON post.post = users_comments.post_id WHERE users_comments.id = '$id' AND post.user_id != '$user_id'";
+      $result = mysqli_query($db, $sql);
+      $row = mysqli_fetch_array($result);
+      $receiverID = $row[0];
+
 
       $sql = "INSERT INTO notifications (type, sender_id, receiver_id, post_id) VALUES (3, '$user_id', '$receiverID', '$id')";
       $result = mysqli_query($db, $sql) or die(mysqli_error($db));
