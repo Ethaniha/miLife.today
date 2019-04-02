@@ -307,19 +307,22 @@ height: 70px;
   padding: 140px 20px 140px 20px;
   min-height: 280px;
   margin: auto;
+  width: 100%;
 }
 
 .postContentImage{
   padding: 30px 10px 30px 10px;
   min-height: 280px;
   margin: auto;
-width: auto;
+  width: auto;
 }
 
 .postText{
   font-family: 'Noto Serif', serif;
   font-size: 2.5rem;
   color: rgb(87, 87, 87);
+  width: 100%;
+  overflow-wrap: break-word;
 }
 
 .postContentImage .postText {
