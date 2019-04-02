@@ -186,7 +186,7 @@ while ($row = mysqli_fetch_array($result)) {
   $friends = '<h6>'.$forename.' is not currenty following anyone</h6>';
 }
 
-$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.image FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
+$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image, post.user_id FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $posts = "";
 
@@ -200,38 +200,55 @@ while ($row = mysqli_fetch_array($result)) {
   $commentresult = mysqli_query($db, $commentsql) or die(mysqli_error($db));
 
   $postBody = addMention($row[2]);
-  
+
   while ($commentrow = mysqli_fetch_array($commentresult)) {
     $commentBody = addMention($commentrow[0]);
     $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
   }
 
-  if (mysqli_num_rows($result2) < 1) {
 
-    if(is_null($row[6])) {
-      $img = "";
+if (mysqli_num_rows($result2) < 1) {
+
+    if(is_null($row[8])) {
+      $img = "<div class='postContent'>
+                <h2 class='postText'>".$postBody."</h2>
+              </div>";
     } 
     else {
-      $img = "<br><img src='/Assets/imgs/posts/".$row[6]."' height=400/><br>";
+      $img = "<div class='postContentImage'>
+                <img src='../Assets/imgs/posts/".$row[8]."' class='postImg'/><br>
+                <h2 class='postText'>".$postBody."</h2>
+              </div>";
     }
 
+    if ($row[9] == $user_id) {
+      $deleteButton = "<button class='delete btn btn-light' data-id='".$row[0]."'><i class='fas fa-trash-alt'></i></button>";
+    } else {
+      $deleteButton = "";
+    }
+
+    $date = date_format(new DateTime($row[1]),"d F Y G:i");
+    $price = "";
+    if ($row[6] == 1) { $price = "<p style='color: green;'><i class='fas fa-hand-holding-usd'></i> £".$row[7]."</p>" ;} else {$price = "";}
     $posts .= "
-    <div class='post' id='profilePost' data-aos='fade-up'
+    <div class='post' data-aos='fade-up'
     data-aos-duration='400'>
       <div class='container'>
         <div class='row'>
             <div class='col-xs-3'>
               <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
             </div>
-            <div class='col-xs-9 postDetails'>
-              <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
-              <p><i class='far fa-clock'></i> ".$row[1]."</p>
+            <div class='col-xs-8 postDetails'>
+              <b><a href='user_profile.php?username=".$row[3]."'>" .$row[3]."</a></b>
+              <p><i class='far fa-clock'></i> ".$date."</p>".$price."
+
+            </div>
+            <div class='col-xs-1 ml-auto mr-3'>
+            ".$deleteButton."
             </div>
           </div>
         <div class='row'>
-          <div class='postContent'>".$img."
-          <h2 class='postText'>".$postBody."</h2>
-          </div>
+        ".$img."
         </div>
           <hr>
           <div class='col-xs-10'>
@@ -253,46 +270,61 @@ while ($row = mysqli_fetch_array($result)) {
     </div></br>";
   } else {
 
-    if(is_null($row[6])) {
-      $img = "";
+    if(is_null($row[8])) {
+      $img = "<div class='postContent'>
+                <h2 class='postText'>".$postBody."</h2>
+              </div>";
     } 
     else {
-      $img = "<br><img src='/Assets/imgs/posts/".$row[6]."' height=400/><br>";
+      $img = "<div class='postContentImage'>
+                <img src='../Assets/imgs/posts/".$row[8]."' class='postImg'/><br>
+                <h2 class='postText'>".$postBody."</h2>
+              </div>";
     }
-    $posts .= "
-    <div class='post' id='profilePost' data-aos='fade-up'
-    data-aos-duration='400'>
-      <div class='container'>
-        <div class='row'>
-            <div class='col-xs-3'>
-              <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+
+    if ($row[9] == $user_id) {
+      $deleteButton = "<button class='delete btn btn-light' data-id='".$row[0]."'><i class='fas fa-trash-alt'></i></button>";
+    } else {
+      $deleteButton = "";
+    }
+
+      $date = date_format(new DateTime($row[1]),"d F Y G:i");
+      if ($row[6] == 1) { $price = "<p style='color: green;'><i class='fas fa-hand-holding-usd'></i> £".$row[7]."</p>" ;} else {$price = "";}
+      $posts .= "
+      <div class='post' data-aos='fade-up'
+      data-aos-duration='400'>
+        <div class='container'>
+          <div class='row'>
+              <div class='col-xs-3'>
+                <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+              </div>
+              <div class='col-xs-7 postDetails'>
+                <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
+                <p><i class='far fa-clock'></i> ".$date."</p>".$price."
+              </div>
+              <div class='col-xs-2 ml-auto mr-3'>
+              ".$deleteButton."
+              </div>
             </div>
-            <div class='col-xs-9 postDetails'>
-              <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
-              <p><i class='far fa-clock'></i> ".$row[1]."</p>
-            </div>
+          <div class='row'>
+          ".$img."
           </div>
-        <div class='row'>
-          <div class='postContent'>".$img."
-          <h2 class='postText'>".$postBody."</h2>
-          </div>
-        </div>
-          <hr>
-          <div class='col-xs-10'>
+            <hr>
+            <div class='col-xs-10'>
               <button type='submit' class='btn btn-danger like' name='like' data-id='".$row[0]."'>
                   <i class='fas fa-heart'></i>
                 </button>
             </div>
             <div class='col-xs-2'>
             <p data-id='".$row[0]."'>Likes: " .$row[5]."</p>
-        </div>
-        <form action='index.php?postid=".$row[0]."' method='post'>
-        <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
-        <div class='input-group-append'><button type='submit' name='comment' value='Comment!' class='btn btn-secondary'>Post</button>
-        </div>
-        </div>
-      </form>
-      <div class='postComments'>".$comments."</div>
+          </div>
+          <form action='index.php?postid=".$row[0]."' method='post'>
+            <div class='input-group mb-3'><input type='text' class='form-control' placeholder='Write a comment...' name='commentbody' rows='3' cols='40'></textarea>
+              <div class='input-group-append'><button type='submit' name='comment' value='Comment!' class='btn btn-secondary'>Post</button>
+              </div>
+            </div>
+          </form>
+        <div class='postComments'>".$comments."</div>
       </div>
     </div></br>";
   }
@@ -406,15 +438,21 @@ if($myusername == $email){
       });
     });
 
-  // $('#like').click(function like_post(query)
-  // {
-  // $.ajax({
-  //  url:"like_post.php",
-  //  success:function(data)
-  //  {
-  //   //$('#users').html(data);
-  //  }
-  // });
+    $('.delete').click(function() {
+        var postid = $(this).attr('data-id');
+        $.ajax({
+         url:"delete_post.php?post_id="+postid,
+         success:function(data)
+         {
+            console.log("deleted");
+            location.reload();
+         },
+         error: function(data)
+         {
+          console.log("fail");
+         }
+      });
+    });
 
 });
 

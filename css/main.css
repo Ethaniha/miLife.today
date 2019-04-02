@@ -258,6 +258,7 @@ font-weight: 600;
 .postImg{ 
 width: 100%;
 max-width: 600px;
+border-radius: 10px;
 }
 
 .post .profilePhoto{
@@ -319,6 +320,11 @@ width: auto;
   font-family: 'Noto Serif', serif;
   font-size: 2.5rem;
   color: rgb(87, 87, 87);
+}
+
+.postContentImage .postText {
+  padding: 15px 5px 0px 5px;
+  font-size: 1.5rem;
 }
 
 .postsColumnIndex{
@@ -710,6 +716,6 @@ div.message-from-other {
 }
 
 .postContentImage{
-max-width 200px;
+max-width: 200px;
 }
 }
