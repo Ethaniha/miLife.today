@@ -189,12 +189,12 @@ if (isset($_GET['group_id'])) {
 
   if (isset($_POST['join'])) {
 
-    $sql = "SELECT id FROM group_users WHERE group_id = $group_id AND user_id = $group_id ";
+    $sql = "SELECT id FROM group_users WHERE group_id = $group_id AND user_id = $user_id ";
     $result = mysqli_query($db, $sql);
 
     if (mysqli_num_rows($result) > 0) {
       // leave group
-      $sql = "DELETE FROM group_users WHERE group_id = $group_id AND user_id = $group_id ";
+      $sql = "DELETE FROM group_users WHERE group_id = $group_id AND user_id = $user_id ";
       $result2 = mysqli_query($db, $sql);
 
     } else {
@@ -202,7 +202,7 @@ if (isset($_GET['group_id'])) {
       $sql = "INSERT INTO group_users (group_id, user_id) VALUES ('$group_id', '$user_id')";
       $result2 = mysqli_query($db, $sql);
     }
-
+    echo "<meta http-equiv='refresh' content='0'>";
   }
 
 }
@@ -365,7 +365,7 @@ while ($row = mysqli_fetch_array($result)) {
                         <?php echo $groupMembers; ?><br>
                         <?php 
 
-  $sql = "SELECT id FROM group_users WHERE group_id = $group_id AND user_id = $group_id ";
+  $sql = "SELECT id FROM group_users WHERE group_id = $group_id AND user_id = $user_id ";
   $result = mysqli_query($db, $sql);
 
   if (mysqli_num_rows($result) == 1) {
@@ -378,7 +378,6 @@ while ($row = mysqli_fetch_array($result)) {
       <input type="submit" name="join" value="Join Group" class="btn btn-primary" id="followButton">
 </form>';
 
-    //echo "user followed";
 }
 
 ?>
