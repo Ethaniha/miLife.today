@@ -115,7 +115,6 @@
             $last_row = mysqli_insert_id($db);
 
           }
-    
         }
     
       }
@@ -144,7 +143,7 @@
           $last_row = mysqli_insert_id($db);
           notifyPost($postbody, $last_row, 1, $db);
         }
-
+        echo "<meta http-equiv='refresh' content='0'>";
       }
     
     }

@@ -398,6 +398,7 @@ if ($myusername==''){
          success:function(data)
          {
             console.log("deleted");
+            location.reload();
          },
          error: function(data)
          {

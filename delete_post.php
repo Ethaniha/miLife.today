@@ -12,5 +12,5 @@ $post_id = $_GET['post_id'];
 
 $sql = "DELETE FROM post WHERE post= $post_id AND user_id = $user_id";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-
+echo "<meta http-equiv='refresh' content='0'>";
 ?>
