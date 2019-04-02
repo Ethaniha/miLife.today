@@ -187,6 +187,24 @@ if (isset($_GET['group_id'])) {
 
   }
 
+  if (isset($_POST['join'])) {
+
+    $sql = "SELECT id FROM group_users WHERE group_id = $group_id AND user_id = $group_id ";
+    $result = mysqli_query($db, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+      // leave group
+      $sql = "DELETE FROM group_users WHERE group_id = $group_id AND user_id = $group_id ";
+      $result2 = mysqli_query($db, $sql);
+
+    } else {
+      //join
+      $sql = "INSERT INTO group_users (group_id, user_id) VALUES ('$group_id', '$user_id')";
+      $result2 = mysqli_query($db, $sql);
+    }
+
+  }
+
 }
 
 
@@ -352,12 +370,12 @@ while ($row = mysqli_fetch_array($result)) {
 
   if (mysqli_num_rows($result) == 1) {
     echo '<form action="" method="post" >
-      <input type="submit" name="follow" value="Leave Group" class="btn btn-primary" id="followButton">
+      <input type="submit" name="join" value="Leave Group" class="btn btn-primary" id="followButton">
 </form>';
   }
   else {
     echo '<form action="" method="post" >
-      <input type="submit" name="follow" value="Join Group" class="btn btn-primary" id="followButton">
+      <input type="submit" name="join" value="Join Group" class="btn btn-primary" id="followButton">
 </form>';
 
     //echo "user followed";
