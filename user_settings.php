@@ -111,8 +111,10 @@ $followers = mysqli_num_rows($result);
                               
                               <div class="col-xs-6">
                                   <h4>Change Profile Picture</h4><br>
-                                  <form class="btn btn-light" action = "" method = "POST" enctype = "multipart/form-data">
+                                  <form class="btn btn-light btn-block" action = "" method = "POST" enctype = "multipart/form-data">
                                   <input type = "file" name = "image"/>
+                                  <br>
+                                  <br>
                                   <input class="btn btn-secondary" type = "submit" value="Update Profile Picture"/>
                                 </form>
                               </div>
@@ -173,22 +175,5 @@ $followers = mysqli_num_rows($result);
 </div>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   <?php include("footer.php"); ?> 
-  <script>
-  if (navigator.platform.substr(0,2) === 'iP'){
-      //iOS (iPhone, iPod or iPad)
-      var lte9 = /constructor/i.test(window.HTMLElement);
-      var nav = window.navigator, ua = nav.userAgent, idb = !!window.indexedDB;
-      if (ua.indexOf('Safari') !== -1 && ua.indexOf('Version') !== -1 && !nav.standalone){      
-        //Safari (WKWebView/Nitro since 6+)
-      } else if ((!idb && lte9) || !window.statusbar.visible) {
-        //UIWebView
-      } else if ((window.webkit && window.webkit.messageHandlers) || !lte9 || idb){
-        //WKWebView
-        
-        document.getElementById("footer").remove();
-
-      }
-}
-  </script>
 </body>
 </html>
