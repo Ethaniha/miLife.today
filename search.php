@@ -6,6 +6,7 @@
 	if(isset($_POST["query"])) {
 
 		$search = $_POST['query'];
+		$search = $db->real_escape_string($search);
 
 	  	$sql = "SELECT username, image FROM users WHERE username LIKE '%$search%' ";
 	  	$result = mysqli_query($db, $sql) or die(mysqli_error($db));

@@ -17,11 +17,17 @@
 	    $result = mysqli_query($db, $sql);
 	    $row=mysqli_fetch_array($result);
 	    $messagerUserId = $row[0];
+	    $status = 0;
 
 	    if(!empty($messageBody)) {
 	      
-	        $sql = "INSERT INTO messages (body, sender_id, receiver_id, read_status) VALUES ('$messageBody', '$user_id', '$messagerUserId', 0)";
-	        $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+	      	$stmt = $db->prepare("INSERT INTO messages (body, sender_id, receiver_id, read_status) VALUES (?,?,?,?)");
+	      	$stmt->bind_param("siii", $messageBody, $user_id, $messagerUserId, $status);
+	      	$stmt->execute();
+	      	$stmt->close();
+
+	        //$sql = "INSERT INTO messages (body, sender_id, receiver_id, read_status) VALUES ('$messageBody', '$user_id', '$messagerUserId', 0)";
+	        //$result = mysqli_query($db, $sql) or die(mysqli_error($db));
 	    }
 	    else {
 	      	echo "empty";
