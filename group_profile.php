@@ -143,7 +143,7 @@ if (isset($_GET['group_id'])) {
         $postbody = $_POST['postbody'];
         $time = date("Y-m-d H:i:s");
   
-        $sql = "INSERT INTO group_post (group_id body, posted_at, user_id, likes, image) VALUES ('$group_id','$postbody', '$time', '$user_id', 0, '$file_name')";
+        $sql = "INSERT INTO group_post (group_id, body, posted_at, user_id, likes, image) VALUES ('$group_id','$postbody', '$time', '$user_id', 0, '$file_name')";
         $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 
         $last_row = mysqli_insert_id($db);
