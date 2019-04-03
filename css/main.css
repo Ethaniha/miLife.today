@@ -49,17 +49,21 @@ body {
     box-shadow: 0px 0px 5px 2px #dddddd;
 }
 
+.btn{
+  box-shadow: 0px 0px 20px 0px #38383827;
+}
+
 .navbar{
   overflow: visible !important;
   position: fixed; /* Set the navbar to fixed position */
   top: 0; /* Position the navbar at the top of the page */
   width: 100%; /* Full width */
   z-index: 101;
-  
+  box-shadow: 0px 0px 20px 0px #38383827;
 }
 
 .navbar-rightside{
-  width: 20%;
+  width: 25%;
   float: right;
   padding: auto auto 0px auto;
   }
@@ -101,6 +105,7 @@ div.searchbox {
 
 img.searchimg {
   margin-right: 15px;
+  border: solid 1px rgb(230, 230, 230);
 }
 
 #searchresult{
@@ -139,6 +144,7 @@ img.searchimg {
 #navbar-addpost-icon{
   color: rgb(255, 255, 255);
   background-color: rgb(212, 114, 98);
+  text-decoration: none;
 }
 
 #navbar-profile-icon{
@@ -155,48 +161,118 @@ img.searchimg {
 }
 
 .sidebar{
-  background-color: rgb(238, 239, 241);
-  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 50px 2px #e4e4e4b7;
+  border: solid 0.5px rgb(230, 230, 230);
+  border-radius: 15px;
   padding: 15px;
   margin-bottom: 20px;
-}
-
-.profileBody .sidebar{
-  background-color: rgb(238, 239, 241);
-  border-radius: 5px;
-  padding: 15px;
-  margin-top: 18px;
 }
 
 .sidebarTitle{
 font-weight: 600;
 }
 
+.groupCard{
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 50px 2px #f1f1f1;
+  border-width: 0.5px;
+  border-color: rgb(230, 230, 230);
+  border-radius: 10px;
+  padding: 30px 30px 30px 15px;
+  min-height: 385px;
+  text-align: center;
+  text-decoration: none;
+  margin-bottom: 25px;
+}
+.groupCard .profilePhoto{
+  width: 180px;
+  height: 180px;
+  margin: auto;
+  background-color: white;
+  border: solid 1px rgb(230, 230, 230);
+}
+
+.groupCard .card-title{
+  font-weight: 600;
+}
+
+.groupCard a {
+  color: rgb(43, 43, 43);
+  text-decoration: none;
+}
+
+.groupCard:hover{
+  background-color: rgb(240, 240, 240);
+  box-shadow: 0px 0px 30px 10px #f1f1f1;
+}
+
+#groupPostForm{
+  margin: 0px -15px 20px -15px;
+}
+
 .friend{
   transition: 0.3s;
-  margin-top: 10px;
-  padding: 10px;
+  margin-top: 5px;
+  padding: 18px 10px 10px 10px;
 }
+
+.friendDetails{
+  padding: 5px 0px 0px 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;    
+}
+
+.friendDetails p{
+  font-size: 0.9rem;
+}
+
+.friend a {
+  color: rgb(43, 43, 43);
+  text-decoration: none;
+}
+
 .friend:hover{
   transition: 0.3s;
-  background-color: #FFF;
-  border-radius: 5px;
+  background-color: rgb(242, 242, 242);
+  border-radius: 10px;
 }
 
 .friend .profilePhoto{
-  width:70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border: solid 1px rgb(230, 230, 230);
   }
 
 .post{
-  background-color: rgb(245, 246, 248);
-  border-radius: 5px;
-  padding: 15px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 50px 2px #31313125;
+  border: solid 0.5px rgba(230, 230, 230, 0.76);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 0px -15px;
+}
+
+.postImg{ 
+width: 100%;
+max-width: 600px;
+border-radius: 10px;
 }
 
 .post .profilePhoto{
 width:70px;
 height: 70px;
+}
+
+#noPosts{
+  padding: 20%;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #b9b9b9;
+  font-weight: 600;
 }
 
 .postComments{
@@ -209,10 +285,10 @@ height: 70px;
 }
 
 .postCommentDetail{
-  padding: 5px 15px;
+  padding: 8px 18px;
   min-width: 100px;
   max-width: 85%;
-  background-color: white;
+  background-color: rgb(242, 245, 245);
   border-radius: 20px;
   margin-left: 10px;
 }
@@ -224,18 +300,44 @@ height: 70px;
 
 .postDetails{
   padding: 10px 20px;
+  text-overflow:ellipsis;
 }
 
 .postContent{
   padding: 140px 20px 140px 20px;
   min-height: 280px;
   margin: auto;
+  width: 100%;
+}
+
+.postContentImage{
+  padding: 30px 10px 30px 10px;
+  min-height: 280px;
+  margin: auto;
+  width: auto;
 }
 
 .postText{
   font-family: 'Noto Serif', serif;
   font-size: 2.5rem;
   color: rgb(87, 87, 87);
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+.postContentImage .postText {
+  padding: 15px 5px 0px 5px;
+  font-size: 1.5rem;
+}
+
+.postsColumnIndex{
+  margin-top: -75px;
+  z-index: 99;
+}
+
+.delete{
+  box-shadow: 0px 0px 10px 2px #dddddd;
+  margin-top: 10px;
 }
 
 #profilePagePhoto{
@@ -262,6 +364,11 @@ height: 70px;
     font-size: 2.5rem;
     font-weight: 600;
 }
+.notificationH1{
+  padding: 10px 0px 10px 0px;
+  font-size: 4rem;
+  font-weight: 600;
+}
 
 .btn-primary{
     background-color: #D47262 !important;
@@ -285,9 +392,78 @@ height: 70px;
   z-index: 99;
 }
 
+#notificationHeader{
+  background-image: url(../Assets/imgs/no-notifications.png) !important;
+  background-size: cover;
+  background-position: bottom;
+  padding: 150px 0px 150px 0px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 15px rgb(87, 87, 87);
+  position: relative;
+  z-index: 99;
+  font-size: 5.5rem;
+}
+
+.alert{
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 50px 2px #31313125;
+  border: solid 0.5px rgba(230, 230, 230, 0.76);
+  border-radius: 15px;
+  padding: 20px;
+  width: 100%;
+  font-size: 1rem;
+}
+.messageUsers{
+  box-shadow: 0px 0px 50px 2px #31313125;
+}
+
+.messageUser{
+  background-color: rgb(255, 255, 255);
+  border: solid 0.5px rgba(230, 230, 230, 0.76);
+  padding: 15px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.messageUser .profilePhoto{
+width: 50px;
+height: 50px;
+}
+
+.messageUserDetails{
+  margin-left: 10px;
+  margin-top: 12px;
+}
+
+.messageUser:hover{
+  background-color: rgb(240, 240, 240);
+  border: solid 0.5px rgba(230, 230, 230, 0.76);
+  padding: 15px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.btn{
+  border-radius: 10px; 
+}
+
 
 #profileBanner{
   background-image: url(../Assets/imgs/user-bg2.png) !important;
+  background-size: cover;
+  background-position: bottom;
+  padding: 50px 0px 50px 0px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 15px rgb(87, 87, 87);
+  position: relative;
+  z-index: 99;
+  text-align: left;
+}
+
+#groupBanner{
+  background-image: url(../Assets/imgs/group-bg.jpg) !important;
   background-size: cover;
   background-position: bottom;
   padding: 50px 0px 50px 0px;
@@ -307,10 +483,16 @@ height: 70px;
 
 .display-2{
     font-weight: 500;
+    font-size: 4.5rem;
 }
 
 .profilePhoto{
     border-radius:50%;
+    background-color: white;
+  margin-top: 0px;
+  background-position: center center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
 }
 
 #settingProfile{
@@ -346,6 +528,10 @@ display: block;
   /*background-color: rgba(255, 255, 255, 0.8);*/
 }
 
+.form-control{
+  border-radius: 10px; 
+}
+
 #form-register{
   max-width: 600px;
 }
@@ -366,6 +552,12 @@ display: block;
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+#form-register input[type="text"] {
+  margin-bottom: 0px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 .form-signin input[type="email"] {
   margin-bottom: -1px;
@@ -388,6 +580,10 @@ display: block;
   color:#FFF; 
 }
 
+.signinH1 a:hover { 
+  color:#FFF; 
+}
+
 a {
   color: black;
 }
@@ -398,7 +594,6 @@ div.message-from-me {
   float: right;
   border-radius: 10px;
   background: rgb(212, 114, 98);
-  box-shadow: 0px 0px 5px 0px #dddddd;
   color: #FFF;
   padding: 5px 10px;
   margin-top: 5px;
@@ -415,6 +610,40 @@ div.message-from-other {
   margin-top: 5px;
   clear: both;
   max-width: 75%;
+}
+
+.pulsate-fwd {
+	-webkit-animation: pulsate-fwd 0.5s ease-in-out both;
+	        animation: pulsate-fwd 0.5s ease-in-out both;
+}
+
+@-webkit-keyframes pulsate-fwd {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes pulsate-fwd {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
 }
 
 @media only screen and (min-width: 214px) and (max-width: 767px) { 
@@ -439,6 +668,10 @@ div.message-from-other {
   
   .display-2{
       font-size: 2.5rem;
+  }
+
+  .post{
+    margin: 0px;
   }
 
   .postContent{
@@ -476,4 +709,16 @@ div.message-from-other {
   #groupsBtn{
     display: none;
   }
+
+.postContent{
+  padding: 60px 20px 60px 20px;
+  min-height: 100px;
+}
+.postText{
+  font-size: 1.5rem;
+}
+
+.postContentImage{
+max-width: 200px;
+}
 }

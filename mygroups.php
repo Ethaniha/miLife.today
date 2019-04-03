@@ -61,7 +61,7 @@ if (isset($_POST['createGroup'])) {
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
       <div class="modal-content">
        <div class="modal-header">
-          <h3 class="modal-title" id="exampleModalCenterTitle">Create a new Group</h3>
+          <h3 class="modal-title" id="exampleModalCenterTitle">CREATE A NEW GROUP</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -69,16 +69,15 @@ if (isset($_POST['createGroup'])) {
         <div class="modal-body">
           <form action="" method="post" enctype="multipart/form-data">
             <h6>ADD A GROUP NAME</h6>
-            <input type = "text" name = "groupName" class="form-control">
+            <input type = "text" name = "groupName" class="form-control" placeholder="Enter the group name...">
             <br>
             <h6>DESCRIPTION</h6>
-            <textarea  class="form-control" name="groupDesc" rows="5" cols="80"></textarea>
+            <textarea  class="form-control" name="groupDesc" rows="5" cols="80" placeholder="Let users and members know what your group is all about..."></textarea>
             <br>
             <h6>GROUP IMAGE</h6>
-            <input type = "file" name = "groupImage" class="btn btn-light form-control">
+            <input type = "file" name = "groupImage" class="btn btn-light btn-block">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <input type="submit" name="createGroup" value="Create" class="btn btn-primary">
         </div>
       </form>

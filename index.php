@@ -6,31 +6,39 @@ include("db.php");
   function notify($body, $id, $type, $db) {
 
     if ($type == 2) {
-      $sql = "SELECT post.user_id FROM post, post_likes WHERE post.post = post_likes.post_id";
-      $result = mysqli_query($db, $sql);
-      $row=mysqli_fetch_array($result);
-      $receiverID = $row[0];
 
       $myusername = $_SESSION['login_user'];
       $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
       $result = mysqli_query($db, $sql);
       $row=mysqli_fetch_array($result);
       $user_id = $row[0];
+
+
+      $sql = "SELECT post.user_id FROM post
+      JOIN post_likes ON post.post = post_likes.post_id WHERE post_likes.id = '$id' AND post.user_id != '$user_id'";
+      $result = mysqli_query($db, $sql);
+      $row = mysqli_fetch_array($result);
+      $receiverID = $row[0];
+
 
       $sql = "INSERT INTO notifications (type, sender_id, receiver_id, post_id) VALUES (2, '$user_id', '$receiverID', '$id')";
       $result = mysqli_query($db, $sql) or die(mysqli_error($db));
     }
     else if ($type == 3) {
-      $sql = "SELECT user_id FROM users_comments WHERE id = '$id' ";
-      $result = mysqli_query($db, $sql);
-      $row=mysqli_fetch_array($result);
-      $receiverID = $row[0];
-
+      
       $myusername = $_SESSION['login_user'];
       $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
       $result = mysqli_query($db, $sql);
       $row=mysqli_fetch_array($result);
       $user_id = $row[0];
+
+
+      $sql = "SELECT post.user_id FROM post
+      JOIN users_comments ON post.post = users_comments.post_id WHERE users_comments.id = '$id' AND post.user_id != '$user_id'";
+      $result = mysqli_query($db, $sql);
+      $row = mysqli_fetch_array($result);
+      $receiverID = $row[0];
+
 
       $sql = "INSERT INTO notifications (type, sender_id, receiver_id, post_id) VALUES (3, '$user_id', '$receiverID', '$id')";
       $result = mysqli_query($db, $sql) or die(mysqli_error($db));
@@ -87,9 +95,9 @@ if (isset($_GET['postid'])) {
     if (mysqli_num_rows($result) < 1) {
       $sql = "UPDATE post SET likes = likes + 1 WHERE post = $postid";
       $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-      $sql = "INSERT INTO post_likes (post_id, user_id) VALUES ($postid, $user_id)";
-      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 
+      $sql = "INSERT INTO post_likes (post_id, user_id) VALUES ('$postid', '$user_id' )";
+      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
       $last_row = mysqli_insert_id($db);
       notify("", $last_row, 2, $db);
 
@@ -110,31 +118,31 @@ $friends = "";
 
 if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
-  $friends .= '<div class="friend">
+  $friends .= '<div class="friend"><a href="user_profile.php?username='.$row[2].'">
                 <div class="container">
                   <div class="row">
-                  <div class="col-xs-3">
+                  <div class="col-xs-2">
                   <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
                   </div>
-                  <div class="col-xs-9 postDetails">
-                  <b><a href="user_profile.php?username='.$row[2].'">'.$row[1].'</a></b>
+                  <div class="col-xs-10 friendDetails">
+                  <b>'.ucwords($row[1]).'</b>
                   <p>@'.$row[2].'</p>
                   </div>
                   </div>
-                </div>
+                </div></a>
               </div>';
 }
 } else {
   $friends = '<h6>You are not currenty following anyone</h6>';
 }
 
-$sql = "SELECT users.image, users.forename, users.username FROM users
+$sql = "SELECT DISTINCT users.image, users.forename, users.username FROM users
 INNER JOIN followers ff ON users.user_id = ff.user_id
 INNER JOIN followers f ON ff.follower_id = f.user_id
 WHERE
 f.follower_id = '$user_id'
 AND ff.user_id NOT IN
-(SELECT user_id FROM followers WHERE follower_id = '$user_id')
+(SELECT DISTINCT user_id FROM followers WHERE follower_id = '$user_id')
 -- AND ff.follower_id NOT IN
 -- (SELECT user_id FROM followers WHERE followers.user_id = '$user_id')
 ";
@@ -143,25 +151,25 @@ $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $recomendations = "";
 if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
-  $recomendations .= '<div class="friend">
+  $recomendations .= '<div class="friend"><a href="user_profile.php?username='.$row[2].'">
                 <div class="container">
                   <div class="row">
-                  <div class="col-xs-3">
+                  <div class="col-xs-2">
                   <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
                   </div>
-                  <div class="col-xs-9 postDetails">
-                  <b><a href="user_profile.php?username='.$row[2].'">'.$row[1].'</a></b>
+                  <div class="col-xs-10 friendDetails">
+                  <b>'.ucwords($row[1]).'</b>
                   <p>@'.$row[2].'</p>
                   </div>
                   </div>
-                </div>
+                </div></a>
               </div>';
 }
 } else {
   $recomendations = '<h6>In order to gain miLife recomendations, please follow at least one user.</h6>';
 }
 
-$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
+$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image, post.user_id FROM users, post, followers WHERE post.user_id = followers.user_id AND users.user_id = post.user_id AND follower_id = '$user_id' ORDER BY `post`.`posted_at` DESC";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $posts = "";
 
@@ -181,24 +189,49 @@ while ($row = mysqli_fetch_array($result)) {
     $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
   }
 
+
   if (mysqli_num_rows($result2) < 1) {
+
+    if(is_null($row[8])) {
+      $img = "<div class='postContent'>
+                <h2 class='postText'>".$postBody."</h2>
+              </div>";
+    } 
+    else {
+      $img = "<div class='postContentImage'>
+                <img src='../Assets/imgs/posts/".$row[8]."' class='postImg'/><br>
+                <h2 class='postText'>".$postBody."</h2>
+              </div>";
+    }
+
+    if ($row[9] == $user_id) {
+      $deleteButton = "<button class='delete btn btn-light' data-id='".$row[0]."'><i class='fas fa-trash-alt'></i></button>";
+    } else {
+      $deleteButton = "";
+    }
+
     $date = date_format(new DateTime($row[1]),"d F Y G:i");
+    $price = "";
+    if ($row[6] == 1) { $price = "<p style='color: green;'><i class='fas fa-hand-holding-usd'></i> £".$row[7]."</p>" ;} else {$price = "";}
     $posts .= "
-    <div class='post'>
+    <div class='post' data-aos='fade-up'
+    data-aos-duration='400'>
       <div class='container'>
         <div class='row'>
             <div class='col-xs-3'>
               <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
             </div>
-            <div class='col-xs-9 postDetails'>
+            <div class='col-xs-8 postDetails'>
               <b><a href='user_profile.php?username=".$row[3]."'>" .$row[3]."</a></b>
-              <p><i class='far fa-clock'></i> ".$date."</p>
+              <p><i class='far fa-clock'></i> ".$date."</p>".$price."
+
+            </div>
+            <div class='col-xs-1 ml-auto mr-3'>
+            ".$deleteButton."
             </div>
           </div>
         <div class='row'>
-          <div class='postContent'>
-          <h2 class='postText'>".$postBody."</h2>
-          </div>
+        ".$img."
         </div>
           <hr>
           <div class='col-xs-10'>
@@ -219,23 +252,45 @@ while ($row = mysqli_fetch_array($result)) {
       </div>
     </div></br>";
   } else {
+
+    if(is_null($row[8])) {
+      $img = "<div class='postContent'>
+                <h2 class='postText'>".$postBody."</h2>
+              </div>";
+    } 
+    else {
+      $img = "<div class='postContentImage'>
+                <img src='../Assets/imgs/posts/".$row[8]."' class='postImg'/><br>
+                <h2 class='postText'>".$postBody."</h2>
+              </div>";
+    }
+
+    if ($row[9] == $user_id) {
+      $deleteButton = "<button class='delete btn btn-light' data-id='".$row[0]."'><i class='fas fa-trash-alt'></i></button>";
+    } else {
+      $deleteButton = "";
+    }
+
       $date = date_format(new DateTime($row[1]),"d F Y G:i");
+      if ($row[6] == 1) { $price = "<p style='color: green;'><i class='fas fa-hand-holding-usd'></i> £".$row[7]."</p>" ;} else {$price = "";}
       $posts .= "
-      <div class='post'>
+      <div class='post' data-aos='fade-up'
+      data-aos-duration='400'>
         <div class='container'>
           <div class='row'>
               <div class='col-xs-3'>
                 <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
               </div>
-              <div class='col-xs-9 postDetails'>
+              <div class='col-xs-7 postDetails'>
                 <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
-                <p><i class='far fa-clock'></i> ".$date."</p>
+                <p><i class='far fa-clock'></i> ".$date."</p>".$price."
+              </div>
+              <div class='col-xs-2 ml-auto mr-3'>
+              ".$deleteButton."
               </div>
             </div>
           <div class='row'>
-            <div class='postContent'>
-            <h2 class='postText'>".$postBody."</h2>
-            </div>
+          ".$img."
           </div>
             <hr>
             <div class='col-xs-10'>
@@ -276,24 +331,26 @@ if ($myusername==''){
       <div class="main-wrapper">
          <div id="feedHeader" class="jumbotron jumbotron-fluid" >
             <div class="container">
-               <h1 class="display-2">Welcome, <?php echo $forename; ?></h1>
-               <p id="feedCaption">Here are all the updates since you last logged in</p>
+               <h1 class="display-2">WELCOME, <?php echo strtoupper($forename); ?></h1>
+               <p id="feedCaption">Keep up to date with all the posts from people you follow</p>
             </div>
          </div>
          <div class="container">
             <div class="row">
-               <div class="col-lg-3 order-2 order-lg-1">
+               <div class="col-lg-3 order-2 order-lg-1" data-aos='fade-up'
+    data-aos-duration='600'>
                   <div class="sidebar">
                      <div class="sidebarTitle">YOU FOLLOW</div>
                      <?php echo $friends ?>
                   </div>
                </div>
-               <div class="col-lg-6 order-1 order-lg-2">
+               <div class="col-lg-6 order-1 order-lg-2 postsColumnIndex">
                   <?php echo $posts; ?>
                </div>
-               <div class="col-lg-3 order-3 order-lg-3">
+               <div class="col-lg-3 order-3 order-lg-3" data-aos='fade-up'
+    data-aos-duration='600'>
                   <div class="sidebar">
-                     <div class="sidebarTitle">RECOMENDATIONS</div>
+                     <div class="sidebarTitle">RECOMMENDATIONS</div>
                      <small>(Related Users)</small>
                      <?php echo $recomendations ?>
                   </div>
@@ -309,6 +366,8 @@ if ($myusername==''){
 <script>
   $(document).ready(function(){
 
+
+
     $('.like').click(function() {
         var postid = $(this).attr('data-id');
         $.ajax({
@@ -318,12 +377,28 @@ if ($myusername==''){
           $('p[data-id="'+postid+'"]').text("Likes: " + data);
 
           if ($('.like[data-id="'+postid+'"]').hasClass('btn-danger')) {
-            $('.like[data-id="'+postid+'"]').removeClass('btn-danger');
+            $('.like[data-id="'+postid+'"]').removeClass('btn-danger pulsate-fwd');
             $('.like[data-id="'+postid+'"]').addClass('btn-secondary'); 
           } else {
-            $('.like[data-id="'+postid+'"]').removeClass('btn-secondary');
-            $('.like[data-id="'+postid+'"]').addClass('btn-danger'); 
+            $('.like[data-id="'+postid+'"]').removeClass('btn-secondary pulsate-fwd');
+            $('.like[data-id="'+postid+'"]').addClass('btn-danger pulsate-fwd'); 
           }
+         },
+         error: function(data)
+         {
+          console.log("fail");
+         }
+      });
+    });
+
+    $('.delete').click(function() {
+        var postid = $(this).attr('data-id');
+        $.ajax({
+         url:"delete_post.php?post_id="+postid,
+         success:function(data)
+         {
+            console.log("deleted");
+            location.reload();
          },
          error: function(data)
          {
@@ -346,7 +421,3 @@ if ($myusername==''){
 
 
 </script>
-
-
-
-

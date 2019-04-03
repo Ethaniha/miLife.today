@@ -70,14 +70,14 @@
 
     if(isset($_POST['sendpost'])) {
 
-      if($_FILES['image']['size'] != 0) {
+      if($_FILES['postImage']['size'] != 0) {
     
         $errors= array();
-        $file_name = $_FILES['image']['name'];
-        $file_size = $_FILES['image']['size'];
-        $file_tmp = $_FILES['image']['tmp_name'];
-        $file_type = $_FILES['image']['type'];
-        $file_temp = explode('.',$_FILES['image']['name']);
+        $file_name = $_FILES['postImage']['name'];
+        $file_size = $_FILES['postImage']['size'];
+        $file_tmp = $_FILES['postImage']['tmp_name'];
+        $file_type = $_FILES['postImage']['type'];
+        $file_temp = explode('.',$_FILES['postImage']['name']);
         $file_ext=strtolower(end($file_temp));
         
         $extensions= array("jpeg","jpg","png");
@@ -96,14 +96,25 @@
     
           $postbody = $_POST['postbody'];
           $time = date("Y-m-d H:i:s");
-    
-          $sql = "INSERT INTO post (body, posted_at, user_id, likes, image) VALUES ('$postbody', '$time', '$user_id', 0, '$file_name')";
-          $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+          $postType = $_POST['postType'];
 
-          $last_row = mysqli_insert_id($db);
-
-          //notify($postbody);
+          if ($postType == "post") {
     
+            $sql = "INSERT INTO post (body, posted_at, user_id, likes, image, type, price) VALUES ('$postbody', '$time', '$user_id', 0, '$file_name', 0, NULL)";
+            $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+            $last_row = mysqli_insert_id($db);
+
+            //notify($postbody);
+          } else {
+            $price = $_POST['price'];
+
+            $sql = "INSERT INTO post (body, posted_at, user_id, likes, image, type, price) VALUES ('$postbody', '$time', '$user_id', 0, '$file_name', 1, '$price')";
+            $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+            $last_row = mysqli_insert_id($db);
+
+          }
         }
     
       }
@@ -113,19 +124,37 @@
       else {
         $postbody = $_POST['postbody'];
         $time = date("Y-m-d H:i:s");
+        $postType = $_POST['postType'];
+
+        if ($postType == "post") {
     
-        $sql = "INSERT INTO post (body, posted_at, user_id, likes) VALUES ('$postbody', '$time', '$user_id', 0)";
-        $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+          $sql = "INSERT INTO post (body, posted_at, user_id, likes, type, price) VALUES ('$postbody', '$time', '$user_id', 0, 0, NULL)";
+          $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 
-        $last_row = mysqli_insert_id($db);
-        notifyPost($postbody, $last_row, 1, $db);
+          $last_row = mysqli_insert_id($db);
+          notifyPost($postbody, $last_row, 1, $db);
+        }
+        else {
 
+          $price = $_POST['price'];
+          $sql = "INSERT INTO post (body, posted_at, user_id, likes, type, price) VALUES ('$postbody', '$time', '$user_id', 0, 1, '$price')";
+          $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+
+          $last_row = mysqli_insert_id($db);
+          notifyPost($postbody, $last_row, 1, $db);
+        }
+        echo "<meta http-equiv='refresh' content='0'>";
       }
     
     }
   }
   ?>
   <link rel="stylesheet" href="css/main.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+  AOS.init();
+</script>
   <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Roboto:400,400i,500,700" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -202,20 +231,29 @@
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalCenterTitle">Add a new post</h3>
+        <h3 class="modal-title" id="exampleModalCenterTitle">ADD A NEW POST</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
       <form action="" method="post" enctype="multipart/form-data">
-      <textarea  class="form-control" name="postbody" rows="5" cols="80"></textarea>
+      <h6>YOUR POST</h6>
+      <textarea  class="form-control" name="postbody" rows="5" cols="80" autofocus="autofocus" onfocus="this.select()" placeholder="Write your post message..."></textarea>
       <br>
-      <input type = "file" name = "image" class="btn btn-light">
+      <h6>ADD AN IMAGE</h6>
+      <input type = "file" name = "postImage" class="btn btn-light btn-block">
+      <br><br>
+      <h6>SELECT A POST TYPE</h6>
+      <select class="form-control" id="postType" name="postType">
+        <option value="post">Standard Post</option>
+        <option value="auction">Auction</option>
+      </select>
+      <br>
+      <input type="text" class="form-control" placeholder="Input an asking price.." id="price" name="price" style="display: none;">
     </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input type="submit" name="sendpost" value="Post!" class="btn btn-primary">
+        <input type="submit" name="sendpost" value="Post" class="btn btn-primary">
       </div>
       </form>
     </div>
@@ -248,11 +286,41 @@
         
         document.getElementById("messagesBtn").remove();
         document.getElementById("alertsBtn").remove();
+        document.getElementById("groupsBtn").remove();
         document.getElementById("settingsBtn").remove();
         document.getElementById("navbar-profile-icon").remove();
         document.getElementById("mobileBtn").remove();
       }
 }
+
+
+      document.getElementById("postType").onchange = function(e) {
+        var priceField = document.getElementById("price");
+       
+        if (this[this.selectedIndex].text == 'Post') {
+          priceField.style.display = "none";
+        }
+        else {
+          priceField.style.display = "block";
+        }
+      };
+      // var selector = document.getElementById("psostType").value;
+      // selector.onchange = (event) => {
+      //   var inputText = event.target.value;
+      //   console.log(inputText);
+      // }
+
+    // function changePost() {
+    //   var selector = document.getElementById("postType").value;
+    //   var priceField = document.getElementById("price");
+
+    //   if (selector == 'Post') {
+    //     priceField.style.display = "none";
+    //   }
+    //   else {
+    //     priceField.style.display = "block";
+    //   }
+    // }
    function load_data(query)
    {
     $.ajax({

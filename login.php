@@ -59,8 +59,14 @@
   </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Sign in</button>
   <br>
-          <p class="signinH1">Or click <a class="signinH1" href="register.php">here</a> to register</p>
-        <p><?php if (!empty($error)) { echo $error; } ?></p>
+   <p class="signinH1"><a class="signinH1" href="register.php">Or click here to register</a></p>
+   <?php if (!empty($error)) { echo '
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>'.$error.'</strong>  
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+   </div>';}?>
 </form>
 </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>

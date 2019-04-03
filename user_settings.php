@@ -83,7 +83,8 @@ $followers = mysqli_num_rows($result);
 <div class="container">	
 <h1 class="pageHeader">My Settings</h1>
    <div class="row">
-   <div class="col-sm-3"><!--left col-->
+   <div class="col-lg-3 col-md-5" data-aos='fade-up'
+    data-aos-duration='400'><!--left col-->
    <?php echo "<img src='Assets/imgs/users/".$avatar."' width=100 height=100 class='profilePhoto' id='settingProfile' />"; ?>
               <ul class="list-group">
                 <li class="list-group-item text-muted">Profile</li>
@@ -95,7 +96,6 @@ $followers = mysqli_num_rows($result);
               
               <ul class="list-group">
                 <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> <?php echo $likes; ?></li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> <?php echo $posts; ?></li>
 
@@ -104,14 +104,18 @@ $followers = mysqli_num_rows($result);
               <br>
               
   <a href="logout.php" class="btn btn-danger btn-block">Logout</a>
+  <br>
             </div><!--/col-3-->
-          <div class="col-sm-9">
+          <div class="col-lg-9 col-md-7" data-aos='fade-up'
+    data-aos-duration='400'>
           <div class="form-group">
                               
                               <div class="col-xs-6">
                                   <h4>Change Profile Picture</h4><br>
-                                  <form class="btn btn-light" action = "" method = "POST" enctype = "multipart/form-data">
+                                  <form class="btn btn-light btn-block col-lg-6" action = "" method = "POST" enctype = "multipart/form-data">
                                   <input type = "file" name = "image"/>
+                                  <br>
+                                  <br>
                                   <input class="btn btn-secondary" type = "submit" value="Update Profile Picture"/>
                                 </form>
                               </div>
@@ -122,14 +126,14 @@ $followers = mysqli_num_rows($result);
                           <div class="form-group">
                               
                               <div class="col-xs-6">
-                                  <label for="first_name"><h5>First name</h5></label>
+                                  <label for="first_name"><h6>FIRST NAME</h6></label>
                                   <input type="text" class="form-control" name="first_name" id="first_name" value="<?php echo $forename; ?>" title="enter your first name if any.">
                               </div>
                           </div>
                           <div class="form-group">
                               
                               <div class="col-xs-6">
-                                <label for="last_name"><h5>Last name</h5></label>
+                                <label for="last_name"><h6>LAST NAME</h6></label>
                                   <input type="text" class="form-control" name="last_name" id="last_name" value="<?php echo $surname; ?>" title="enter your last name if any.">
                               </div>
                           </div>
@@ -137,23 +141,23 @@ $followers = mysqli_num_rows($result);
                           <div class="form-group">
                               
                               <div class="col-xs-6">
-                                  <label for="username"><h5>Username</h5></label>
+                                  <label for="username"><h6>USERNAME</h6></label>
                                   <input type="text" class="form-control" name="username" id="username" value="<?php echo $username; ?>" >
                               </div>
                           </div>
 
-                          <div class="form-group">
+                          <!-- <div class="form-group">
                               
                               <div class="col-xs-6">
                                   <label for="userid"><h5>User ID</h5></label>
                                   <input type="text" class="form-control" name="username" id="username" value="<?php echo $userid; ?>" disabled>
                               </div>
-                          </div>
+                          </div> -->
             
                           <div class="form-group">
                               
                               <div class="col-xs-6">
-                                  <label for="email"><h5>Email</h5></label>
+                                  <label for="email"><h6>EMAIL ADDRESS</h6></label>
                                   <input type="email" class="form-control" name="email" id="email" value="<?php echo $email; ?>" title="enter your email.">
                               </div>
                           </div>
@@ -174,7 +178,3 @@ $followers = mysqli_num_rows($result);
   <?php include("footer.php"); ?> 
 </body>
 </html>
-
-
-
-

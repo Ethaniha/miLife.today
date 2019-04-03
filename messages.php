@@ -70,7 +70,8 @@ if(isset($_GET['username'])) {
                       </ul>
                       <br>
                   </div>
-                  <div class="col-md-9" style="position:relative;">
+                  <div class="col-md-9" data-aos='fade-up'
+    data-aos-duration='400' style="position:relative;">
                       <ul class="list-group" id="chatbox">
                           <li class="list-group-item" id="messages" style="overflow:auto;height:500px;margin-bottom:15px;">
                           </li>

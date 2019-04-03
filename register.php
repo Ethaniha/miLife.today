@@ -28,17 +28,43 @@
 
         if(mysqli_num_rows($resultemail) == 1)
         {
-          $msg = "Sorry...This email already exist...";
+          $msg = "Sorry...This email already exist...\n";
         }
         elseif(mysqli_num_rows($resultuser) == 1) {
-          $msg = "Sorry...This username already exist...";
+          $msg = "Sorry...This username already exist...\n";
         }
         else
         {
           $query = mysqli_query($db, "INSERT INTO users (forename, surname, email, username, password)VALUES ('$forename', '$surname', '$email', '$username', '$pass')");
           if($query)
           {
-            $msg = "Thank You! you are now registered.";
+
+            $sql = "SELECT User_ID FROM users WHERE email = '$email' ";
+            $result = mysqli_query($db, $sql);
+            $row=mysqli_fetch_array($result);
+            $user_id = $row[0];
+
+            $sql = "INSERT INTO followers (user_id, follower_id) VALUES ($user_id, $user_id)";
+            $result = mysqli_query($db, $sql);
+
+            $myusername = mysqli_real_escape_string($db,$_POST['email']);
+            $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
+            
+            $sql = "SELECT User_ID, username FROM users WHERE email = '$myusername' and password = '$mypassword'";
+            $result = mysqli_query($db,$sql);
+            $row = mysqli_fetch_array($result);
+      
+            
+            $count = mysqli_num_rows($result);
+            
+            // If result matched $myusername and $mypassword, table row must be 1 row
+              
+            if($count == 1) {
+               $_SESSION['login_user'] = $myusername;
+               $_SESSION['username'] = $row[1];
+               
+               header("location: index.php");
+            }
           }
         }
       }
@@ -68,12 +94,12 @@
 
           <div class="form-group col-md-6">
             <label class="sr-only" for="inputEmail4">Forename:</label>
-            <input type="text" class="form-control" id="forename" placeholder="forename" name="forename">
+            <input type="text" class="form-control" id="forename" placeholder="Forename" name="forename">
           </div>
 
           <div class="form-group col-md-6">
             <label class="sr-only" for="inputEmail4">Surname:</label>
-            <input type="text" class="form-control" id="surname" placeholder="surname" name="surname">
+            <input type="text" class="form-control" id="surname" placeholder="Surname" name="surname">
           </div>
 
         </div>
@@ -103,9 +129,14 @@
             <button type="submit" class="btn btn-lg btn-primary btn-block" name="submit">Submit</button>
           </div>
         </div>
-        <p class="signinH1">Or click <a class="signinH1" href="login.php">here</a> to login with an existing Account</p>
-        <?php if (!empty($msg)) { echo $msg; } ?>
-          <p class="mt-5 mb-3 darkLegalTM">&copy; 2019</p>
+        <p class="signinH1"><a class="signinH1" href="login.php">Or click here to login with an existing Account</a></p>
+        <?php if (!empty($msg)) { echo '
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>'.$msg.'</strong>  
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>';} ?>
       </form>
     </div>
 
