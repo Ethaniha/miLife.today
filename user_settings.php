@@ -83,7 +83,7 @@ $followers = mysqli_num_rows($result);
 <div class="container">	
 <h1 class="pageHeader">My Settings</h1>
    <div class="row">
-   <div class="col-sm-3" data-aos='fade-up'
+   <div class="col-lg-3 col-md-5" data-aos='fade-up'
     data-aos-duration='400'><!--left col-->
    <?php echo "<img src='Assets/imgs/users/".$avatar."' width=100 height=100 class='profilePhoto' id='settingProfile' />"; ?>
               <ul class="list-group">
@@ -106,13 +106,13 @@ $followers = mysqli_num_rows($result);
   <a href="logout.php" class="btn btn-danger btn-block">Logout</a>
   <br>
             </div><!--/col-3-->
-          <div class="col-sm-9" data-aos='fade-up'
+          <div class="col-lg-9 col-md-7" data-aos='fade-up'
     data-aos-duration='400'>
           <div class="form-group">
                               
                               <div class="col-xs-6">
                                   <h4>Change Profile Picture</h4><br>
-                                  <form class="btn btn-light btn-block col-md-6" action = "" method = "POST" enctype = "multipart/form-data">
+                                  <form class="btn btn-light btn-block col-lg-6" action = "" method = "POST" enctype = "multipart/form-data">
                                   <input type = "file" name = "image"/>
                                   <br>
                                   <br>
