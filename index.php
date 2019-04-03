@@ -350,7 +350,7 @@ if ($myusername==''){
                <div class="col-lg-3 order-3 order-lg-3" data-aos='fade-up'
     data-aos-duration='600'>
                   <div class="sidebar">
-                     <div class="sidebarTitle">RECOMENDATIONS</div>
+                     <div class="sidebarTitle">RECOMMENDATIONS</div>
                      <small>(Related Users)</small>
                      <?php echo $recomendations ?>
                   </div>

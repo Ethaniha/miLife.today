@@ -104,6 +104,7 @@ $followers = mysqli_num_rows($result);
               <br>
               
   <a href="logout.php" class="btn btn-danger btn-block">Logout</a>
+  <br>
             </div><!--/col-3-->
           <div class="col-sm-9" data-aos='fade-up'
     data-aos-duration='400'>
@@ -111,7 +112,7 @@ $followers = mysqli_num_rows($result);
                               
                               <div class="col-xs-6">
                                   <h4>Change Profile Picture</h4><br>
-                                  <form class="btn btn-light btn-block" action = "" method = "POST" enctype = "multipart/form-data">
+                                  <form class="btn btn-light btn-block col-md-6" action = "" method = "POST" enctype = "multipart/form-data">
                                   <input type = "file" name = "image"/>
                                   <br>
                                   <br>
