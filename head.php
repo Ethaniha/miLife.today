@@ -57,6 +57,21 @@
   $result = mysqli_query($db, $countNotifications) or die(mysqli_error($db));
   $notificationNumber = mysqli_num_rows($result);
 
+  $sql = "SELECT privacy FROM users_settings WHERE user_id = $user_id";
+  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  $row = mysqli_fetch_array($result);
+  $privacySetting = $row[0];
+
+  if ($privacySetting == 1 ) {
+    $sql = "SELECT id FROM  followers_requests WHERE user_id = '$user_id' ";
+    $result = mysqli_query($db, $sql);
+    $numOfFollows = mysqli_num_rows($result);
+  } else {
+    $numOfFollows = 0;
+  }
+
+  $notificationNumber = $notificationNumber + $numOfFollows;
+
     $sql = "SELECT image FROM users WHERE email = '$myusername' ";
     $result = mysqli_query($db, $sql);
     $row=mysqli_fetch_array($result);
