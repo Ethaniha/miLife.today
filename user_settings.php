@@ -121,12 +121,12 @@ $followers = mysqli_num_rows($result);
                               
                               <div class="col-xs-6">
                                   <h4>Change Profile Picture</h4><br>
-                                  <form class="btn btn-light btn-block col-lg-6" action = "" method = "POST" enctype = "multipart/form-data">
-                                  <input type = "file" name = "image"/>
-                                  <br>
-                                  <br>
+                                  <form  action = "" method = "POST" enctype = "multipart/form-data">
+                                  <input class="btn btn-light btn-block col-lg-6" style="margin-bottom: 15px;" type = "file" name = "image"/>
                                   <input class="btn btn-secondary" type = "submit" value="Update Profile Picture"/>
                                 </form>
+                                
+
                               </div>
                           </div>
                       <form class="form" action="##" method="post" id="registrationForm">
