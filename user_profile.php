@@ -50,9 +50,6 @@ $row=mysqli_fetch_array($result);
 $current_username = $row[0];
 $follower_id = $row[1];
 
-
-
-
 if (isset($_GET['username'])) {
 
   $username = $_GET['username'];
@@ -109,6 +106,29 @@ if (isset($_POST['follow'])) {
       //echo "user followed";
     }
 
+}
+
+if (isset($_POST['followRequest'])) {
+    $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
+    $result = mysqli_query($db, $sql);
+    $row=mysqli_fetch_array($result);
+    $user_id = $row[0];
+
+    $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+    $result = mysqli_query($db, $sql);
+    $row=mysqli_fetch_array($result);
+    $follower_id = $row[0];
+
+    $sql = "SELECT id FROM followers_requests WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
+    $result = mysqli_query($db, $sql);
+
+    $sql2 = "SELECT id FROM followers WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
+    $result2 = mysqli_query($db, $sql2);
+
+    if (mysqli_num_rows($result) != 1 && mysqli_num_rows($result2) != 1) {
+      $sql = "INSERT INTO followers_requests (user_id, follower_id) VALUES ($user_id, $follower_id)";
+      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+    }
 }
 
 /////////////////
@@ -193,6 +213,7 @@ while ($row = mysqli_fetch_array($result)) {
 $sql = "SELECT privacy FROM users_settings WHERE user_id = $user_id";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $row = mysqli_fetch_array($result);
+$privacySetting = $row[0];
 
 if ($row[0] == 0) {
   $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image, post.user_id FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
@@ -389,15 +410,37 @@ if($myusername == $email){
                   
                 if (mysqli_num_rows($result) == 1){
                   if ($follower_id != $user_id) {
+
                     echo '<form action="" method="post" >
                     <input type="submit" name="follow" value="Unfollow" class="btn btn-primary" id="followButton">
-                </form>';
+                    </form>';
+
                   }
                 }
                   else {
-                    echo '<form action="" method="post" >
+
+                    if ($privacySetting == 1) {
+
+                      $status = 0;
+
+                      $sql = "SELECT id FROM followers_requests WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
+                      $result = mysqli_query($db, $sql);
+
+                      if (mysqli_num_rows($result) == 0) {
+                        echo '<form action="" method="post" >
+                        <input type="submit" name="followRequest" value="Request To Follow" class="btn btn-primary" id="followButton">
+                        </form>';
+                      } else {
+                        echo '<form action="" method="post" >
+                        <input type="submit" name="followPending" value="Request Pending.." class="btn btn-primary" id="followButton">
+                        </form>';
+                      }
+
+                    } else {
+                      echo '<form action="" method="post" >
                       <input type="submit" name="follow" value="Follow" class="btn btn-primary" id="followButton">
-                  </form>';
+                      </form>';
+                    }
                   
                     //echo "user followed";
                   }
