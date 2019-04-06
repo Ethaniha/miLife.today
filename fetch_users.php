@@ -11,7 +11,7 @@
 	$searchOuput = "<div data-aos='fade-up'
     data-aos-duration='400' class='messageUsers'>";
 
-  	$sql = "SELECT  users.username, users.image FROM users, followers WHERE users.user_id = followers.user_id AND followers.follower_id = '$user_id'";
+  	$sql = "SELECT  users.username, users.image FROM users, followers WHERE users.user_id = followers.user_id AND followers.follower_id = '$user_id' AND users.user_id != '$user_id'";
 	$result = mysqli_query($db, $sql) or die(mysqli_error($db));
 
   	if(mysqli_num_rows($result) > 0) {
