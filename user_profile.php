@@ -108,16 +108,18 @@ if (isset($_POST['follow'])) {
 
 }
 
-if (isset($_POST['followRequest'])) {
-    $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
-    $result = mysqli_query($db, $sql);
-    $row=mysqli_fetch_array($result);
-    $user_id = $row[0];
+$sql = "SELECT User_ID FROM users WHERE username = '$username' ";
+$result = mysqli_query($db, $sql);
+$row=mysqli_fetch_array($result);
+$user_id = $row[0];
 
-    $sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
-    $result = mysqli_query($db, $sql);
-    $row=mysqli_fetch_array($result);
-    $follower_id = $row[0];
+$sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+$result = mysqli_query($db, $sql);
+$row=mysqli_fetch_array($result);
+$follower_id = $row[0];
+
+if (isset($_POST['followRequest'])) {
+
 
     $sql = "SELECT id FROM followers_requests WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
     $result = mysqli_query($db, $sql);
@@ -133,10 +135,6 @@ if (isset($_POST['followRequest'])) {
 
 /////////////////
 
-  $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
-  $result = mysqli_query($db, $sql);
-  $row=mysqli_fetch_array($result);
-  $user_id = $row[0];
 
   $sql = "SELECT id FROM followers WHERE user_id = '$user_id' ";
   $result = mysqli_query($db, $sql);
@@ -220,11 +218,17 @@ if ($row[0] == 0) {
   $result = mysqli_query($db, $sql) or die(mysqli_error($db));
   $posts = "";
 } else {
-    $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image, post.user_id FROM users, post, followers WHERE users.user_id = post.user_id AND post.user_id = $user_id AND post.user_id = followers.user_id AND followers.follower_id = '$follower_id' ORDER BY `post`.`posted_at` DESC";
+  $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image, post.user_id FROM users, post, followers WHERE users.user_id = post.user_id AND post.user_id = $user_id AND post.user_id = followers.user_id AND followers.follower_id = '$follower_id' ORDER BY `post`.`posted_at` DESC";
   $result = mysqli_query($db, $sql) or die(mysqli_error($db));
   $posts = "";
 }
+$sql = "SELECT user_id FROM followers WHERE followers.user_id = '$user_id' AND followers.follower_id = '$follower_id'";
+$prvResult = mysqli_query($db, $sql);
 
+if ($privacySetting == 1 && mysqli_num_rows($prvResult) == 0) {
+    $posts = "<div id='noPosts'>PRIVATE ACCOUNT - FOLLOW THIS USER TO SEE THEIR POSTS</div>";
+}
+else if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
   $postid = $row[0];
   $comments = "";
@@ -363,6 +367,8 @@ if (mysqli_num_rows($result2) < 1) {
       </div>
     </div></br>";
   }
+}}else{
+  $posts .= "<div id='noPosts'>THERE ARE NO POSTS YET</div>"; 
 }
 
 if($myusername == $email){
