@@ -44,10 +44,14 @@ return $newBody;
 
 $myusername = $_SESSION['login_user'];
 
-$sql = "SELECT username FROM users WHERE email = '$myusername' ";
+$sql = "SELECT username,user_id FROM users WHERE email = '$myusername' ";
 $result = mysqli_query($db, $sql);
 $row=mysqli_fetch_array($result);
 $current_username = $row[0];
+$follower_id = $row[1];
+
+
+
 
 if (isset($_GET['username'])) {
 
@@ -186,9 +190,19 @@ while ($row = mysqli_fetch_array($result)) {
   $friends = '<h6>'.$forename.' is not currenty following anyone</h6>';
 }
 
-$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image, post.user_id FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
+$sql = "SELECT privacy FROM users_settings WHERE user_id = $user_id";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-$posts = "";
+$row = mysqli_fetch_array($result);
+
+if ($row[0] == 0) {
+  $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image, post.user_id FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
+  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  $posts = "";
+} else {
+    $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image, post.user_id FROM users, post, followers WHERE users.user_id = post.user_id AND post.user_id = $user_id AND post.user_id = followers.user_id AND followers.follower_id = '$follower_id' ORDER BY `post`.`posted_at` DESC";
+  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  $posts = "";
+}
 
 while ($row = mysqli_fetch_array($result)) {
   $postid = $row[0];

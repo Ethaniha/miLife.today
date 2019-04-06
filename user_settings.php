@@ -63,6 +63,15 @@ $followers = mysqli_num_rows($result);
       }
    }
 
+   if (isset($_POST['privacyForm'])) {
+
+    $postSetting = $_POST['postSetting'];
+
+    $sql = "UPDATE users_settings SET privacy = '$postSetting' WHERE user_id = '$userid' ";
+    $result = mysqli_query($db, $sql);
+
+    }
+
 ?>
 
 <html>
@@ -166,6 +175,24 @@ $followers = mysqli_num_rows($result);
                                     <button class="btn btn-secondary" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Update Details</button>
                                 </div>
                           </div>
+                    </form>
+                    <form class="form" action="##" method="post">
+                    <hr>
+                    <h4>Edit Privacy Details</h4>
+                    <div class="form-group"> 
+                      <div class="col-xs-6">
+                        <label for="post_view"><h6>Who can view your posts?</h6></label>
+                          <select class="form-control" name="postSetting">
+                            <option value=0>Anyone (Public)</option>
+                            <option value=1>Followers </option>
+                          </select> 
+                      </div>
+                    </div>
+                    <div class="form-group">
+                       <div class="col-xs-12">
+                            <button class="btn btn-secondary" type="submit" name="privacyForm"><i class="glyphicon glyphicon-ok-sign"></i> Update Privacy</button>
+                        </div>
+                    </div>
                     </form>
                   </div>
     
