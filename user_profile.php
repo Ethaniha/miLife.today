@@ -397,7 +397,9 @@ if($myusername == $email){
                <?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto' class='profilePhoto'/>"; ?>
             </div>
             <div class="col-lg-9 col-md-7">
-               <h2 id="profileHeader"><?php echo $forename; ?> <?php echo $surname; ?></h2>
+               <h2 id="profileHeader"><?php echo $forename; ?> <?php echo $surname;
+                if ($privacySetting == 1) { echo " <i class='fas fa-lock fa-sm'></i>"; } ?>
+               </h2>
                <h6>@<?php echo $username; ?></h6>
                <b>Followers: </b><?php echo $followers; ?><br>
                <?php 
