@@ -131,7 +131,7 @@ $followers = mysqli_num_rows($result);
                           </div>
                       <form class="form" action="##" method="post" id="registrationForm">
                         <hr>
-                        <h4>Edit other user Details</h4>
+                        <h4>Edit Personal Details</h4>
                           <div class="form-group">
                               
                               <div class="col-xs-6">
