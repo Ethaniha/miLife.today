@@ -182,10 +182,24 @@ $followers = mysqli_num_rows($result);
                     <div class="form-group"> 
                       <div class="col-xs-6">
                         <label for="post_view"><h6>Who can view your posts?</h6></label>
-                          <select class="form-control" name="postSetting">
+                        <?php 
+                        $sql = "SELECT privacy FROM users_settings WHERE user_id = $user_id";
+                        $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+                        $row = mysqli_fetch_array($result);
+                        $privacySetting = $row[0];
+
+                        if ($privacySetting == 0){
+                          echo '<select class="form-control" name="postSetting">
                             <option value=0>Anyone (Public)</option>
-                            <option value=1>Followers </option>
-                          </select> 
+                            <option value=1>Private (Followers Only)</option>
+                          </select>' ;
+                        }else{
+                          echo '<select class="form-control" name="postSetting">
+                          <option value=1>Private (Followers Only)</option>
+                          <option value=0>Anyone (Public) </option>
+                        </select>' ;
+                        }
+                          ?>
                       </div>
                     </div>
                     <div class="form-group">
