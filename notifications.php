@@ -92,6 +92,8 @@ if (isset($_POST['remove'])) {
                           <button type='submit' class='btn btn-danger followReqDecline' name='declineFollow' data-id='".$followerID."'><i class='fas fa-times'></i></button>
                           </div>";
                       }
+                    } else {
+                      echo "<div class='alert' id='user'><strong>No new follower requests right now..</div>";
                     }
                     ?>
                   </div>
