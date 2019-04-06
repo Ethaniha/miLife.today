@@ -47,6 +47,9 @@
             $sql = "INSERT INTO followers (user_id, follower_id) VALUES ($user_id, $user_id)";
             $result = mysqli_query($db, $sql);
 
+            $sql = "INSERT INTO users_settings (user_id) VALUES ($user_id)";
+            $result = mysqli_query($db, $sql);
+
             $myusername = mysqli_real_escape_string($db,$_POST['email']);
             $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
             
