@@ -63,7 +63,7 @@ if (isset($_GET['username'])) {
 
   if (mysqli_num_rows($result) > 0) {
     while($row=mysqli_fetch_array($result)) {
-
+      $current_userID = $row[0];
       $email = $row[1];
       $forename = ucwords($row[2]);
       $surname = ucwords($row[3]);
@@ -208,7 +208,7 @@ while ($row = mysqli_fetch_array($result)) {
   $friends = '<h6>'.$forename.' is not currenty following anyone</h6>';
 }
 
-$sql = "SELECT privacy FROM users_settings WHERE user_id = $user_id";
+$sql = "SELECT privacy FROM users_settings WHERE user_id = $current_userID";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
 $row = mysqli_fetch_array($result);
 $privacySetting = $row[0];
@@ -398,10 +398,14 @@ if($myusername == $email){
             </div>
             <div class="col-lg-9 col-md-7">
                <h2 id="profileHeader"><?php echo $forename; ?> <?php echo $surname;
+               $sql = "SELECT privacy FROM users_settings WHERE user_id = $current_userID";
+               $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+               $row = mysqli_fetch_array($result);
+               $privacySetting = $row[0];
                 if ($privacySetting == 1) { echo " <i class='fas fa-lock fa-sm'></i>"; } ?>
                </h2>
                <h6>@<?php echo $username; ?></h6>
-               <b><button type="button" class="btn btn-outline-light" id="followerButton" data-toggle="modal" data-target="#followersModal"><?php echo $followers; ?> Followers</b></button><br>
+               <b><button type="button" class="btn btn-outline-light" id="followerButton" data-toggle="modal" data-target="#followersModal"><?php echo $followers; ?> Followers</b></button>
                <?php 
                   $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
                   $result = mysqli_query($db, $sql);
@@ -419,7 +423,7 @@ if($myusername == $email){
                 if (mysqli_num_rows($result) == 1){
                   if ($follower_id != $user_id) {
 
-                    echo '<form action="" method="post" >
+                    echo '<form action="" method="post" style="display:inline-block;">
                     <input type="submit" name="follow" value="Unfollow" class="btn btn-primary" id="followButton">
                     </form>';
 
@@ -435,17 +439,17 @@ if($myusername == $email){
                       $result = mysqli_query($db, $sql);
 
                       if (mysqli_num_rows($result) == 0) {
-                        echo '<form action="" method="post" >
+                        echo '<form action="" method="post" style="display:inline-block;">
                         <input type="submit" name="followRequest" value="Request To Follow" class="btn btn-primary" id="followButton">
                         </form>';
                       } else {
-                        echo '<form action="" method="post" >
+                        echo '<form action="" method="post" style="display:inline-block;">
                         <input type="submit" name="followPending" value="Request Pending.." class="btn btn-primary" id="followButton">
                         </form>';
                       }
 
                     } else {
-                      echo '<form action="" method="post" >
+                      echo '<form action="" method="post" style="display:inline-block;">
                       <input type="submit" name="follow" value="Follow" class="btn btn-primary" id="followButton">
                       </form>';
                     }
@@ -568,7 +572,3 @@ if($myusername == $email){
 
 
 </script>
-
-
-
-
