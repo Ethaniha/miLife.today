@@ -401,7 +401,7 @@ if($myusername == $email){
                 if ($privacySetting == 1) { echo " <i class='fas fa-lock fa-sm'></i>"; } ?>
                </h2>
                <h6>@<?php echo $username; ?></h6>
-               <b>Followers: </b><?php echo $followers; ?><br>
+               <b><button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#followersModal">Followers: </b><?php echo $followers; ?></button><br>
                <?php 
                   $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
                   $result = mysqli_query($db, $sql);
@@ -459,6 +459,46 @@ if($myusername == $email){
             </div>
          </div>
       <div class="container">
+
+        <div class="modal face" id="followersModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+              <h3><?php echo $whosProfile." Followers" ?></h3>
+              </div>
+              <div class="modal-body">
+                <?php
+                  $sql = "SELECT follower_id FROM  followers WHERE user_id = '$user_id' "; 
+                  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+                  while ($row = mysqli_fetch_array($result)) {
+
+                    $followerID = $row[0];
+                    $sql2 = "SELECT username, image, forename FROM users WHERE User_ID = '$followerID' ";
+                    $result2 = mysqli_query($db, $sql2);
+                    $row2=mysqli_fetch_array($result2);
+                    $follower_username = $row2[0];
+                    $followerImage = $row2[1];
+                    echo '<div class="friend"><a href="user_profile.php?username='.$follower_username.'">
+                            <div class="container">
+                              <div class="row">
+                              <div class="col-xs-2">
+                              <div style="background-image: url(Assets/imgs/users/'.$followerImage.') !important;" class="profilePhoto"></div>
+                              </div>
+                              <div class="col-xs-10 friendDetails">
+                              <b>'.ucwords($row2[2]).'</b>
+                              <p>@'.$follower_username.'</p>
+                              </div>
+                              </div>
+                            </div></a>
+                          </div>';
+                  }          
+                ?>
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
          
          <div class="row">
             <div class="col-lg-3 order-2 order-lg-1" data-aos='fade-up'
