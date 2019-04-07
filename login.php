@@ -10,16 +10,20 @@
       $myusername = mysqli_real_escape_string($db,$_POST['email']);
       $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
       
-      $sql = "SELECT User_ID, username FROM users WHERE email = '$myusername' and password = '$mypassword'";
+      $sql = "SELECT User_ID, username, password FROM users WHERE email = '$myusername'";
       $result = mysqli_query($db,$sql);
       $row = mysqli_fetch_array($result);
+
+      $hashedPass = password_hash($mypassword, PASSWORD_DEFAULT);
+      $checkPass = password_verify($mypassword, $hashedPass);
+
 
       
       $count = mysqli_num_rows($result);
       
       // If result matched $myusername and $mypassword, table row must be 1 row
         
-      if($count == 1) {
+      if($count == 1 && $checkPass == 1) {
          $_SESSION['login_user'] = $myusername;
          $_SESSION['username'] = $row[1];
          
