@@ -401,7 +401,7 @@ if($myusername == $email){
                 if ($privacySetting == 1) { echo " <i class='fas fa-lock fa-sm'></i>"; } ?>
                </h2>
                <h6>@<?php echo $username; ?></h6>
-               <b><button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#followersModal">Followers: </b><?php echo $followers; ?></button><br>
+               <b><button type="button" class="btn btn-outline-light" id="followerButton" data-toggle="modal" data-target="#followersModal"><?php echo $followers; ?> Followers</b></button><br>
                <?php 
                   $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
                   $result = mysqli_query($db, $sql);

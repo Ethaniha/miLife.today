@@ -369,9 +369,13 @@ height: 70px;
   padding-top: 70px;
 }
 
+#followerButton{
+  margin-top: 10px;
+}
+
 #followButton{
   width: 200px;
-  margin-top: 25px;
+  margin-top: 10px;
 }
 
 .pageHeader{
