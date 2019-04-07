@@ -44,10 +44,11 @@ return $newBody;
 
 $myusername = $_SESSION['login_user'];
 
-$sql = "SELECT username FROM users WHERE email = '$myusername' ";
+$sql = "SELECT username,user_id FROM users WHERE email = '$myusername' ";
 $result = mysqli_query($db, $sql);
 $row=mysqli_fetch_array($result);
 $current_username = $row[0];
+$follower_id = $row[1];
 
 if (isset($_GET['username'])) {
 
@@ -107,12 +108,33 @@ if (isset($_POST['follow'])) {
 
 }
 
+$sql = "SELECT User_ID FROM users WHERE username = '$username' ";
+$result = mysqli_query($db, $sql);
+$row=mysqli_fetch_array($result);
+$user_id = $row[0];
+
+$sql = "SELECT User_ID FROM users WHERE email = '$myusername' ";
+$result = mysqli_query($db, $sql);
+$row=mysqli_fetch_array($result);
+$follower_id = $row[0];
+
+if (isset($_POST['followRequest'])) {
+
+
+    $sql = "SELECT id FROM followers_requests WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
+    $result = mysqli_query($db, $sql);
+
+    $sql2 = "SELECT id FROM followers WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
+    $result2 = mysqli_query($db, $sql2);
+
+    if (mysqli_num_rows($result) != 1 && mysqli_num_rows($result2) != 1) {
+      $sql = "INSERT INTO followers_requests (user_id, follower_id) VALUES ($user_id, $follower_id)";
+      $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+    }
+}
+
 /////////////////
 
-  $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
-  $result = mysqli_query($db, $sql);
-  $row=mysqli_fetch_array($result);
-  $user_id = $row[0];
 
   $sql = "SELECT id FROM followers WHERE user_id = '$user_id' ";
   $result = mysqli_query($db, $sql);
@@ -173,7 +195,7 @@ while ($row = mysqli_fetch_array($result)) {
                 <div class="container">
                   <div class="row">
                   <div class="col-xs-2">
-                  <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
+                  <div style="background-image: url(Assets/imgs/users/'.$row[0].') !important;" class="profilePhoto"></div>
                   </div>
                   <div class="col-xs-10 friendDetails">
                   <b>'.ucwords($row[1]).'</b>
@@ -181,15 +203,32 @@ while ($row = mysqli_fetch_array($result)) {
                   </div>
                   </div>
                 </div></a>
-              </div>';} 
+              </div>';}
 } else {
   $friends = '<h6>'.$forename.' is not currenty following anyone</h6>';
 }
 
-$sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image, post.user_id FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
+$sql = "SELECT privacy FROM users_settings WHERE user_id = $user_id";
 $result = mysqli_query($db, $sql) or die(mysqli_error($db));
-$posts = "";
+$row = mysqli_fetch_array($result);
+$privacySetting = $row[0];
 
+if ($row[0] == 0) {
+  $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image, post.user_id FROM users, post WHERE users.user_id = post.user_id AND post.user_id = $user_id ORDER BY `post`.`posted_at` DESC";
+  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  $posts = "";
+} else {
+  $sql = "SELECT post.post, post.posted_at, post.body, users.username, users.image, post.likes, post.type, post.price, post.image, post.user_id FROM users, post, followers WHERE users.user_id = post.user_id AND post.user_id = $user_id AND post.user_id = followers.user_id AND followers.follower_id = '$follower_id' ORDER BY `post`.`posted_at` DESC";
+  $result = mysqli_query($db, $sql) or die(mysqli_error($db));
+  $posts = "";
+}
+$sql = "SELECT user_id FROM followers WHERE followers.user_id = '$user_id' AND followers.follower_id = '$follower_id'";
+$prvResult = mysqli_query($db, $sql);
+
+if ($privacySetting == 1 && mysqli_num_rows($prvResult) == 0) {
+    $posts = "<div id='noPosts'>PRIVATE ACCOUNT - FOLLOW THIS USER TO SEE THEIR POSTS</div>";
+}
+else if (mysqli_num_rows($result) > 0) {
 while ($row = mysqli_fetch_array($result)) {
   $postid = $row[0];
   $comments = "";
@@ -203,7 +242,7 @@ while ($row = mysqli_fetch_array($result)) {
 
   while ($commentrow = mysqli_fetch_array($commentresult)) {
     $commentBody = addMention($commentrow[0]);
-    $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
+    $comments .= "<div class='row comment'><div class='col-xs-2'><div style='background-image: url(Assets/imgs/users/".$commentrow[2].") !important;' class='profilePhoto'></div></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
   }
 
 
@@ -236,7 +275,7 @@ if (mysqli_num_rows($result2) < 1) {
       <div class='container'>
         <div class='row'>
             <div class='col-xs-3'>
-              <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+            <div style='background-image: url(Assets/imgs/users/".$row[4].") !important;' class='profilePhoto'></div>
             </div>
             <div class='col-xs-8 postDetails'>
               <b><a href='user_profile.php?username=".$row[3]."'>" .$row[3]."</a></b>
@@ -296,7 +335,7 @@ if (mysqli_num_rows($result2) < 1) {
         <div class='container'>
           <div class='row'>
               <div class='col-xs-3'>
-                <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+              <div style='background-image: url(Assets/imgs/users/".$row[4].") !important;' class='profilePhoto'></div>
               </div>
               <div class='col-xs-7 postDetails'>
                 <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
@@ -328,6 +367,8 @@ if (mysqli_num_rows($result2) < 1) {
       </div>
     </div></br>";
   }
+}}else{
+  $posts .= "<div id='noPosts'>THERE ARE NO POSTS YET</div>"; 
 }
 
 if($myusername == $email){
@@ -352,11 +393,13 @@ if($myusername == $email){
       <div id="profileBanner" class="jumbotron jumbotron-fluid" >
             <div class="container">
             <div class="row">
-            <div class="col-md-3">
-               <?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto' class='profilePhoto'/>"; ?>
+            <div class="col-lg-3 col-md-5">
+            <?php echo "<div style='background-image: url(Assets/imgs/users/".$avatar.") !important;' class='profilePhoto' id='profilePagePhoto'></div>"; ?>
             </div>
-            <div class="col-md-9">
-               <h2 id="profileHeader"><?php echo $forename; ?> <?php echo $surname; ?></h2>
+            <div class="col-lg-9 col-md-7">
+               <h2 id="profileHeader"><?php echo $forename; ?> <?php echo $surname;
+                if ($privacySetting == 1) { echo " <i class='fas fa-lock fa-sm'></i>"; } ?>
+               </h2>
                <h6>@<?php echo $username; ?></h6>
                <b>Followers: </b><?php echo $followers; ?><br>
                <?php 
@@ -375,15 +418,37 @@ if($myusername == $email){
                   
                 if (mysqli_num_rows($result) == 1){
                   if ($follower_id != $user_id) {
+
                     echo '<form action="" method="post" >
                     <input type="submit" name="follow" value="Unfollow" class="btn btn-primary" id="followButton">
-                </form>';
+                    </form>';
+
                   }
                 }
                   else {
-                    echo '<form action="" method="post" >
+
+                    if ($privacySetting == 1) {
+
+                      $status = 0;
+
+                      $sql = "SELECT id FROM followers_requests WHERE user_id = '$user_id' AND follower_id = '$follower_id' ";
+                      $result = mysqli_query($db, $sql);
+
+                      if (mysqli_num_rows($result) == 0) {
+                        echo '<form action="" method="post" >
+                        <input type="submit" name="followRequest" value="Request To Follow" class="btn btn-primary" id="followButton">
+                        </form>';
+                      } else {
+                        echo '<form action="" method="post" >
+                        <input type="submit" name="followPending" value="Request Pending.." class="btn btn-primary" id="followButton">
+                        </form>';
+                      }
+
+                    } else {
+                      echo '<form action="" method="post" >
                       <input type="submit" name="follow" value="Follow" class="btn btn-primary" id="followButton">
-                  </form>';
+                      </form>';
+                    }
                   
                     //echo "user followed";
                   }

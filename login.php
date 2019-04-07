@@ -2,6 +2,8 @@
   
   include("db.php");
 
+  session_start();
+   session_destroy();
    session_start();
    
    if(isset($_POST["submit"])) {
@@ -10,16 +12,20 @@
       $myusername = mysqli_real_escape_string($db,$_POST['email']);
       $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
       
-      $sql = "SELECT User_ID, username FROM users WHERE email = '$myusername' and password = '$mypassword'";
+      $sql = "SELECT User_ID, username, password FROM users WHERE email = '$myusername'";
       $result = mysqli_query($db,$sql);
       $row = mysqli_fetch_array($result);
+
+      $hashedPass = password_hash($mypassword, PASSWORD_DEFAULT);
+      $checkPass = password_verify($mypassword, $hashedPass);
+
 
       
       $count = mysqli_num_rows($result);
       
       // If result matched $myusername and $mypassword, table row must be 1 row
         
-      if($count == 1) {
+      if($count == 1 && $checkPass == 1) {
          $_SESSION['login_user'] = $myusername;
          $_SESSION['username'] = $row[1];
          
@@ -46,7 +52,7 @@
     
 <div id="signin">
     <form class="form-signin" action="" method="post">
-  <img class="mb-4" src="../Assets/logo.png" alt="" width="72" height="72">
+  <img class="mb-4" src="../Assets/logo.png" alt="" id="milife-logo" width="72" height="72">
   <h1 class="mb-3 font-weight-normal signinH1">Sign in to miLife</h1>
   <label  for="inputEmail" class="sr-only" name="username">Email address</label>
   <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
@@ -70,6 +76,20 @@
 </form>
 </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
+<script>
+if (navigator.platform.substr(0,2) === 'iP'){
+   //iOS (iPhone, iPod or iPad)
+   var lte9 = /constructor/i.test(window.HTMLElement);
+   var nav = window.navigator, ua = nav.userAgent, idb = !!window.indexedDB;
+   if (ua.indexOf('Safari') !== -1 && ua.indexOf('Version') !== -1 && !nav.standalone){      
+      //Safari (WKWebView/Nitro since 6+)
+   } else if ((!idb && lte9) || !window.statusbar.visible) {
+      //UIWebView
+   } else if ((window.webkit && window.webkit.messageHandlers) || !lte9 || idb){
+      //WKWebView
+      document.getElementById("milife-logo").src="../Assets/applogo.png";
+   }
+}
+</script>
    </body>
 </html>
