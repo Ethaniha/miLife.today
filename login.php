@@ -2,6 +2,7 @@
   
   include("db.php");
 
+   session_destroy();
    session_start();
    
    if(isset($_POST["submit"])) {
