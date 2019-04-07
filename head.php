@@ -175,21 +175,27 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <div class="pos-f-t">
-  <div class="collapse p-4" id="navbarToggleMenu">
+  <div class="collapse" id="navbarToggleMenu">
   <?php if(isset($_SESSION['login_user'])) {
-      echo '<ul class="nav navbar-nav mobileNav">
+      echo '<ul class="nav navbar-nav bg-light mobileNav">
       <div id="mobile-center">
-  <li>
-      <i class="fas fa-bell navbar-icon dropdown-navbar-icon" data-count="0"></i>
+      <li>
+      <a href="notifications.php"><i class="fas fa-bell navbar-icon drop-icon" data-count="'.$notificationNumber.'"></i></a>
       </li>
       <li>
-      <a href="messages.php"><i class="fas fa-comment-alt navbar-icon dropdown-navbar-icon"></i></a>
+      <a href="messages.php"><i class="fas fa-comment-alt navbar-icon drop-icon"></i></a>
       </li>
       <li>
-      <a href="user_settings.php"><i class="fas fa-cog navbar-icon dropdown-navbar-icon" ></i></a>
+      <a href="mygroups.php"><i class="fas fa-users navbar-icon drop-icon" style="padding:5px; padding-top: 10px;"></i></a>
       </li>
       <li>
-      <a href="user_profile.php?username='.$_SESSION['username'].'"><i class="fas fa-user navbar-icon dropdown-navbar-icon"></i></a>
+      <a href="user_settings.php"><i class="fas fa-cog navbar-icon drop-icon"></i></a>
+      </li>
+      <li>
+      <a class="fas fa-plus navbar-icon drop-icon" data-toggle="modal" data-target="#addPost" href="#"></a>
+      </li>
+      <li>
+      <a href="user_profile.php?username='.$_SESSION['username'].'"><i class="fas fa-user navbar-icon drop-icon"></i> </a>
       </li></div></ul>';} ?>
   </div>
   <nav class="navbar navbar-expand-sm bg-light navbar-light">
@@ -292,21 +298,33 @@
       //iOS (iPhone, iPod or iPad)
       var lte9 = /constructor/i.test(window.HTMLElement);
       var nav = window.navigator, ua = nav.userAgent, idb = !!window.indexedDB;
-      if (ua.indexOf('Safari') !== -1 && ua.indexOf('Version') !== -1 && !nav.standalone){      
-        //Safari (WKWebView/Nitro since 6+)
-      } else if ((!idb && lte9) || !window.statusbar.visible) {
-        //UIWebView
-      } else if ((window.webkit && window.webkit.messageHandlers) || !lte9 || idb){
-        //WKWebView
-        
-        document.getElementById("messagesBtn").remove();
-        document.getElementById("alertsBtn").remove();
-        document.getElementById("groupsBtn").remove();
-        document.getElementById("settingsBtn").remove();
-        document.getElementById("navbar-profile-icon").remove();
-        document.getElementById("mobileBtn").remove();
+        if (ua.indexOf('Safari') !== -1 && ua.indexOf('Version') !== -1 && !nav.standalone){     
+          //Safari (WKWebView/Nitro since 6+)
+        } else if ((!idb && lte9) || !window.statusbar.visible) {
+          //UIWebView
+        } else if ((window.webkit && window.webkit.messageHandlers) || !lte9 || idb){
+          //WKWebView
+          
+          document.getElementById("messagesBtn").remove();
+          document.getElementById("alertsBtn").remove();
+          document.getElementById("groupsBtn").remove();
+          document.getElementById("settingsBtn").remove();
+          document.getElementById("navbar-profile-icon").remove();
+          document.getElementById("mobileBtn").remove();
+          document.getElementById("navbar-addpost-icon").style.display = 'inline'; 
+        }
+      }else{
+        function myFunction(x) {
+        if (x.matches) { // If media query matches
+          document.getElementById("navbar-addpost-icon").style.display = 'none';
+        } else {
+          document.getElementById("navbar-addpost-icon").style.display = 'inline';
+        }
       }
-}
+        var x = window.matchMedia("(max-width: 767px)")
+        myFunction(x) // Call listener function at run time
+        x.addListener(myFunction) // Attach listener function on state changes
+      }
 
 
       document.getElementById("postType").onchange = function(e) {

@@ -63,7 +63,7 @@ body {
 }
 
 .navbar-rightside{
-  width: 25%;
+  width: 35%;
   float: right;
   padding: auto auto 0px auto;
   }
@@ -86,10 +86,25 @@ body {
   filter: drop-shadow(0px 0px 20px 5px #d3d3d3);
 }
 
+.mobileNav{
+  z-index: 1000;
+  box-shadow: 0px 0px 20px 0px #38383870;
+  position: fixed;
+  padding: 20px;
+  right: 10;
+  margin-top: 20px;
+  border-radius: 10px; 
+}
+
+#mobile-center{
+  margin: auto;
+  position: relative;
+  }
+
 .navbar-center{
   position: fixed;
   width: 40%;
-  max-width: 400px;
+  max-width: 380px;
   margin-left: 75px;
 }
 
@@ -287,7 +302,7 @@ height: 70px;
 .postCommentDetail{
   padding: 8px 18px;
   min-width: 100px;
-  max-width: 72%;
+  max-width: 85%;
   background-color: rgb(242, 245, 245);
   border-radius: 20px;
   margin-left: 10px;
@@ -647,7 +662,8 @@ div.message-from-other {
 }
 
 @media only screen and (min-width: 214px) and (max-width: 767px) { 
-  
+
+
   .navbar-center{
     width: 50%;
   }
@@ -682,10 +698,6 @@ div.message-from-other {
   padding-top: 0px;
 }
 
-  #mobile-center{
-  margin: auto;
-  width: 100%;
-  }
   
   .display-2{
       font-size: 2.5rem;
@@ -698,17 +710,6 @@ div.message-from-other {
   .postContent{
     padding: 100px 20px 100px 20px;
     min-height: 200px;
-  }
-
-  .navbar-icon{
-    list-style: none;
-    text-decoration: none;
-    display: inline;
-    margin: auto;
-  }
-
-  .dropdown-navbar-icon{
-    margin-left:10px; 
   }
 
   #alertsBtn{
