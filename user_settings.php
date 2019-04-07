@@ -72,6 +72,19 @@ $followers = mysqli_num_rows($result);
 
     }
 
+    if (isset($_POST['personalInfoForm'])) {
+
+      $user_firstName = $_POST['first_name'];
+      $user_lastName = $_POST['last_name'];
+      $user_username = $_POST['username'];
+      $user_email = $_POST['email'];
+  
+      $sql = "UPDATE users SET forename = '$user_firstName', surname = '$user_lastName', username = '$user_username', email = '$user_email' WHERE user_id = '$userid' ";
+      $result = mysqli_query($db, $sql);
+      
+      echo "<meta http-equiv='refresh' content='0'>";
+      }
+
 ?>
 
 <html>
@@ -94,7 +107,7 @@ $followers = mysqli_num_rows($result);
    <div class="row">
    <div class="col-lg-3 col-md-5" data-aos='fade-up'
     data-aos-duration='400'><!--left col-->
-   <?php echo "<img src='Assets/imgs/users/".$avatar."' width=100 height=100 class='profilePhoto' id='settingProfile' />"; ?>
+   <?php echo "<div style='background-image: url(Assets/imgs/users/".$avatar.") !important;' class='profilePhoto' id='settingProfile'></div>"; ?>
               <ul class="list-group">
                 <li class="list-group-item text-muted">Profile</li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Name</strong></span> <?php echo $forename; ?> <?php echo $surname; ?></li>
@@ -172,7 +185,7 @@ $followers = mysqli_num_rows($result);
                           </div>
                           <div class="form-group">
                                <div class="col-xs-12">
-                                    <button class="btn btn-secondary" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Update Details</button>
+                                    <button class="btn btn-secondary" type="submit" name="personalInfoForm"><i class="glyphicon glyphicon-ok-sign"></i> Update Details</button>
                                 </div>
                           </div>
                     </form>

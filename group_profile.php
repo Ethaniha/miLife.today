@@ -99,19 +99,18 @@ if (isset($_GET['group_id'])) {
 
   while ($row = mysqli_fetch_array($result)) {
     $members .= '<div class="friend"><a href="user_profile.php?username='.$row[2].'">
-                  <div class="container">
-                    <div class="row">
-                    <div class="col-xs-2">
-                    <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
-                    </div>
-                    <div class="col-xs-10 friendDetails">
-                    <b>'.ucwords($row[1]).'</b>
-                    <p>@'.$row[2].'</p>
-                    </div>
-                    </div>
-                   </div>
-                  </a>
-                </div>';
+    <div class="container">
+      <div class="row">
+      <div class="col-xs-2">
+      <div style="background-image: url(Assets/imgs/users/'.$row[0].') !important;" class="profilePhoto"></div>
+      </div>
+      <div class="col-xs-10 friendDetails">
+      <b>'.ucwords($row[1]).'</b>
+      <p>@'.$row[2].'</p>
+      </div>
+      </div>
+    </div></a>
+  </div>';
   }
 
   if(isset($_POST['sendgrouppost'])) {
@@ -230,7 +229,7 @@ while ($row = mysqli_fetch_array($result)) {
   
   while ($commentrow = mysqli_fetch_array($commentresult)) {
     $commentBody = addMention($commentrow[0]);
-    $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
+    $comments .= "<div class='row comment'><div class='col-xs-2'><div style='background-image: url(Assets/imgs/users/".$commentrow[2].") !important;' class='profilePhoto'></div></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
   }
 
   if (mysqli_num_rows($result2) < 1) {
@@ -248,7 +247,7 @@ while ($row = mysqli_fetch_array($result)) {
       <div class='container'>
         <div class='row'>
             <div class='col-xs-3'>
-              <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+            <div style='background-image: url(Assets/imgs/users/".$row[4].") !important;' class='profilePhoto'></div>
             </div>
             <div class='col-xs-9 postDetails'>
               <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
@@ -292,7 +291,7 @@ while ($row = mysqli_fetch_array($result)) {
       <div class='container'>
         <div class='row'>
             <div class='col-xs-3'>
-              <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+            <div style='background-image: url(Assets/imgs/users/".$row[4].") !important;' class='profilePhoto'></div>
             </div>
             <div class='col-xs-9 postDetails'>
               <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
@@ -351,7 +350,7 @@ while ($row = mysqli_fetch_array($result)) {
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
-                        <?php echo "<img src='/Assets/imgs/groups/".$groupImage."' id='profilePagePhoto' class='profilePhoto'/>"; ?>
+                    <?php echo "<div style='background-image: url(Assets/imgs/groups/".$groupImage.") !important;' class='profilePhoto' id='profilePagePhoto'></div>"; ?>
                     </div>
                     <div class="col-md-9">
                         <h2 id="profileHeader">

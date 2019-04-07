@@ -195,7 +195,7 @@ while ($row = mysqli_fetch_array($result)) {
                 <div class="container">
                   <div class="row">
                   <div class="col-xs-2">
-                  <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
+                  <div style="background-image: url(Assets/imgs/users/'.$row[0].') !important;" class="profilePhoto"></div>
                   </div>
                   <div class="col-xs-10 friendDetails">
                   <b>'.ucwords($row[1]).'</b>
@@ -203,7 +203,7 @@ while ($row = mysqli_fetch_array($result)) {
                   </div>
                   </div>
                 </div></a>
-              </div>';} 
+              </div>';}
 } else {
   $friends = '<h6>'.$forename.' is not currenty following anyone</h6>';
 }
@@ -242,7 +242,7 @@ while ($row = mysqli_fetch_array($result)) {
 
   while ($commentrow = mysqli_fetch_array($commentresult)) {
     $commentBody = addMention($commentrow[0]);
-    $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
+    $comments .= "<div class='row comment'><div class='col-xs-2'><div style='background-image: url(Assets/imgs/users/".$commentrow[2].") !important;' class='profilePhoto'></div></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
   }
 
 
@@ -275,7 +275,7 @@ if (mysqli_num_rows($result2) < 1) {
       <div class='container'>
         <div class='row'>
             <div class='col-xs-3'>
-              <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+            <div style='background-image: url(Assets/imgs/users/".$row[4].") !important;' class='profilePhoto'></div>
             </div>
             <div class='col-xs-8 postDetails'>
               <b><a href='user_profile.php?username=".$row[3]."'>" .$row[3]."</a></b>
@@ -335,7 +335,7 @@ if (mysqli_num_rows($result2) < 1) {
         <div class='container'>
           <div class='row'>
               <div class='col-xs-3'>
-                <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+              <div style='background-image: url(Assets/imgs/users/".$row[4].") !important;' class='profilePhoto'></div>
               </div>
               <div class='col-xs-7 postDetails'>
                 <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>
@@ -394,7 +394,7 @@ if($myusername == $email){
             <div class="container">
             <div class="row">
             <div class="col-lg-3 col-md-5">
-               <?php echo "<img src='/Assets/imgs/users/".$avatar."' id='profilePagePhoto' class='profilePhoto'/>"; ?>
+            <?php echo "<div style='background-image: url(Assets/imgs/users/".$avatar.") !important;' class='profilePhoto' id='profilePagePhoto'></div>"; ?>
             </div>
             <div class="col-lg-9 col-md-7">
                <h2 id="profileHeader"><?php echo $forename; ?> <?php echo $surname;
