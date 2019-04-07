@@ -402,10 +402,11 @@ if($myusername == $email){
                $result = mysqli_query($db, $sql) or die(mysqli_error($db));
                $row = mysqli_fetch_array($result);
                $privacySetting = $row[0];
-                if ($privacySetting == 1) { echo " <i class='fas fa-lock fa-sm'></i>"; } ?>
+                if ($privacySetting == 1) { echo " <i class='fas fa-lock fa-sm'></i>"; } 
+                if ($followers == 1){$followerText = " Follower";}else{$followerText = " Followers";}?>
                </h2>
                <h6>@<?php echo $username; ?></h6>
-               <b><button type="button" class="btn btn-outline-light" id="followerButton" data-toggle="modal" data-target="#followersModal"><?php echo $followers; ?> Followers</b></button>
+               <b><button type="button" class="btn btn-outline-light" id="followerButton" data-toggle="modal" data-target="#followersModal"><?php echo $followers; echo $followerText;?></b></button>
                <?php 
                   $sql = "SELECT User_ID FROM users WHERE username = '$username' ";
                   $result = mysqli_query($db, $sql);
