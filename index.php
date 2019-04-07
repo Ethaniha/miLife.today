@@ -122,7 +122,7 @@ while ($row = mysqli_fetch_array($result)) {
                 <div class="container">
                   <div class="row">
                   <div class="col-xs-2">
-                  <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
+                  <div style="background-image: url(Assets/imgs/users/'.$row[0].') !important;" class="profilePhoto"></div>
                   </div>
                   <div class="col-xs-10 friendDetails">
                   <b>'.ucwords($row[1]).'</b>
@@ -155,7 +155,7 @@ while ($row = mysqli_fetch_array($result)) {
                 <div class="container">
                   <div class="row">
                   <div class="col-xs-2">
-                  <img src="../Assets/imgs/users/'.$row[0].'" class="profilePhoto"/>
+                  <div style="background-image: url(Assets/imgs/users/'.$row[0].') !important;" class="profilePhoto"></div>
                   </div>
                   <div class="col-xs-10 friendDetails">
                   <b>'.ucwords($row[1]).'</b>
@@ -186,7 +186,7 @@ while ($row = mysqli_fetch_array($result)) {
 
   while ($commentrow = mysqli_fetch_array($commentresult)) {
     $commentBody = addMention($commentrow[0]);
-    $comments .= "<div class='row comment'><div class='col-xs-2'><img src='../Assets/imgs/users/".$commentrow[2]."'class='profilePhoto'/></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
+    $comments .= "<div class='row comment'><div class='col-xs-2'><div style='background-image: url(Assets/imgs/users/".$commentrow[2].") !important;' class='profilePhoto'></div></div><div class='col-xs-10 postCommentDetail'><b>".$commentrow[1]."</b><br>".$commentBody."</br></div></div>";
   }
 
 
@@ -219,7 +219,7 @@ while ($row = mysqli_fetch_array($result)) {
       <div class='container'>
         <div class='row'>
             <div class='col-xs-3'>
-              <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+            <div style='background-image: url(Assets/imgs/users/".$row[4].") !important;' class='profilePhoto'></div>
             </div>
             <div class='col-xs-8 postDetails'>
               <b><a href='user_profile.php?username=".$row[3]."'>" .$row[3]."</a></b>
@@ -279,7 +279,7 @@ while ($row = mysqli_fetch_array($result)) {
         <div class='container'>
           <div class='row'>
               <div class='col-xs-3'>
-                <img src='../Assets/imgs/users/".$row[4]."' class='profilePhoto'/>
+              <div style='background-image: url(Assets/imgs/users/".$row[4].") !important;' class='profilePhoto'></div>
               </div>
               <div class='col-xs-7 postDetails'>
                 <b><a href='user_profile.php?username=$row[3]'>" .$row[3]."</a></b>

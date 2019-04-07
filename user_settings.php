@@ -94,7 +94,7 @@ $followers = mysqli_num_rows($result);
    <div class="row">
    <div class="col-lg-3 col-md-5" data-aos='fade-up'
     data-aos-duration='400'><!--left col-->
-   <?php echo "<img src='Assets/imgs/users/".$avatar."' width=100 height=100 class='profilePhoto' id='settingProfile' />"; ?>
+   <?php echo "<div style='background-image: url(Assets/imgs/users/".$avatar.") !important;' class='profilePhoto' id='settingProfile'></div>"; ?>
               <ul class="list-group">
                 <li class="list-group-item text-muted">Profile</li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Name</strong></span> <?php echo $forename; ?> <?php echo $surname; ?></li>

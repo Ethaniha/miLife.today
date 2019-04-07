@@ -21,7 +21,7 @@
 
 			  $searchOuput .= "<div class='col-md-4'>
 			  <a href='group_profile.php?group_id=".$row[4]."'><div class='card groupCard' >
-								  <img class='card-img-top profilePhoto' src=../Assets/imgs/groups/".$row[2]." alt='Card image cap'>
+									<div style='background-image: url(Assets/imgs/groups/".$row[2].") !important;' class='profilePhoto card-img-top'></div>
 									<div class='card-body'>
 									  	
               							<h5 class='card-title'>".$row[0]."</h5>

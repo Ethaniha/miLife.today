@@ -103,6 +103,7 @@ if (isset($_POST['remove'])) {
               </div>
             </div>
           </div>
+          <div class="row">
           <div class="col-md-12" data-aos='fade-up'
     data-aos-duration='400'>
             <ul class="list-group" id="users">
