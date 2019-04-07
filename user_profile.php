@@ -136,7 +136,7 @@ if (isset($_POST['followRequest'])) {
 /////////////////
 
 
-  $sql = "SELECT id FROM followers WHERE user_id = '$user_id' ";
+  $sql = "SELECT id FROM followers WHERE user_id = '$user_id' AND follower_id != '$user_id' ";
   $result = mysqli_query($db, $sql);
   $followers = mysqli_num_rows($result);
 
@@ -471,12 +471,12 @@ if($myusername == $email){
               </div>
               <div class="modal-body">
                 <?php
-                  $sql = "SELECT follower_id FROM  followers WHERE user_id = '$user_id' "; 
+                  $sql = "SELECT follower_id FROM  followers WHERE user_id = '$user_id'AND Follower_id != '$user_id' "; 
                   $result = mysqli_query($db, $sql) or die(mysqli_error($db));
                   while ($row = mysqli_fetch_array($result)) {
 
                     $followerID = $row[0];
-                    $sql2 = "SELECT username, image, forename FROM users WHERE User_ID = '$followerID' ";
+                    $sql2 = "SELECT username, image, forename FROM users WHERE User_ID = '$followerID' AND User_ID != '$user_id' ";
                     $result2 = mysqli_query($db, $sql2);
                     $row2=mysqli_fetch_array($result2);
                     $follower_username = $row2[0];
