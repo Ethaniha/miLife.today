@@ -300,6 +300,16 @@
       var nav = window.navigator, ua = nav.userAgent, idb = !!window.indexedDB;
         if (ua.indexOf('Safari') !== -1 && ua.indexOf('Version') !== -1 && !nav.standalone){     
           //Safari (WKWebView/Nitro since 6+)
+          function myFunction(x) {
+        if (x.matches) { // If media query matches
+          document.getElementById("navbar-addpost-icon").style.display = 'none';
+        } else {
+          document.getElementById("navbar-addpost-icon").style.display = 'inline';
+        }
+      }
+        var x = window.matchMedia("(max-width: 767px)")
+        myFunction(x) // Call listener function at run time
+        x.addListener(myFunction) // Attach listener function on state changes
         } else if ((!idb && lte9) || !window.statusbar.visible) {
           //UIWebView
         } else if ((window.webkit && window.webkit.messageHandlers) || !lte9 || idb){
