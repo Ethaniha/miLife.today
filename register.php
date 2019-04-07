@@ -12,6 +12,8 @@
         $username = $_POST['username'];
         $email= $_POST['email'];
         $pass = $_POST['password'];
+        $hashedPass = password_hash($pass, PASSWORD_DEFAULT);
+
 
         $forename = mysqli_real_escape_string($db,$forename);
         $surname = mysqli_real_escape_string($db,$surname);
@@ -35,7 +37,7 @@
         }
         else
         {
-          $query = mysqli_query($db, "INSERT INTO users (forename, surname, email, username, password)VALUES ('$forename', '$surname', '$email', '$username', '$pass')");
+          $query = mysqli_query($db, "INSERT INTO users (forename, surname, email, username, password)VALUES ('$forename', '$surname', '$email', '$username', '$hashedPass')");
           if($query)
           {
 
@@ -53,16 +55,18 @@
             $myusername = mysqli_real_escape_string($db,$_POST['email']);
             $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
             
-            $sql = "SELECT User_ID, username FROM users WHERE email = '$myusername' and password = '$mypassword'";
+            $sql = "SELECT User_ID, username, password FROM users WHERE email = '$myusername' and password = '$mypassword'";
             $result = mysqli_query($db,$sql);
             $row = mysqli_fetch_array($result);
+
+            $checkPass = password_verify($mypassword, $hashedPass);
       
             
             $count = mysqli_num_rows($result);
             
             // If result matched $myusername and $mypassword, table row must be 1 row
               
-            if($count == 1) {
+            if($count == 1 && $checkPass == 1) {
                $_SESSION['login_user'] = $myusername;
                $_SESSION['username'] = $row[1];
                
