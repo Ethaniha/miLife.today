@@ -393,7 +393,7 @@ height: 70px;
 }
 
 #notificationHeader{
-  background-image: url(../Assets/imgs/no-notifications.png) !important;
+  background-image: url(../Assets/imgs/notifications.jpg) !important;
   background-size: cover;
   background-position: bottom;
   padding: 150px 0px 150px 0px;
@@ -450,7 +450,7 @@ height: 50px;
 
 
 #profileBanner{
-  background-image: url(../Assets/imgs/user-bg2.png) !important;
+  background-image: url(../Assets/imgs/user-bg.jpg) !important;
   background-size: cover;
   background-position: bottom;
   padding: 50px 0px 50px 0px;
@@ -661,6 +661,27 @@ div.message-from-other {
     list-style: none;
   }
 
+  #feedHeader{
+    padding: 100px 0px 100px 0px;
+  }
+
+  #profileBanner{
+    padding: 10px;
+    text-align:center;
+  }
+
+  #profilePagePhoto{
+    width:100px;
+    height: 100px;
+    margin-top: 30px;
+  }
+
+#profileHeader{
+  font-size: 35px;
+  font-weight: 600;
+  padding-top: 0px;
+}
+
   #mobile-center{
   margin: auto;
   width: 100%;
@@ -718,7 +739,4 @@ div.message-from-other {
   font-size: 1.5rem;
 }
 
-.postContentImage{
-max-width: 200px;
-}
 }
