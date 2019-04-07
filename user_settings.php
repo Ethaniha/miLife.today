@@ -72,6 +72,19 @@ $followers = mysqli_num_rows($result);
 
     }
 
+    if (isset($_POST['personalInfoForm'])) {
+
+      $user_firstName = $_POST['first_name'];
+      $user_lastName = $_POST['last_name'];
+      $user_username = $_POST['username'];
+      $user_email = $_POST['email'];
+  
+      $sql = "UPDATE users SET forename = '$user_firstName', surname = '$user_lastName', username = '$user_username', email = '$user_email' WHERE user_id = '$userid' ";
+      $result = mysqli_query($db, $sql);
+      
+      echo "<meta http-equiv='refresh' content='0'>";
+      }
+
 ?>
 
 <html>
@@ -172,7 +185,7 @@ $followers = mysqli_num_rows($result);
                           </div>
                           <div class="form-group">
                                <div class="col-xs-12">
-                                    <button class="btn btn-secondary" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Update Details</button>
+                                    <button class="btn btn-secondary" type="submit" name="personalInfoForm"><i class="glyphicon glyphicon-ok-sign"></i> Update Details</button>
                                 </div>
                           </div>
                     </form>
