@@ -89,28 +89,53 @@ if (isset($_GET['group_id'])) {
   $groupOwner = $row[2];
   $groupImage = $row[3];
 
+  if ($groupOwner == $user_id) {
+    $groupAdmin = True; 
+  } else { 
+    $groupAdmin = False; 
+  }
+
   $sql = "SELECT * FROM group_users WHERE group_id = $group_id";
   $result = mysqli_query($db, $sql) or die(mysqli_error($db));
   $groupMembers = mysqli_num_rows($result);
 
-  $sql = "SELECT users.image, users.forename, users.username  FROM users, group_users WHERE users.user_id = group_users.user_id AND group_users.group_id = $group_id";
+  $sql = "SELECT users.image, users.forename, users.username, users.User_ID  FROM users, group_users WHERE users.user_id = group_users.user_id AND group_users.group_id = $group_id";
   $result = mysqli_query($db, $sql) or die(mysqli_error($db));
   $members = "";
 
   while ($row = mysqli_fetch_array($result)) {
-    $members .= '<div class="friend"><a href="user_profile.php?username='.$row[2].'">
-    <div class="container">
-      <div class="row">
-      <div class="col-xs-2">
-      <div style="background-image: url(Assets/imgs/users/'.$row[0].') !important;" class="profilePhoto"></div>
+    if ($groupAdmin = True) {
+      $members .= '<div class="friend"><a href="user_profile.php?username='.$row[2].'">
+      <div class="container">
+        <div class="row" data-id='.$row[3].'>
+        <div class="col-xs-2">
+        <div style="background-image: url(Assets/imgs/users/'.$row[0].') !important;" class="profilePhoto"></div>
+        </div>
+        <div class="col-xs-10 friendDetails">
+        <b>'.ucwords($row[1]).'</b>
+        <p>@'.$row[2].'</p></a>
+        </div>
+        <div class="col-xs-15 ml-auto mr-3">
+          <button type="submit" class="btn btn-danger groupRemove" name="removeUser" data-id='.$row[3].'><i class="fas fa-times fa-xs"></i></button>
+        </div> 
+        </div>
       </div>
-      <div class="col-xs-10 friendDetails">
-      <b>'.ucwords($row[1]).'</b>
-      <p>@'.$row[2].'</p>
-      </div>
-      </div>
-    </div></a>
-  </div>';
+      </div>';
+    } else {
+      $members .= '<div class="friend"><a href="user_profile.php?username='.$row[2].'">
+      <div class="container">
+        <div class="row">
+        <div class="col-xs-2">
+        <div style="background-image: url(Assets/imgs/users/'.$row[0].') !important;" class="profilePhoto"></div>
+        </div>
+        <div class="col-xs-10 friendDetails">
+        <b>'.ucwords($row[1]).'</b>
+        <p>@'.$row[2].'</p>
+        </div>
+        </div>
+      </div></a>
+      </div>';
+    }
   }
 
   if(isset($_POST['sendgrouppost'])) {
@@ -445,6 +470,24 @@ while ($row = mysqli_fetch_array($result)) {
              }
           });
         });
+
+        $('.groupRemove').click(function() {
+          var groupMemberid = $(this).attr('data-id');
+          var groupID = <?php echo $group_id; ?>;
+
+          $.ajax({
+           url:"group_remove.php?memberID="+groupMemberid+"&groupID="+groupID,
+           success:function(data)
+           {
+            console.log(data);
+            $('div[data-id="'+groupMemberid+'"]').text("Users Removed");
+           },
+           error: function(data)
+           {
+            console.log("fail");
+           }
+        });
+      });
     
       // $('#like').click(function like_post(query)
       // {
